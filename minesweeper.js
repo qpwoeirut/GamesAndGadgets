@@ -5,5 +5,7 @@ class Minesweeper {
         this.mine_frequency = mine_frequency;
     }
 
-    
+    testMethod() {
+        return "asdfasdfasdflol";
+    }
 }
