@@ -11,9 +11,12 @@
     <body>
         <div id="navbarContainer"></div>
         <h1 class="alignCenter">Minesweeper</h1>
-        <canvas id="game"></canvas>
+        <div id="gameContainer" class="alignCenter">
+            <canvas id="game" width="300" height="300" class="alignCenter"></canvas>
+        </div>
     </body>
     <script>
         $("#navbarContainer").load("navbar.html");
+        var game = new Minesweeper(10, 10, 10);
     </script>
 </html>
