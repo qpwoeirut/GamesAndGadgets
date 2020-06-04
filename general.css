@@ -1,0 +1,99 @@
+html {
+    top: 0px;
+}
+body {
+    font-family: Verdana, sans-serif;
+    margin: 0;
+}
+
+#title {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.verticalAlignMid {
+    vertical-align: middle !important;
+}
+
+.alignCenter {
+    text-align: center !important;
+}
+
+.fullWidth {
+    width: 100% !important;
+}
+
+.right {
+    position: absolute !important;
+    right: 0px !important;
+}
+
+
+.fixedTop {
+    position: fixed !important;
+    top: 0px !important;
+}
+
+.underNavbar {
+    position: relative !important;
+    top: 140px !important;
+}
+
+.displayInlineBlock {
+    display: inline-block !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.displayTr {
+    display: table-row !important;
+}
+
+.font15 {
+    font-size: 15px !important;
+}
+
+.font20 {
+    font-size: 20px !important;
+}
+
+.font30 {
+    font-size: 30px !important;
+}
+
+.paddingBottom20 {
+    padding-bottom: 20px !important;
+}
+
+.marginTop-15 {
+    margin-top: -15px !important;
+}
+
+.marginTop10 {
+    margin-top: 10px !important;
+}
+
+.marginTop20 {
+    margin-top: 20px !important;
+}
+
+.marginBottom30 {
+    margin-bottom: 30px !important;
+}
+
+.backgroundRed {
+    background-color: red !important;
+}
+
+.zIndex10 {
+    z-index: 10 !important;
+}
+
+@media only screen and (max-width: 800px) {
+    .smallWindowHide {
+        display: none !important;
+    }
+}

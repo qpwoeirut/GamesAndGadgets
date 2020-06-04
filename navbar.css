@@ -1,0 +1,76 @@
+/* ====================Menu Icon Styling==================== */
+
+#navbarDropdown button {
+    display: block
+}
+
+#menuIconContainer {
+    display: inline-block;
+    cursor: pointer;
+    float: right;
+    margin-right: 30px;
+    margin-top: 30px;
+}
+.iconTopBar, .iconMiddleBar, .iconBottomBar {
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+/* Rotate first bar */
+ .change > .iconTopBar {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+/* Fade out the second bar */
+ .change > .iconMiddleBar {
+    opacity: 0;
+}
+/* Rotate last bar */
+ .change > .iconBottomBar {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+/* Hide the menu icon until the window is under 750px and the navbar is gone */
+@media only screen and (min-width: 801px) {
+    #menuIconContainer, #navbarDropdown {
+        display: none;
+    }
+}
+
+
+/* ====================Menu Icon Styling End==================== */
+
+
+/* ====================Navigation Bar Styling==================== */
+
+.navbarButton:hover {
+    /* background-color: #960000; */
+    color: #d9d9d9
+    /* Light Gray */
+}
+.navbutton {
+    background-color: #ff0000;
+    /* Red */
+    border: none;
+    color: white;
+    float: left;
+    margin-right: 30px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.navbutton.dropdownButton {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+#navbar {
+    background-color: red;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+/* ====================Navigation Bar Styling End==================== */

@@ -1,0 +1,77 @@
+<link rel="stylesheet" type="text/css" href="general.css">
+<link rel="stylesheet" type="text/css" href="navbar.css">
+<div id="navbar">
+    <div class="displayInlineBlock smallWindowHide">
+        <ul class="displayInlineBlock">
+            <li class="displayInlineBlock">
+                <a href="index.html" target="_parent">
+                    <button class="navbutton">Home</button>
+                </a>
+            </li>
+            <li class="displayInlineBlock">
+                <a href="orders.html" target="_parent">
+                    <button class="navbutton">Order</button>
+                </a>
+            </li>
+            <li class="displayInlineBlock">
+                <a href="faq.html" target="_parent">
+                    <button class="navbutton">FAQs</button>
+                </a>
+            </li>
+            <li class="displayInlineBlock">
+                <a href="about.html" target="_parent">
+                    <button class="navbutton">About Us</button>
+                </a>
+            </li>
+            <li class="displayInlineBlock">
+                <a href="contact.html" target="_parent">
+                    <button class="navbutton">Contact Us</button>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="menuIconContainer" onclick="toggleNavDropdown(this)">
+        <div class="iconTopBar"></div>
+        <div class="iconMiddleBar"></div>
+        <div class="iconBottomBar"></div>
+    </div>
+</div>
+<div id="navbarDropdown" class="floatRight hidden backgroundRed">
+    <ul class="displayInlineBlock">
+        <li class="displayTr">
+            <a href="index.html" target="_parent">
+                <button class="navbutton dropdownButton">Home</button>
+            </a>
+        </li>
+        <li class="displayTr">
+            <a href="orders.html" target="_parent">
+                <button class="navbutton dropdownButton">Order</button>
+            </a>
+        </li>
+        <li class="displayTr">
+            <a href="faq.html" target="_parent">
+                <button class="navbutton dropdownButton">FAQs</button>
+            </a>
+        </li>
+        <li class="displayTr">
+            <a href="about.html" target="_parent">
+                <button class="navbutton dropdownButton">About Us</button>
+            </a>
+        </li>
+        <li class="displayTr">
+            <a href="contact.html" target="_parent">
+                <button class="navbutton dropdownButton">Contact Us</button>
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+    // Used in div#menuIconContainer
+    // Toggles visibility of the navigation dropdown
+    // Note: the dropdown will only be shown with width under 800
+    function toggleNavDropdown(elem) {
+        elem.classList.toggle("change")
+        var dropdownElem = document.getElementById("navbarDropdown")
+        dropdownElem.classList.toggle("hidden")
+    }
+</script>
