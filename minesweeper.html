@@ -7,16 +7,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <script src="minesweeper.js"></script>
+        <link rel="stylesheet" href="minesweeper.css">
     </head>
     <body>
         <div id="navbarContainer"></div>
-        <h1 class="alignCenter">Minesweeper</h1>
-        <div id="gameContainer" class="alignCenter">
-            <canvas id="game" width="300" height="300" class="alignCenter"></canvas>
+        <h1 class="textCenter">Minesweeper</h1>
+        <div id="gameContainer" class="center textCenter">
+            
         </div>
     </body>
     <script>
         $("#navbarContainer").load("navbar.html");
-        var game = new Minesweeper(10, 10, 10);
+        initialize(30, 30, 100);
     </script>
 </html>

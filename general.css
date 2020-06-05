@@ -1,23 +1,17 @@
 html {
     top: 0px;
 }
-body {
-    font-family: Verdana, sans-serif;
-    margin: 0;
-}
-
-#title {
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
 
 .verticalAlignMid {
     vertical-align: middle !important;
 }
 
-.alignCenter {
+.textCenter {
     text-align: center !important;
+}
+.center {
+    width: fit-content;
+    margin: auto;
 }
 
 .fullWidth {
@@ -46,42 +40,6 @@ body {
 
 .hidden {
     display: none !important;
-}
-
-.displayTr {
-    display: table-row !important;
-}
-
-.font15 {
-    font-size: 15px !important;
-}
-
-.font20 {
-    font-size: 20px !important;
-}
-
-.font30 {
-    font-size: 30px !important;
-}
-
-.paddingBottom20 {
-    padding-bottom: 20px !important;
-}
-
-.marginTop-15 {
-    margin-top: -15px !important;
-}
-
-.marginTop10 {
-    margin-top: 10px !important;
-}
-
-.marginTop20 {
-    margin-top: 20px !important;
-}
-
-.marginBottom30 {
-    margin-bottom: 30px !important;
 }
 
 .backgroundRed {
