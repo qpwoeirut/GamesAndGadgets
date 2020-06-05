@@ -10,6 +10,20 @@ const MINE = 10;
 const UNINITIALIZED = 11;
 
 
+function startGame(game) {
+    game.rows = parseInt(document.getElementById("rowCount").value);
+    game.cols = parseInt(document.getElementById("colCount").value);
+    game.mineCount = parseInt(document.getElementById("mineCount").value);
+    game.state = NOT_STARTED;
+    game.grid = createGrid(UNINITIALIZED);
+    game.status = createGrid(SECRET);
+
+    renderGrid();
+
+    console.debug("finished startGame with rows=" + game.rows + ", cols=" + game.cols + ", mineCount=" + game.mineCount);
+}
+
+
 function createGrid(fillValue) {
     console.debug("invoking createGrid with fillValue=" + fillValue);
     let grid = [];
@@ -34,6 +48,9 @@ function toId(row, col) {
 function renderGrid() {
     console.debug("invoking renderGrid");
     let container = document.getElementById("gameContainer");
+    while (container.firstChild) { // clear any previous game
+        container.removeChild(container.lastChild);
+    }
     for (let i = 0; i < game.rows; i++) {
         let currentRow = document.createElement("div");
         currentRow.classList = "game-row";
@@ -61,11 +78,13 @@ function handleCellClick(event) {
 
     if (game.state === NOT_STARTED) {
         initializeGrid(row, col);
+        document.getElementById("gameContainer").classList.add("active-game");
         game.state = RUNNING;
     }
 
     if (game.grid[row][col] === MINE) {
         endGame(row, col);
+        document.getElementById("gameContainer").classList.remove("active-game");
         game.state = DONE;
     }
     else if (game.status[row][col] === SECRET) {

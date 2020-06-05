@@ -15,18 +15,27 @@
         <div id="gameContainer" class="center textCenter">
             
         </div>
+
+        <div id="inputContainer" class="container">
+            <br>
+            <br>
+            <label for="rowCount">Number of Rows:</label>
+            <input id="rowCount" name="rowCount" type="number" value="20">
+            <br><br>
+            <label for="colCount">Number of Columns:</label>
+            <input id="colCount" name="colCount" type="number" value="20">
+            <br><br>
+            <label for="mineCount">Number of Mines</label>
+            <input id="mineCount" name="mineCount" type="number" value="50">
+
+            <br><br>
+            <button onclick="startGame(game);">Start</button>
+        </div>
     </body>
     <script>
         $("#navbarContainer").load("navbar.html");
-        
-        var game = Object();
-        game.rows = 20;
-        game.cols = 20;
-        game.mineCount = 50;
-        game.state = NOT_STARTED;
-        game.grid = createGrid(UNINITIALIZED);
-        renderGrid();
 
-        game.status = createGrid(SECRET);
+        var game = new Object();
+        startGame(game);
     </script>
 </html>
