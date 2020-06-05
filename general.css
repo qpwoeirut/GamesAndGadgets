@@ -50,6 +50,11 @@ body {
     background-color: red !important;
 }
 
+.container {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
 @media only screen and (max-width: 800px) {
     .smallWindowHide {
         display: none !important;
