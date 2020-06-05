@@ -9,12 +9,36 @@ const FLAG = 2;
 const MINE = 10;
 const UNINITIALIZED = 11;
 
+var BYPASS_SIZE_CHECK = false;
+var MIN_SIZE = 5;
+var MAX_SIZE = 30;
+
 
 function startGame(game) {
     game.rows = parseInt(document.getElementById("rowCount").value);
     game.cols = parseInt(document.getElementById("colCount").value);
     game.mineCount = parseInt(document.getElementById("mineCount").value);
 
+    if (game.rows < MIN_SIZE && BYPASS_SIZE_CHECK !== true) {
+        console.warn("Grid must have at least " + MIN_SIZE + " rows");
+        alert("Grid must have at least " + MIN_SIZE + " rows. To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console.");
+        game.rows = MIN_SIZE;
+    }
+    if (game.cols < MIN_SIZE && BYPASS_SIZE_CHECK !== true) {
+        console.warn("Grid must have at least " + MIN_SIZE + " columns");
+        alert("Grid must have at least " + MIN_SIZE + " columns. To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console.");
+        game.cols = MIN_SIZE;
+    }
+    if (game.rows > MAX_SIZE && BYPASS_SIZE_CHECK !== true) {
+        console.warn("Grid cannot have over " + MAX_SIZE + " rows");
+        alert("Grid cannot have over " + MAX_SIZE + " rows. To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console.");
+        game.rows = MAX_SIZE;
+    }
+    if (game.cols > MAX_SIZE && BYPASS_SIZE_CHECK !== true) {
+        console.warn("Grid cannot have over " + MAX_SIZE + " columns");
+        alert("Grid cannot have over " + MAX_SIZE + " columns. To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console.");
+        game.cols = MAX_SIZE;
+    }
     if (game.rows * game.cols <= game.mineCount) {
         console.warn("In a " + game.rows + " by " + game.cols + " grid, having " + game.mineCount + " mines is impossible");
         
@@ -22,6 +46,12 @@ function startGame(game) {
         game.mineCount = Math.floor(game.rows * game.cols / 2);
         console.warn("Defaulting to " + game.mineCount + " mines");
         alert("In a " + game.rows + " by " + game.cols + " grid, having " + prevCount + " mines is impossible.\nDefaulting to " + game.mineCount + " mines");
+    }
+    if (game.mineCount < 0) {
+        console.warn("Number of mines can't be negative");
+        const prevCount = game.mineCount;
+        game.mineCount = Math.max(1, Math.floor(game.rows * game.cols) / 20);
+        console.warn("Defaulting to " + game.mineCount + " mines");
     }
 
     game.state = NOT_STARTED;
@@ -57,7 +87,7 @@ function toId(row, col) {
 
 function renderGrid() {
     console.debug("invoking renderGrid");
-    let container = document.getElementById("gameContainer");
+    let container = document.getElementById("minesweeperContainer");
     while (container.firstChild) { // clear any previous game
         container.removeChild(container.lastChild);
     }
@@ -88,13 +118,13 @@ function handleCellClick(event) {
 
     if (game.state === NOT_STARTED) {
         initializeGrid(row, col);
-        document.getElementById("gameContainer").classList.add("active-game");
+        document.getElementById("minesweeperContainer").classList.add("active-game");
         game.state = RUNNING;
     }
 
     if (game.grid[row][col] === MINE) {
         endGame(row, col);
-        document.getElementById("gameContainer").classList.remove("active-game");
+        document.getElementById("minesweeperContainer").classList.remove("active-game");
         game.state = DONE;
     }
     else if (game.status[row][col] === SECRET) {
