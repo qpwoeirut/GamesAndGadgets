@@ -29,6 +29,7 @@ div.game-row {
 
 div.game-cell {
     display: table-cell;
+    text-align: center;
     vertical-align: middle;
     background-color: #c0c0c0;  /* minesweeper gray */
 
