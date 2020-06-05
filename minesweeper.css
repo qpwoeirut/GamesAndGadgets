@@ -56,6 +56,22 @@ div.game-cell:not(.secret) {
     border-color: #7f7f7f;
 }
 
+div.game-cell.flag {
+    background-size: contain;
+    background-image: url(
+        "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2OTknIGhlaWdodD0nNjk5Jz48cmVjdCB4PScxMjEnIHk9JzU3OCcgd2lkdGg9JzQ4MCcgaGVpZ2h0PSc5NicgZmlsbD0nYmxhY2snLz48cmVjdCB4PScyMjQnIHk9JzUzMycgd2lkdGg9JzI1NCcgaGVpZ2h0PSc2NicgZmlsbD0nYmxhY2snLz48cmVjdCB4PSczMjQnIHk9JzIxNScgd2lkdGg9JzU1JyBoZWlnaHQ9JzMyMCcgZmlsbD0nYmxhY2snLz48cG9seWdvbiBwb2ludHM9JzM3OSwzNzggMTAwLDE4MiAzNzgsMjUnIGZpbGw9J3JlZCcvPjwvc3ZnPg=="
+    );
+    /*
+    <svg xmlns='http://www.w3.org/2000/svg' width='699' height='699'>
+        <rect x='121' y='578' width='480' height='96' fill='black'/>
+        <rect x='224' y='533' width='254' height='66' fill='black'/>
+        <rect x='324' y='215' width='55' height='320' fill='black'/>
+        <polygon points='379,378 100,182 378,25' fill='red'/>
+    </svg>
+    */
+}
+
+
 div.game-cell.secret {
     border-style: solid;
     border-width: 3px;
