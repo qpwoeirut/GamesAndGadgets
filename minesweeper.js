@@ -14,6 +14,16 @@ function startGame(game) {
     game.rows = parseInt(document.getElementById("rowCount").value);
     game.cols = parseInt(document.getElementById("colCount").value);
     game.mineCount = parseInt(document.getElementById("mineCount").value);
+
+    if (game.rows * game.cols <= game.mineCount) {
+        console.warn("In a " + game.rows + " by " + game.cols + " grid, having " + game.mineCount + " mines is impossible");
+        
+        const prevCount = game.mineCount;
+        game.mineCount = Math.floor(game.rows * game.cols / 2);
+        console.warn("Defaulting to " + game.mineCount + " mines");
+        alert("In a " + game.rows + " by " + game.cols + " grid, having " + prevCount + " mines is impossible.\nDefaulting to " + game.mineCount + " mines");
+    }
+
     game.state = NOT_STARTED;
     game.grid = createGrid(UNINITIALIZED);
     game.status = createGrid(SECRET);
@@ -125,14 +135,6 @@ function neighborCount(row, col) {
 
 function initializeGrid(safeRow, safeCol) {
     console.debug("invoking initializeGrid with safeRow=" + safeRow + ', safeCol=' + safeCol + ", game.mineCount=" + game.mineCount);
-    if (game.rows * game.cols <= game.mineCount) {
-        console.warn("In a " + game.rows + " by " + game.cols + " grid, having " + game.mineCount + " mines is impossible");
-        
-        const prevCount = game.mineCount;
-        game.mineCount = Math.floor(game.rows * game.cols / 2);
-        console.warn("Defaulting to " + game.mineCount + " mines");
-        alert("In a " + game.rows + " by " + game.cols + " grid, having " + prevCount + " mines is impossible.\nDefaulting to " + game.mineCount + " mines");
-    }
     
     let minesSet = 0;
     while (minesSet < game.mineCount) {
