@@ -3,6 +3,7 @@
 body {
     min-width: fit-content;
     min-height: fit-content;
+    background-color: #c0c0c0;
 }
 
 div#gameContainer {
@@ -14,15 +15,12 @@ div#gameContainer {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
-    padding-left: 6em;
-    padding-right: 6em;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    background-color: #c0c0c0;  /* minesweeper gray */
+}
 
-    box-sizing: border-box;
+div#minesweeperContainer {
     border-style: solid;
-    border-width: 10px;
+    border-width: 6px;
+    border-color: #7f7f7f #ffffff #ffffff #7f7f7f;
 }
 
 
@@ -42,13 +40,13 @@ div.game-cell {
     background-color: #c0c0c0;  /* minesweeper gray */
 
     box-sizing: border-box;
-    width: 30px;
-    min-width: 30px;
-    height: 30px;
-    min-height: 30px;
+    width: 25px;
+    min-width: 25px;
+    height: 25px;
+    min-height: 25px;
 
     font-family: 'MinesweeperFont', 'Courier New', Courier, monospace;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 800;
 }
 
@@ -59,7 +57,7 @@ div.game-cell:not(.secret) {
 }
 
 div.game-cell.secret {
-    border-style: outset;
+    border-style: solid;
     border-width: 3px;
     border-color: white #7a7a7a #7a7a7a white;
 }
@@ -109,4 +107,8 @@ div.game-cell.value7 {
 
 div.game-cell.value8 {
     color: #7f7f7f;
+}
+
+label, input, button {
+    font-size: large;
 }
