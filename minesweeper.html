@@ -18,6 +18,15 @@
     </body>
     <script>
         $("#navbarContainer").load("navbar.html");
-        initialize(30, 30, 100);
+        
+        var game = Object();
+        game.rows = 20;
+        game.cols = 20;
+        game.mineCount = 10;
+        game.state = NOT_STARTED;
+        game.grid = createGrid(UNINITIALIZED);
+        renderGrid();
+
+        game.status = createGrid(SECRET);
     </script>
 </html>

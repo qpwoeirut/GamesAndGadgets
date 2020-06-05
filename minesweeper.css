@@ -1,13 +1,103 @@
+/* Colors from https://upload.wikimedia.org/wikipedia/commons/1/1e/Minesweeper_Game_Most_Common_Setup.png */
+
+body {
+    min-width: fit-content;
+    min-height: fit-content;
+}
+
+div#gameContainer {
+/* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+
+@font-face {
+    font-family: 'MinesweeperFont';
+    src: url('fonts/minesweeper.ttf');
+}
+
+
 div.game-row {
     display: table-row;
 }
 
 div.game-cell {
     display: table-cell;
-    width: 20px;
-    height: 20px;
-    background-color: #bdbdbd;  /* minesweeper gray */
+    vertical-align: middle;
+    background-color: #c0c0c0;  /* minesweeper gray */
+
+    box-sizing: border-box;
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    min-height: 30px;
+
+    font-family: 'MinesweeperFont', 'Courier New', Courier, monospace;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+div.game-cell:not(.secret) {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #7f7f7f;
+}
+
+div.game-cell.secret {
     border-style: outset;
     border-width: 3px;
     border-color: white #7a7a7a #7a7a7a white;
+}
+
+div.game-cell.secret:active {
+    border: none;
+}
+
+div.game-cell.mine {
+    background-color: black; /* placeholder, hopefully I can create or find mine graphic */
+    color: black; /* no text shown */
+    border: none;
+}
+div.game-cell.mine.clicked {
+    background-color: red;
+    color: red;
+    border: none;
+}
+
+div.game-cell.value1 {
+    color: #0000ff;
+}
+
+div.game-cell.value2 {
+    color: #008000;
+}
+
+div.game-cell.value3 {
+    color: #ff0100;
+}
+
+div.game-cell.value4 {
+    color: #000080;
+}
+
+div.game-cell.value5 {
+    color: #800000;
+}
+
+div.game-cell.value6 {
+    color: #008080;
+}
+
+div.game-cell.value7 {
+    color: #000000;
+}
+
+div.game-cell.value8 {
+    color: #7f7f7f;
 }
