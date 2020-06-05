@@ -1,5 +1,5 @@
 html {
-    top: 0px;
+    top: 0;
 }
 
 body {
@@ -48,10 +48,6 @@ body {
 
 .backgroundRed {
     background-color: red !important;
-}
-
-.zIndex10 {
-    z-index: 10 !important;
 }
 
 @media only screen and (max-width: 800px) {
