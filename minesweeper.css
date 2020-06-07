@@ -19,7 +19,7 @@ div#gameContainer {
 
 div#minesweeperContainer {
     border-style: solid;
-    border-width: 6px;
+    border-width: 5px;
     border-color: #7f7f7f #ffffff #ffffff #7f7f7f;
 }
 
