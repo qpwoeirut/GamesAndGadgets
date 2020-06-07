@@ -182,12 +182,16 @@ function executeClick(row, col) {
     }
     else if (game.grid[row][col] === MINE) {
         loseGame(row, col);
-        document.getElementById("minesweeperContainer").classList.remove("active-game");
-        game.state = DONE;
     }
     else if (game.status[row][col] === SECRET) {
         revealCell(row, col);
     }
+
+    setTimeout(function() {
+        if (game.remaining === 0 && game.state === RUNNING) {
+            winGame();
+        }
+    }, 500);
 }
 
 
@@ -274,18 +278,20 @@ function revealCell(row, col) {
     else {
         curCell.textContent = game.grid[row][col];
     }
-    if (--game.remaining === 0) {
-        winGame();
-    }
+
+    --game.remaining;
 }
 
 
 function winGame() {
+    cleanupGame();
+    alert("You won!");
     console.log("You won!");
 }
 
 
 function loseGame(mineRow, mineCol) {
+    cleanupGame();
     for (let i=0; i<game.rows; i++) {
         for (let j=0; j<game.cols; j++) {
             if (game.grid[i][j] === MINE && game.status[i][j] !== FLAG) {
@@ -295,4 +301,10 @@ function loseGame(mineRow, mineCol) {
     }
     document.getElementById(toId(mineRow, mineCol)).classList.add("clicked");
     console.log("You lost!");
+}
+
+
+function cleanupGame() {
+    document.getElementById("minesweeperContainer").classList.remove("active-game");
+    game.state = DONE;
 }
