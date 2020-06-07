@@ -14,6 +14,10 @@ var MIN_SIZE = 5;
 var MAX_SIZE = 30;
 
 
+const chRow = [1, 1, 1, 0, -1, -1, -1, 0];
+const chCol = [1, 0, -1, 1, 1, 0, -1, -1];
+
+
 function startGame(game) {
     game.rows = parseInt(document.getElementById("rowCount").value);
     game.cols = parseInt(document.getElementById("colCount").value);
@@ -57,6 +61,7 @@ function startGame(game) {
     game.state = NOT_STARTED;
     game.grid = createGrid(UNINITIALIZED);
     game.status = createGrid(SECRET);
+    game.remaining = (game.row * game.cols) - game.mineCount;
 
     renderGrid();
 
@@ -144,7 +149,9 @@ function handleCellDoubleClick(event) {
     }
 
     if (statusNeighborCount(row, col, FLAG) === game.grid[row][col]) {
-
+        for (let i=0; i<8; i++) {
+            executeClick(row + chRow[i], col + chCol[i]);
+        }
     }
 }
 
@@ -155,19 +162,23 @@ function handleCellClick(event) {
     }
     console.debug("invoking handleCellClick with event");
     const target = event.currentTarget;
-    if (target.classList.contains("flag")) {
-        return;
-    }
     const row = fromId(target.id)[0];
     const col = fromId(target.id)[1];
+    executeClick(row, col);
+}
 
+
+function executeClick(row, col) {
     if (game.state === NOT_STARTED) {
         initializeGrid(row, col);
         document.getElementById("minesweeperContainer").classList.add("active-game");
         game.state = RUNNING;
     }
 
-    if (game.grid[row][col] === MINE) {
+    if (game.status[row][col] === FLAG) {
+        return;
+    }
+    else if (game.grid[row][col] === MINE) {
         endGame(row, col);
         document.getElementById("minesweeperContainer").classList.remove("active-game");
         game.state = DONE;
@@ -201,9 +212,6 @@ function inBounds(row, col) {
 }
 
 
-const chRow = [1, 1, 1, 0, -1, -1, -1, 0];
-const chCol = [1, 0, -1, 1, 1, 0, -1, -1];
-
 function gridNeighborCount(row, col, value) {
     let count = 0;
     for (let i = 0; i < 8; i++) {
@@ -235,7 +243,6 @@ function initializeGrid(safeRow, safeCol) {
             minesSet++;
         }
     }
-    console.debug(game.grid);
 
     for (let i = 0; i < game.rows; i++) {
         for (let j = 0; j < game.cols; j++) {
