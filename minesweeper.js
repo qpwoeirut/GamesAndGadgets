@@ -124,18 +124,28 @@ function addFlag(event) {
             game.status[row][col] = SECRET;
             target.classList.remove("flag");
         }
-        
     }
     
-    return false;
+    return;
 }
 
 
 function handleCellDoubleClick(event) {
+    if (game.state !== RUNNING) {
+        return
+    }
     console.debug("invoking handleCellDoubleClick with event");
     const target = event.currentTarget;
     const row = fromId(target.id)[0];
     const col = fromId(target.id)[1];
+
+    if (game.status[row][col] !== SHOWN) {
+        return;
+    }
+
+    if (neighborCount(row, col, FLAG) === game.grid[row][col]) {
+
+    }
 }
 
 
@@ -174,9 +184,15 @@ function randint(a, b) {
 }
 
 
-function mineHere(row, col) {
+function gridValHere(row, col, value) {
     if (!inBounds(row, col)) return 0;
-    return game.grid[row][col] === MINE ? 1 : 0;
+    return game.grid[row][col] === value ? 1 : 0;
+}
+
+
+function statusValHere(row, col, value) {
+    if (!inBounds(row, col)) return 0;
+    return game.status[row][col] === value ? 1 : 0;
 }
 
 
@@ -188,11 +204,19 @@ function inBounds(row, col) {
 const chRow = [1, 1, 1, 0, -1, -1, -1, 0];
 const chCol = [1, 0, -1, 1, 1, 0, -1, -1];
 
-function neighborCount(row, col) {
+function gridNeighborCount(row, col, value) {
     let count = 0;
-
     for (let i = 0; i < 8; i++) {
-        count += mineHere(row + chRow[i], col + chCol[i]);
+        count += gridValHere(row + chRow[i], col + chCol[i], value);
+    }
+    return count;
+}
+
+
+function statusNeighborCount(row, col, value) {
+    let count = 0;
+    for (let i = 0; i < 8; i++) {
+        count += statusValHere(row + chRow[i], col + chCol[i], value);
     }
     return count;
 }
@@ -216,7 +240,7 @@ function initializeGrid(safeRow, safeCol) {
     for (let i = 0; i < game.rows; i++) {
         for (let j = 0; j < game.cols; j++) {
             if (game.grid[i][j] !== MINE) {
-                game.grid[i][j] = neighborCount(i, j);
+                game.grid[i][j] = gridNeighborCount(i, j, MINE);
             }
         }
     }
