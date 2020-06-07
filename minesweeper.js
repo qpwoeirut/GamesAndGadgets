@@ -11,7 +11,7 @@ const UNINITIALIZED = 11;
 
 var BYPASS_SIZE_CHECK = false;
 var MIN_SIZE = 5;
-var MAX_SIZE = 30;
+var MAX_SIZE = 50;
 
 
 const chRow = [1, 1, 1, 0, -1, -1, -1, 0];
