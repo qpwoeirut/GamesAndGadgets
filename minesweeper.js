@@ -100,8 +100,8 @@ function renderGrid() {
             cell.classList = "game-cell secret";
             cell.textContent = " "; // make sure divs are visible, not 0x0
             cell.onclick = handleCellClick;
-            // https://stackoverflow.com/questions/4235426/how-can-i-capture-the-right-click-event-in-javascript
-            cell.addEventListener('contextmenu', addFlag, false);
+            cell.ondblclick = handleCellDoubleClick;
+            cell.oncontextmenu = addFlag;
             currentRow.appendChild(cell);
         }
         container.appendChild(currentRow);
@@ -109,9 +109,9 @@ function renderGrid() {
 }
 
 
-// https://stackoverflow.com/questions/4235426/how-can-i-capture-the-right-click-event-in-javascript
 function addFlag(event) {
-    event.preventDefault();
+    console.debug("invoking addFlag with event");
+    event.preventDefault();  // prevent menu from appearing
     if (game.state === RUNNING) {
         const target = event.currentTarget;
         const row = fromId(target.id)[0];
@@ -128,6 +128,14 @@ function addFlag(event) {
     }
     
     return false;
+}
+
+
+function handleCellDoubleClick(event) {
+    console.debug("invoking handleCellDoubleClick with event");
+    const target = event.currentTarget;
+    const row = fromId(target.id)[0];
+    const col = fromId(target.id)[1];
 }
 
 
