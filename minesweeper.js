@@ -143,7 +143,7 @@ function handleCellDoubleClick(event) {
         return;
     }
 
-    if (neighborCount(row, col, FLAG) === game.grid[row][col]) {
+    if (statusNeighborCount(row, col, FLAG) === game.grid[row][col]) {
 
     }
 }
