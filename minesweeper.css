@@ -27,7 +27,22 @@ div#minesweeperContainer {
 @font-face {
     font-family: 'MinesweeperFont';
     src: url('fonts/minesweeper.ttf');
+    /* https://fontstruct.com/fontstructions/show/1501665/mine-sweeper */
 }
+
+
+@font-face {
+    font-family: '7SegmentScoreboard';
+    src: url('fonts/7segments.ttf');
+    /* https://fontstruct.com/fontstructions/show/1462474/7segments-1 */
+}
+
+
+div.scoreboard {
+    font-family: '7SegementScoreboard', 'Courier New', Courier, monospace;
+    font-weight: 10px;
+}
+
 
 div.game-row {
     display: table-row;
