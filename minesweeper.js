@@ -100,10 +100,34 @@ function renderGrid() {
             cell.classList = "game-cell secret";
             cell.textContent = " "; // make sure divs are visible, not 0x0
             cell.onclick = handleCellClick;
+            // https://stackoverflow.com/questions/4235426/how-can-i-capture-the-right-click-event-in-javascript
+            cell.addEventListener('contextmenu', addFlag, false);
             currentRow.appendChild(cell);
         }
         container.appendChild(currentRow);
     }
+}
+
+
+// https://stackoverflow.com/questions/4235426/how-can-i-capture-the-right-click-event-in-javascript
+function addFlag(event) {
+    event.preventDefault();
+    if (game.state === RUNNING) {
+        const target = event.currentTarget;
+        const row = fromId(target.id)[0];
+        const col = fromId(target.id)[1];
+        if (game.status[row][col] === SECRET) {
+            game.status[row][col] = FLAG;
+            target.classList.add("flag");
+        }
+        else if (game.status[row][col] === FLAG) {
+            game.status[row][col] = SECRET;
+            target.classList.remove("flag");
+        }
+        
+    }
+    
+    return false;
 }
 
 
@@ -113,8 +137,11 @@ function handleCellClick(event) {
     }
     console.debug("invoking handleCellClick with event");
     const target = event.currentTarget;
-    const row = parseInt(target.id.split('-')[0]);
-    const col = parseInt(target.id.split('-')[1]);
+    if (target.classList.contains("flag")) {
+        return;
+    }
+    const row = fromId(target.id)[0];
+    const col = fromId(target.id)[1];
 
     if (game.state === NOT_STARTED) {
         initializeGrid(row, col);
@@ -189,7 +216,7 @@ function initializeGrid(safeRow, safeCol) {
 
 
 function revealCell(row, col) {
-    if (!inBounds(row, col) || game.status[row][col] === SHOWN) return;
+    if (!inBounds(row, col) || game.status[row][col] !== SECRET) return;
     console.debug("called revealCell with row=" + row + ", col=" + col);
     game.status[row][col] = SHOWN;
     
@@ -212,7 +239,7 @@ function revealCell(row, col) {
 function endGame(mineRow, mineCol) {
     for (let i=0; i<game.rows; i++) {
         for (let j=0; j<game.cols; j++) {
-            if (game.grid[i][j] === MINE) {
+            if (game.grid[i][j] === MINE && game.status[i][j] !== FLAG) {
                 document.getElementById(toId(i, j)).classList.add("mine");
             }
         }

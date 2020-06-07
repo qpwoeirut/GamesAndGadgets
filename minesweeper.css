@@ -79,7 +79,7 @@ div.game-cell.secret {
     border-color: white #7a7a7a #7a7a7a white;
 }
 
-div#minesweeperContainer.active-game div.game-cell.secret:active {
+div#minesweeperContainer.active-game div.game-cell.secret:not(.flag):active {
     border: none;
 }
 
