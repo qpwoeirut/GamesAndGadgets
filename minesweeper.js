@@ -61,7 +61,7 @@ function startGame(game) {
     game.state = NOT_STARTED;
     game.grid = createGrid(UNINITIALIZED);
     game.status = createGrid(SECRET);
-    game.remaining = (game.row * game.cols) - game.mineCount;
+    game.remaining = (game.rows * game.cols) - game.mineCount;
 
     renderGrid();
 
@@ -150,7 +150,9 @@ function handleCellDoubleClick(event) {
 
     if (statusNeighborCount(row, col, FLAG) === game.grid[row][col]) {
         for (let i=0; i<8; i++) {
-            executeClick(row + chRow[i], col + chCol[i]);
+            if (inBounds(row + chRow[i], col + chCol[i])) {
+                executeClick(row + chRow[i], col + chCol[i]);
+            }
         }
     }
 }
@@ -179,7 +181,7 @@ function executeClick(row, col) {
         return;
     }
     else if (game.grid[row][col] === MINE) {
-        endGame(row, col);
+        loseGame(row, col);
         document.getElementById("minesweeperContainer").classList.remove("active-game");
         game.state = DONE;
     }
@@ -272,10 +274,18 @@ function revealCell(row, col) {
     else {
         curCell.textContent = game.grid[row][col];
     }
+    if (--game.remaining === 0) {
+        winGame();
+    }
 }
 
 
-function endGame(mineRow, mineCol) {
+function winGame() {
+    console.log("You won!");
+}
+
+
+function loseGame(mineRow, mineCol) {
     for (let i=0; i<game.rows; i++) {
         for (let j=0; j<game.cols; j++) {
             if (game.grid[i][j] === MINE && game.status[i][j] !== FLAG) {
