@@ -65,7 +65,7 @@ function startGame(game) {
 
     renderGrid();
 
-    console.debug("finished startGame with rows=" + game.rows + ", cols=" + game.cols + ", mineCount=" + game.mineCount);
+    console.log("Created new game with " + game.rows + " by " + game.cols + " grid and " + game.mineCount + " mines");
 }
 
 
