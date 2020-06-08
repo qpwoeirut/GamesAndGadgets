@@ -68,6 +68,7 @@ function startGame(game) {
     game.timeElapsed = 0;
     document.getElementById("timeBoard").textContent = ''.padStart(SCOREBOARD_SIZE, '0');
 
+    clearInterval(game.timer);  // make sure the timers don't compound and speed up
     game.timer = setInterval(function() {
         if (game.state === RUNNING) {
             document.getElementById("timeBoard").textContent = Math.min(999, ++game.timeElapsed).toString().padStart(SCOREBOARD_SIZE, '0');
@@ -256,7 +257,6 @@ function initializeGrid(safeRow, safeCol) {
         let randCol = randint(0, game.cols);
         if (game.grid[randRow][randCol] !== MINE && (randRow !== safeRow || randCol !== safeCol)) {
             game.grid[randRow][randCol] = MINE;
-            console.debug("set mine at randRow=" + randRow + ", randCol=" + randCol);
             minesSet++;
         }
     }
@@ -273,7 +273,7 @@ function initializeGrid(safeRow, safeCol) {
 
 function revealCell(row, col) {
     if (!inBounds(row, col) || game.status[row][col] !== SECRET) return;
-    console.debug("called revealCell with row=" + row + ", col=" + col);
+    console.debug("invoked revealCell with row=" + row + ", col=" + col);
     game.status[row][col] = SHOWN;
     
     let curCell = document.getElementById(row + '-' + col)
@@ -295,13 +295,15 @@ function revealCell(row, col) {
 
 
 function winGame() {
+    console.debug("invoked winGame");
     cleanupGame();
-    alert("You won!");
     console.log("You won!");
+    alert("You won!");
 }
 
 
 function loseGame(mineRow, mineCol) {
+    console.debug("invoked loseGame with mineRow=" + mineRow + ", mineCol=" + mineCol);
     cleanupGame();
     for (let i=0; i<game.rows; i++) {
         for (let j=0; j<game.cols; j++) {
@@ -316,7 +318,9 @@ function loseGame(mineRow, mineCol) {
 
 
 function cleanupGame() {
+    console.debug("invoked cleanupGame");
     document.getElementById("minesweeperContainer").classList.remove("active-game");
     clearInterval(game.timer);
     game.state = DONE;
+    alert("You lost!");
 }
