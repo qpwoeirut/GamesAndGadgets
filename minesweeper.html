@@ -27,16 +27,16 @@
             <br>
             <br>
             <label for="rowCount">Number of Rows:</label>
-            <input id="rowCount" name="rowCount" type="number" value="20">
+            <input id="rowCount" name="rowCount" type="number" required value="16">
             <br><br>
             <label for="colCount">Number of Columns:</label>
-            <input id="colCount" name="colCount" type="number" value="20">
+            <input id="colCount" name="colCount" type="number" required value="30">
             <br><br>
             <label for="mineCount">Number of Mines</label>
-            <input id="mineCount" name="mineCount" type="number" value="50">
+            <input id="mineCount" name="mineCount" type="number" required value="99">
 
             <br><br>
-            <button onclick="startGame(game);">New Game</button>
+            <button type="submit" onclick="startGame(game);">New Game</button>
         </div>
     </body>
     <script>

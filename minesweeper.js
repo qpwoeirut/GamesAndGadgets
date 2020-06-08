@@ -11,6 +11,10 @@ const UNINITIALIZED = 11;
 
 const SCOREBOARD_SIZE = 3;
 
+const DEFAULT_ROW = 16;
+const DEFAULT_COL = 30;
+const DEFAULT_MINES = 99;
+
 var BYPASS_SIZE_CHECK = false;
 var BYPASS_MINE_CHECK = false;
 var MIN_SIZE = 10;
@@ -27,9 +31,31 @@ const chCol = [1, 0, -1, 1, 1, 0, -1, -1];
 
 function startGame(game) {
     console.debug("invoked startGame with game")
-    game.rows = parseInt(document.getElementById("rowCount").value);
-    game.cols = parseInt(document.getElementById("colCount").value);
-    game.mineCount = parseInt(document.getElementById("mineCount").value);
+    const rowInput = document.getElementById("rowCount");
+    const colInput = document.getElementById("colCount");
+    const mineInput = document.getElementById("mineCount");
+    game.rows = parseInt(rowInput.value);
+    game.cols = parseInt(colInput.value);
+    game.mineCount = parseInt(mineInput.value);
+
+    if (isNaN(game.rows)) {
+        game.rows = DEFAULT_ROW;
+        rowInput.value = DEFAULT_ROW;
+        console.warn("Input for number of rows is invalid. Defaulting to " + DEFAULT_ROW + " rows");
+        alert("Input for number of rows is invalid. Defaulting to " + DEFAULT_ROW + " rows");
+    }
+    if (isNaN(game.cols)) {
+        game.cols = DEFAULT_COL;
+        colInput.value = DEFAULT_COL;
+        console.warn("Input for number of columns is invalid. Defaulting to " + DEFAULT_COL + " columns");
+        alert("Input for number of columns is invalid. Defaulting to " + DEFAULT_COL + " columns");
+    }
+    if (isNaN(game.mineCount)) {
+        game.mineCount = DEFAULT_MINES;
+        mineInput.value = DEFAULT_MINES;
+        console.warn("Input for number of mines is invalid. Defaulting to " + DEFAULT_MINES + " mines");
+        alert("Input for number of mines is invalid. Defaulting to " + DEFAULT_MINES + " mines");
+    }
 
     if (game.rows < MIN_SIZE && BYPASS_SIZE_CHECK !== true) {
         console.warn("Grid must have at least " + MIN_SIZE + " rows");
