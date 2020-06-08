@@ -27,6 +27,9 @@ body {
     right: 0px !important;
 }
 
+.clearfix {
+    overflow: auto;
+}
 
 .fixedTop {
     position: fixed !important;

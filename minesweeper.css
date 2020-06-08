@@ -17,12 +17,6 @@ div#gameContainer {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-div#minesweeperContainer {
-    border-style: solid;
-    border-width: 5px;
-    border-color: #7f7f7f #ffffff #ffffff #7f7f7f;
-}
-
 
 @font-face {
     font-family: 'MinesweeperFont';
@@ -32,15 +26,51 @@ div#minesweeperContainer {
 
 
 @font-face {
-    font-family: '7SegmentScoreboard';
-    src: url('fonts/7segments.ttf');
-    /* https://fontstruct.com/fontstructions/show/1462474/7segments-1 */
+    font-family: 'LEDScoreboard';
+    src: url('fonts/LEDScoreboard.ttf');
+    /* Modified from https://fontstruct.com/fontstructions/show/1462474/7segments-1 */
 }
 
 
+div#scoreContainer {
+    border-style: solid;
+    border-width: 3px;
+    border-color: #7f7f7f #ffffff #ffffff #7f7f7f;
+}
+
 div.scoreboard {
-    font-family: '7SegementScoreboard', 'Courier New', Courier, monospace;
-    font-weight: 10px;
+    display: inline-block;
+    font-family: 'LEDScoreboard', 'Courier New', Courier, monospace;
+    font-size: 30px;
+    color: red;
+    background-color: black;
+    width: fit-content;
+    padding: 3px 0px 3px 3px;
+    margin: 8px;
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: #7f7f7f #ffffff #ffffff #7f7f7f;
+}
+
+div#gameState {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div#minesBoard {
+    float: left;
+}
+
+div#timeBoard {
+    float: right;
+}
+
+
+div#minesweeperContainer {
+    border-style: solid;
+    border-width: 5px;
+    border-color: #7f7f7f #ffffff #ffffff #7f7f7f;
 }
 
 
