@@ -171,6 +171,6 @@ div.game-cell.value8 {
     color: #7f7f7f;
 }
 
-label, input, button {
+div#inputContainer * {
     font-size: large;
 }
