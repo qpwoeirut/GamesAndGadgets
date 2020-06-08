@@ -31,6 +31,30 @@ div#gameContainer {
 }
 
 
+/* START NEW GAME/SETTINGS BUTTONS */
+div#buttonsContainer > button {
+    min-width: 100px;
+    width: fit-content;
+    padding: 5px;
+    margin: 10px 30px;
+    box-sizing: border-box;
+    background-color: #c0c0c0;
+
+    border-style: solid;
+    border-width: 3px;
+    border-color: #ffffff #7a7a7a #7a7a7a #ffffff;
+
+    font-size: large;
+}
+
+div#buttonsContainer > button:active {
+    border-style: solid;
+    border-width: 3px;
+    border-color:  #7a7a7a #ffffff #ffffff #7a7a7a;
+}
+/* END NEW GAME/SETTINGS BUTTONS */
+
+
 /* START SCOREBOARD */
 div#scoreContainer {
     border-style: solid;
@@ -39,12 +63,9 @@ div#scoreContainer {
     margin-bottom: 10px;
 }
 
-div#scoreContainer > div {
+div.scoreboard {
     display: inline-block;
     vertical-align: middle;
-}
-
-div.scoreboard {
     width: fit-content;
     padding: 3px 0px 3px 3px;
     margin: 8px;
@@ -163,7 +184,7 @@ div.game-cell.flag {
 div.game-cell.secret {
     border-style: solid;
     border-width: 3px;
-    border-color: white #7a7a7a #7a7a7a white;
+    border-color: #ffffff #7a7a7a #7a7a7a #ffffff;
 }
 
 div#minesweeperContainer.active-game div.game-cell.secret:not(.flag):active {
