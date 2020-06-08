@@ -70,10 +70,12 @@ function startGame(game) {
     game.unflagged = game.mineCount;
     setBoard("minesBoard", game.unflagged, SCOREBOARD_SIZE);
 
-    clearInterval(game.timer);  // make sure the timers don't compound and speed up
+    if (game.timer) {
+        clearInterval(game.timer);  // make sure the timers don't compound and speed up
+    }
     game.timer = setInterval(function() {
         if (game.state === RUNNING) {
-            setBoard("timeBoard", game.timeElapsed, SCOREBOARD_SIZE);
+            setBoard("timeBoard", ++game.timeElapsed, SCOREBOARD_SIZE);
         }
     }, 1000);
 
