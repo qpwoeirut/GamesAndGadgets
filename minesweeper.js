@@ -199,11 +199,9 @@ function executeClick(row, col) {
         revealCell(row, col);
     }
 
-    setTimeout(function() {
-        if (game.remaining === 0 && game.state === RUNNING) {
-            winGame();
-        }
-    }, 500);
+    if (game.remaining === 0 && game.state === RUNNING) {
+        winGame();
+    }
 }
 
 
@@ -298,7 +296,9 @@ function winGame() {
     console.debug("invoked winGame");
     cleanupGame();
     console.log("You won!");
-    alert("You won!");
+    setTimeout(function() {
+        alert("You won!");
+    }, 400);
 }
 
 
@@ -314,6 +314,9 @@ function loseGame(mineRow, mineCol) {
     }
     document.getElementById(toId(mineRow, mineCol)).classList.add("clicked");
     console.log("You lost!");
+    setTimeout(function() {
+        alert("You lost!");
+    }, 400);
 }
 
 
@@ -322,5 +325,4 @@ function cleanupGame() {
     document.getElementById("minesweeperContainer").classList.remove("active-game");
     clearInterval(game.timer);
     game.state = DONE;
-    alert("You lost!");
 }
