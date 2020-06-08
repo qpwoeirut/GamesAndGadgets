@@ -24,7 +24,6 @@ div#gameContainer {
     /* https://fontstruct.com/fontstructions/show/1501665/mine-sweeper */
 }
 
-
 @font-face {
     font-family: 'LEDScoreboard';
     src: url('fonts/LEDScoreboard.ttf');
@@ -40,34 +39,70 @@ div#scoreContainer {
     margin-bottom: 10px;
 }
 
-div.scoreboard {
+div#scoreContainer > div {
     display: inline-block;
+    vertical-align: middle;
+}
+
+div.scoreboard {
+    width: fit-content;
+    padding: 3px 0px 3px 3px;
+    margin: 8px;
+
     font-family: 'LEDScoreboard', 'Courier New', Courier, monospace;
     font-size: 30px;
     color: red;
     background-color: black;
-    width: fit-content;
-    padding: 3px 0px 3px 3px;
-    margin: 8px;
 
     border-style: solid;
     border-width: 1px;
     border-color: #7f7f7f #ffffff #ffffff #7f7f7f;
 }
 
-div#gameState {
-    display: inline-block;
-    vertical-align: middle;
-}
-
 div#minesBoard {
     float: left;
 }
-
 div#timeBoard {
     float: right;
 }
 /* END SCOREBOARD */
+
+
+/* START SETTINGS POPUP */
+div.popup {
+    visibility: hidden;
+}
+div.popup.active {
+    display: inline-block;
+    visibility: visible;
+    position: fixed;
+
+    /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                      supported by Chrome, Edge, Opera and Firefox */
+
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-height: fit-content;
+    height: fit-content;
+    width: fit-content;
+    min-width: fit-content;
+    padding: 2%;
+
+    background-color: #d0d0d0;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+}
+/* END SETTINGS POPUP */
 
 
 /* START MINESWEEPER GAME */
@@ -180,7 +215,7 @@ div.game-cell.value8 {
     color: #7f7f7f;
 }
 
-div#inputContainer * {
+div#popupContainer * {
     font-size: large;
 }
 /* END NUMBER COLORS */

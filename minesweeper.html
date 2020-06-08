@@ -12,20 +12,27 @@
     <body>
         <div id="navbarContainer"></div>
         <h1 class="textCenter">Minesweeper</h1>
+
+        <div id="newGameContainer" class="buttonContainer container">
+            <button id="newGameButton" onclick="startGame(game);">New Game</button>
+        </div>
+        <div id="settingsContainer" class="buttonContainer container">
+            <button id="settingButton" onclick="openPopup();">Settings</button>
+        </div>
+
         <div id="gameContainer" class="center textCenter">
             <div id="scoreContainer" class="clearfix">
                 <div id="minesBoard" class="scoreboard">000</div>
-                <div id="gameStatus"></div>
                 <div id="timeBoard" class="scoreboard">000</div>
             </div>
             <div id="minesweeperContainer">
 
             </div>
         </div>
+        <br>
+        <br>
 
-        <div id="inputContainer" class="container">
-            <br>
-            <br>
+        <div id="popupContainer" class="container popup">
             <label for="rowCount">Number of Rows:</label>
             <input id="rowCount" name="rowCount" type="number" required value="16">
             <br><br>
@@ -36,7 +43,8 @@
             <input id="mineCount" name="mineCount" type="number" required value="99">
 
             <br><br>
-            <button type="submit" onclick="startGame(game);">New Game</button>
+            <button type="submit" onclick="closePopup(true);startGame(game);">Save and Start New Game</button>
+            <button type="submit" onclick="closePopup(false);">Cancel</button>
         </div>
     </body>
     <script>
