@@ -9,6 +9,8 @@ const FLAG = 2;
 const MINE = 10;
 const UNINITIALIZED = 11;
 
+const SCOREBOARD_SIZE = 3;
+
 var BYPASS_SIZE_CHECK = false;
 var MIN_SIZE = 5;
 var MAX_SIZE = 50;
@@ -19,6 +21,7 @@ const chCol = [1, 0, -1, 1, 1, 0, -1, -1];
 
 
 function startGame(game) {
+    console.debug("invoked startGame with game")
     game.rows = parseInt(document.getElementById("rowCount").value);
     game.cols = parseInt(document.getElementById("colCount").value);
     game.mineCount = parseInt(document.getElementById("mineCount").value);
@@ -62,6 +65,14 @@ function startGame(game) {
     game.grid = createGrid(UNINITIALIZED);
     game.status = createGrid(SECRET);
     game.remaining = (game.rows * game.cols) - game.mineCount;
+    game.timeElapsed = 0;
+    document.getElementById("timeBoard").textContent = ''.padStart(SCOREBOARD_SIZE, '0');
+
+    game.timer = setInterval(function() {
+        if (game.state === RUNNING) {
+            document.getElementById("timeBoard").textContent = Math.min(999, ++game.timeElapsed).toString().padStart(SCOREBOARD_SIZE, '0');
+        }
+    }, 1000);
 
     renderGrid();
 
@@ -306,5 +317,6 @@ function loseGame(mineRow, mineCol) {
 
 function cleanupGame() {
     document.getElementById("minesweeperContainer").classList.remove("active-game");
+    clearInterval(game.timer);
     game.state = DONE;
 }
