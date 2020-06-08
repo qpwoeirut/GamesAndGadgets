@@ -12,8 +12,13 @@ const UNINITIALIZED = 11;
 const SCOREBOARD_SIZE = 3;
 
 var BYPASS_SIZE_CHECK = false;
-var MIN_SIZE = 5;
+var BYPASS_MINE_CHECK = false;
+var MIN_SIZE = 10;
 var MAX_SIZE = 50;
+var MAX_MINE_PERCENTAGE = 80;
+
+const BYPASS_SIZE_CHECK_STRING = "To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console"
+const BYPASS_MINE_CHECK_STRING = "To disable mine count checks, type BYPASS_MINE_CHECK = true; into the console"
 
 
 const chRow = [1, 1, 1, 0, -1, -1, -1, 0];
@@ -28,37 +33,43 @@ function startGame(game) {
 
     if (game.rows < MIN_SIZE && BYPASS_SIZE_CHECK !== true) {
         console.warn("Grid must have at least " + MIN_SIZE + " rows");
-        alert("Grid must have at least " + MIN_SIZE + " rows. To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console.");
+        console.warn(BYPASS_SIZE_CHECK_STRING);
+        alert("Grid must have at least " + MIN_SIZE + " rows. " + BYPASS_SIZE_CHECK_STRING);
         game.rows = MIN_SIZE;
     }
     if (game.cols < MIN_SIZE && BYPASS_SIZE_CHECK !== true) {
         console.warn("Grid must have at least " + MIN_SIZE + " columns");
-        alert("Grid must have at least " + MIN_SIZE + " columns. To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console.");
+        console.warn(BYPASS_SIZE_CHECK_STRING);
+        alert("Grid must have at least " + MIN_SIZE + " columns. " + BYPASS_SIZE_CHECK_STRING);
         game.cols = MIN_SIZE;
     }
     if (game.rows > MAX_SIZE && BYPASS_SIZE_CHECK !== true) {
         console.warn("Grid cannot have over " + MAX_SIZE + " rows");
-        alert("Grid cannot have over " + MAX_SIZE + " rows. To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console.");
+        console.warn(BYPASS_SIZE_CHECK_STRING);
+        alert("Grid cannot have over " + MAX_SIZE + " rows. " + BYPASS_SIZE_CHECK_STRING);
         game.rows = MAX_SIZE;
     }
     if (game.cols > MAX_SIZE && BYPASS_SIZE_CHECK !== true) {
         console.warn("Grid cannot have over " + MAX_SIZE + " columns");
-        alert("Grid cannot have over " + MAX_SIZE + " columns. To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console.");
+        console.warn(BYPASS_SIZE_CHECK_STRING);
+        alert("Grid cannot have over " + MAX_SIZE + " columns. " + BYPASS_SIZE_CHECK_STRING);
         game.cols = MAX_SIZE;
     }
-    if (game.rows * game.cols <= game.mineCount) {
-        console.warn("In a " + game.rows + " by " + game.cols + " grid, having " + game.mineCount + " mines is impossible");
+    if ((game.rows * game.cols * MAX_MINE_PERCENTAGE / 100) <= game.mineCount && BYPASS_MINE_CHECK !== true) {
+        console.warn("In a " + game.rows + " by " + game.cols + " grid, " + game.mineCount + " mines is over " + MAX_MINE_PERCENTAGE + "% of the cells.");
+        console.warn(BYPASS_MINE_CHECK_STRING);
         
         const prevCount = game.mineCount;
-        game.mineCount = Math.floor(game.rows * game.cols / 2);
+        game.mineCount = Math.floor(game.rows * game.cols * MAX_MINE_PERCENTAGE / 100);
         console.warn("Defaulting to " + game.mineCount + " mines");
-        alert("In a " + game.rows + " by " + game.cols + " grid, having " + prevCount + " mines is impossible.\nDefaulting to " + game.mineCount + " mines");
+        alert("In a " + game.rows + " by " + game.cols + " grid, " + prevCount + " mines is over " + MAX_MINE_PERCENTAGE + "% of the cells.\nDefaulting to " + game.mineCount + " mines.\n" + BYPASS_MINE_CHECK_STRING);
     }
     if (game.mineCount < 0) {
         console.warn("Number of mines can't be negative");
         const prevCount = game.mineCount;
         game.mineCount = Math.max(1, Math.floor(game.rows * game.cols) / 20);
         console.warn("Defaulting to " + game.mineCount + " mines");
+        alert("Number of mines can't be negative. Defaulting to " + game.mineCount + " mines");
     }
 
     game.state = NOT_STARTED;
@@ -270,7 +281,19 @@ function initializeGrid(safeRow, safeCol) {
     while (minesSet < game.mineCount) {
         let randRow = randint(0, game.rows);
         let randCol = randint(0, game.cols);
-        if (game.grid[randRow][randCol] !== MINE && (randRow !== safeRow || randCol !== safeCol)) {
+        let works = true;
+        if (game.grid[randRow][randCol] === MINE) {
+            works = false;
+        }
+        if (randRow === safeRow && randCol === safeCol) {
+            works = false;
+        }
+        for (let i=0; i<8; i++) {
+            if (randRow + chRow[i] == safeRow && randCol + chCol[i] === safeCol) {
+                works = false;
+            }
+        }
+        if (works === true) {
             game.grid[randRow][randCol] = MINE;
             minesSet++;
         }
