@@ -66,18 +66,25 @@ function startGame(game) {
     game.status = createGrid(SECRET);
     game.remaining = (game.rows * game.cols) - game.mineCount;
     game.timeElapsed = 0;
-    document.getElementById("timeBoard").textContent = ''.padStart(SCOREBOARD_SIZE, '0');
+    setBoard("timeBoard", game.timeElapsed, SCOREBOARD_SIZE);
+    game.unflagged = game.mineCount;
+    setBoard("minesBoard", game.unflagged, SCOREBOARD_SIZE);
 
     clearInterval(game.timer);  // make sure the timers don't compound and speed up
     game.timer = setInterval(function() {
         if (game.state === RUNNING) {
-            document.getElementById("timeBoard").textContent = Math.min(999, ++game.timeElapsed).toString().padStart(SCOREBOARD_SIZE, '0');
+            setBoard("timeBoard", game.timeElapsed, SCOREBOARD_SIZE);
         }
     }, 1000);
 
     renderGrid();
 
     console.log("Created new game with " + game.rows + " by " + game.cols + " grid and " + game.mineCount + " mines");
+}
+
+
+function setBoard(boardId, value, len) {
+    document.getElementById(boardId).textContent = value.toString().padStart(len, '0');
 }
 
 
@@ -134,13 +141,21 @@ function addFlag(event) {
         const row = fromId(target.id)[0];
         const col = fromId(target.id)[1];
         if (game.status[row][col] === SECRET) {
+            if (game.unflagged === 0) {
+                alert("You can't have more flags than mines");
+                console.warn("You can't have more flags than mines");
+                return;
+            }
             game.status[row][col] = FLAG;
             target.classList.add("flag");
+            --game.unflagged;
         }
         else if (game.status[row][col] === FLAG) {
             game.status[row][col] = SECRET;
             target.classList.remove("flag");
+            ++game.unflagged;
         }
+        setBoard("minesBoard", game.unflagged, SCOREBOARD_SIZE);
     }
     
     return;
