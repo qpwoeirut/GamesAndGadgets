@@ -31,8 +31,8 @@ div#gameContainer {
 }
 
 
-/* START NEW GAME/SETTINGS BUTTONS */
-div#buttonsContainer > button {
+/* START BUTTONS */
+div#buttonsContainer > button, div#popupContainer > button {
     min-width: 100px;
     width: fit-content;
     padding: 5px;
@@ -47,12 +47,12 @@ div#buttonsContainer > button {
     font-size: large;
 }
 
-div#buttonsContainer > button:active {
+div#buttonsContainer > button:active, div#popupContainer > button:active {
     border-style: solid;
     border-width: 3px;
     border-color:  #7a7a7a #ffffff #ffffff #7a7a7a;
 }
-/* END NEW GAME/SETTINGS BUTTONS */
+/* END BUTTONS */
 
 
 /* START SCOREBOARD */
