@@ -32,6 +32,7 @@ div#gameContainer {
 }
 
 
+/* START SCOREBOARD */
 div#scoreContainer {
     border-style: solid;
     border-width: 3px;
@@ -65,8 +66,11 @@ div#minesBoard {
 div#timeBoard {
     float: right;
 }
+/* END SCOREBOARD */
 
 
+/* START MINESWEEPER GAME */
+/* START GENERAL GAME */
 div#minesweeperContainer {
     border-style: solid;
     border-width: 5px;
@@ -94,7 +98,9 @@ div.game-cell {
     font-size: 15px;
     font-weight: 800;
 }
+/* END GENERAL GAME */
 
+/* START SPECIFIC CELL TYPES */
 div.game-cell:not(.secret) {
     border-style: solid;
     border-width: 1px;
@@ -138,7 +144,9 @@ div.game-cell.mine.clicked {
     color: red;
     border: none;
 }
+/* END SPECIFIC CELL TYPES */
 
+/* START NUMBER COLORS */
 div.game-cell.value1 {
     color: #0000ff;
 }
@@ -174,3 +182,5 @@ div.game-cell.value8 {
 div#inputContainer * {
     font-size: large;
 }
+/* END NUMBER COLORS */
+/* END MINESWEEPER GAME */
