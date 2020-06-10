@@ -1,3 +1,5 @@
+let SOLVER_ON = false;
+
 function makeSolver() {
     let solver = new Object();
     solver.pauseMSec = (game.solver ? game.solver.pauseMSec : null) || DEFAULT_PAUSE;
@@ -9,10 +11,11 @@ function makeSolver() {
 
 
 async function solve() {
-    if (game.status === DONE) {
+    if (game.status === DONE || SOLVER_ON === true) {
         return;
     }
     console.log("Auto-Solver started");
+    SOLVER_ON = true;
     game.solver = makeSolver();
     if (game.state === NOT_STARTED) {
         executeClick(game.rows >> 1, game.cols >> 1);
@@ -42,7 +45,7 @@ async function solve() {
             game.solver.deque.pushBack([row, col, game.solver.moveCount]);
         }
     }
-    return;
+    SOLVER_ON = false;
 }
 
 

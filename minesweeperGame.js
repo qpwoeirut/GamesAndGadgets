@@ -312,4 +312,5 @@ function cleanupGame() {
     document.getElementById("minesweeperContainer").classList.remove("active-game");
     clearInterval(game.timer);
     game.state = DONE;
+    SOLVER_ON = false;
 }
