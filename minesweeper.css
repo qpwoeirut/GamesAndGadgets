@@ -9,18 +9,11 @@ body {
 div#gameContainer {
     /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
     -webkit-touch-callout: none;
-    /* iOS Safari */
     -webkit-user-select: none;
-    /* Safari */
     -khtml-user-select: none;
-    /* Konqueror HTML */
     -moz-user-select: none;
-    /* Old versions of Firefox */
     -ms-user-select: none;
-    /* Internet Explorer/Edge */
     user-select: none;
-    /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
 }
 
 
@@ -81,11 +74,11 @@ div.scoreboard {
     display: inline-block;
     vertical-align: middle;
     width: fit-content;
-    padding: 3px 0px 3px 3px;
+    padding: 0.12em 0px 0.12em 0.12em;
     margin: 8px;
 
     font-family: 'LEDScoreboard', 'Courier New', Courier, monospace;
-    font-size: 30px;
+    font-size: 2em;
     color: red;
     background-color: black;
 
@@ -101,7 +94,6 @@ div#minesBoard {
 div#timeBoard {
     float: right;
 }
-
 /* END SCOREBOARD */
 
 
@@ -146,8 +138,8 @@ div.popup input {
 }
 
 div.popup input[type="checkbox"] {
-    width: 14px;
-    height: 14px;
+    width: 1em;
+    height: 1em;
 }
 
 /* END SETTINGS POPUP */
@@ -180,7 +172,7 @@ div.game-cell {
     min-height: 25px;
 
     font-family: 'MinesweeperFont', 'Courier New', Courier, monospace;
-    font-size: 15px;
+    font-size: 1em;
     font-weight: 800;
 }
 
@@ -219,7 +211,7 @@ div.game-cell.mine {
     border-style: solid;
     border-width: 1px;
     border-color: #7f7f7f;
-    padding: 2px 0px 0px 2px;
+    padding: 0.1em 0em 0em 0.1em;
 }
 
 div.game-cell.mine.clicked {
