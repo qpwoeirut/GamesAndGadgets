@@ -183,22 +183,28 @@ function handleCellClick(event) {
 
 
 // return coords of all affected cells, in Id format (for Set usage)
-function executeClick(row, col) {
+function executeClick(row, col, shouldInitialize=true) {
+    let affected = new Set();
     console.debug("invoking executeClick with row=" + row + ", col=" + col);
+    if (game.state === DONE) {
+        return affected;
+    }
     if (game.state === NOT_STARTED) {
+        if (shouldInitialize !== true) {
+            return affected;
+        }
         initializeGrid(row, col);
         document.getElementById("minesweeperContainer").classList.add("active-game");
         game.state = RUNNING;
     }
 
-    let affected = [];
     if (game.status[row][col] === FLAG) {
         return affected;
     } else if (game.grid[row][col] === MINE) {
         loseGame(row, col);
-        affected.push(toId(row, col));
+        affected.add(toId(row, col));
     } else if (game.status[row][col] === SECRET) {
-        affected = revealCell(row, col);
+        revealCell(row, col, affected);
     }
 
     if (game.remaining === 0 && game.state === RUNNING) {
@@ -243,28 +249,28 @@ function initializeGrid(safeRow, safeCol) {
 }
 
 
-function revealCell(row, col) {
-    let ret = [];
-    if (!inBounds(row, col) || game.status[row][col] !== SECRET) return ret;
-    console.debug("invoked revealCell with row=" + row + ", col=" + col);
+function revealCell(row, col, affectedCellSet) {
+    if (game.state !== RUNNING || !inBounds(row, col) || game.status[row][col] !== SECRET) return;
+    console.debug("invoked revealCell with row=" + row + ", col=" + col + ", affectedCellSet");
     game.status[row][col] = SHOWN;
 
     let curCell = document.getElementById(row + '-' + col)
     curCell.classList.remove("secret");
     curCell.classList.add("value" + game.grid[row][col]);
 
-
     if (game.grid[row][col] === 0) {
         for (let i = 0; i < 8; i++) {
-            ret.push(...revealCell(row + chRow[i], col + chCol[i]));
+            revealCell(row + chRow[i], col + chCol[i], affectedCellSet);
         }
     } else {
         curCell.textContent = game.grid[row][col];
-        ret.push(toId(row, col));
+        if (affectedCellSet) {
+            affectedCellSet.add(toId(row, col));
+        }
     }
 
     --game.remaining;
-    return ret;
+    return;
 }
 
 

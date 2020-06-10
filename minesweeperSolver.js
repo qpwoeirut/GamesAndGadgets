@@ -62,7 +62,7 @@ async function makeMove(row, col) {
         let affectedCells = new Set();
         for (let i = 0; i < 8; i++) {
             if (inBounds(row + chRow[i], col + chCol[i]) && game.status[row + chRow[i]][col + chCol[i]] === SECRET) {
-                const curAffected = executeClick(row + chRow[i], col + chCol[i]);
+                const curAffected = executeClick(row + chRow[i], col + chCol[i], false);
                 for (const affected of curAffected) {
                     affectedCells.add(affected);
                 }
