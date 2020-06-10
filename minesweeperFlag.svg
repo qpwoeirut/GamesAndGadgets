@@ -1,0 +1,7 @@
+<!-- based on https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Minesweeper_flag.svg/1024px-Minesweeper_flag.svg.png -->
+<svg xmlns='http://www.w3.org/2000/svg' width='699' height='699'>
+    <rect x='121' y='578' width='480' height='96' fill='black'/>
+    <rect x='224' y='533' width='254' height='66' fill='black'/>
+    <rect x='324' y='215' width='55' height='320' fill='black'/>
+    <polygon points='379,378 100,182 378,25' fill='red'/>
+</svg>

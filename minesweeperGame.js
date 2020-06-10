@@ -295,6 +295,10 @@ function loseGame(mineRow, mineCol) {
                 mineElem.classList.remove("secret");
                 mineElem.textContent = '*';  // mine font will show mine
             }
+            if (game.status[i][j] === FLAG && game.grid[i][j] !== MINE) {
+                const flagElem = document.getElementById(toId(i, j));
+                flagElem.classList.add("bad-flag");
+            }
         }
     }
     cleanupGame();
