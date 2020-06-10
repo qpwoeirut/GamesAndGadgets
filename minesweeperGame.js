@@ -346,10 +346,10 @@ function closePopup(saveData) {
         alert("Grid cannot have over " + MAX_SIZE + " columns.\n" + BYPASS_SIZE_CHECK_STRING);
         return;
     }
-    if ((rowInput * colInput * MAX_MINE_PERCENTAGE / 100) <= mineInput && BYPASS_MINE_CHECK !== true) {
+    if ((rowInput * colInput * MAX_MINE_PERCENTAGE / 100) < mineInput && BYPASS_MINE_CHECK !== true) {
         console.warn("In a " + rowInput + " by " + colInput + " grid, " + mineInput + " mines is over " + MAX_MINE_PERCENTAGE + "% of the cells.");
         console.warn(BYPASS_MINE_CHECK_STRING);
-        alert("In a " + rowInput + " by " + colInput + " grid, " + prevCount + " mines is over " + MAX_MINE_PERCENTAGE + "% of the cells\n" + BYPASS_MINE_CHECK_STRING);
+        alert("In a " + rowInput + " by " + colInput + " grid, " + mineInput + " mines is over " + MAX_MINE_PERCENTAGE + "% of the cells\n" + BYPASS_MINE_CHECK_STRING);
         return;
     }
     if (game.mineCount < 0) {
