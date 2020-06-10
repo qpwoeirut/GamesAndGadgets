@@ -1,4 +1,4 @@
-const PAUSE_MS = 0;
+const PAUSE_MS = 50;
 
 
 async function solve() {
@@ -103,6 +103,7 @@ async function makeMove(row, col) {
 }
 
 
+// https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
