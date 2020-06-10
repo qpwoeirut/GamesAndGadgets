@@ -274,6 +274,13 @@ function revealCell(row, col) {
 
 function winGame() {
     console.debug("invoked winGame");
+    for (let i=0; i<game.rows; i++) {
+        for (let j=0; j<game.cols; j++) {
+            if (game.status[i][j] === SECRET) {
+                addFlag(i, j);
+            }
+        }
+    }
     cleanupGame();
     console.log("You won!");
     setTimeout(function() {
@@ -284,7 +291,6 @@ function winGame() {
 
 function loseGame(mineRow, mineCol) {
     console.debug("invoked loseGame with mineRow=" + mineRow + ", mineCol=" + mineCol);
-    cleanupGame();
     for (let i=0; i<game.rows; i++) {
         for (let j=0; j<game.cols; j++) {
             if (game.grid[i][j] === MINE && game.status[i][j] !== FLAG) {
@@ -292,6 +298,7 @@ function loseGame(mineRow, mineCol) {
             }
         }
     }
+    cleanupGame();
     document.getElementById(toId(mineRow, mineCol)).classList.add("clicked");
     console.log("You lost!");
     setTimeout(function() {
