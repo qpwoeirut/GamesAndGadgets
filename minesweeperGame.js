@@ -17,7 +17,7 @@ const DEFAULT_MINES = 99;
 
 var BYPASS_SIZE_CHECK = false;
 var BYPASS_MINE_CHECK = false;
-var MIN_SIZE = 10;
+var MIN_SIZE = 8;
 var MAX_SIZE = 50;
 var MAX_MINE_PERCENTAGE = 80;
 
