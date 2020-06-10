@@ -1,2 +1,2 @@
-# ABunchOfStuff
-A website with miscellaneous projects
+# GamesAndGadgets
+A website with some simple games and other gadgets/tools
