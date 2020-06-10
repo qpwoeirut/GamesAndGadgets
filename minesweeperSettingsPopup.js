@@ -105,7 +105,7 @@ function closePopup(saveData) {
     USE_DOUBLE_CLICK = document.getElementById("useDoubleClick").checked;
 
     game.solver.pauseMSec = solverPauseInput;
-    
+
     game.nextRows = rowInput;
     game.nextCols = colInput;
     game.nextMineCount = mineInput;

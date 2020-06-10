@@ -7,13 +7,19 @@ body {
 }
 
 div#gameContainer {
-/* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+    /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
@@ -37,7 +43,8 @@ div#buttonsContainer {
     margin: auto;
 }
 
-div#buttonsContainer > button, div#popupContainer > button {
+div#buttonsContainer>button,
+div#popupContainer>button {
     min-width: 100px;
     width: fit-content;
     padding: 5px;
@@ -52,11 +59,13 @@ div#buttonsContainer > button, div#popupContainer > button {
     font-size: large;
 }
 
-div#buttonsContainer > button:active, div#popupContainer > button:active {
+div#buttonsContainer>button:active,
+div#popupContainer>button:active {
     border-style: solid;
     border-width: 3px;
-    border-color:  #7a7a7a #ffffff #ffffff #7a7a7a;
+    border-color: #7a7a7a #ffffff #ffffff #7a7a7a;
 }
+
 /* END BUTTONS */
 
 
@@ -88,9 +97,11 @@ div.scoreboard {
 div#minesBoard {
     float: left;
 }
+
 div#timeBoard {
     float: right;
 }
+
 /* END SCOREBOARD */
 
 
@@ -98,18 +109,25 @@ div#timeBoard {
 div.popup {
     display: none;
 }
+
 div.popup.active {
     display: inline-block;
     visibility: visible;
     position: fixed;
 
     /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-         -khtml-user-select: none; /* Konqueror HTML */
-           -moz-user-select: none; /* Old versions of Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
-                user-select: none; /* Non-prefixed version, currently
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
                                       supported by Chrome, Edge, Opera and Firefox */
 
     margin: auto;
@@ -129,9 +147,11 @@ div.popup.active {
     border-radius: 10px;
 }
 
-div.popup label, div.popup input {
+div.popup label,
+div.popup input {
     font-size: large;
 }
+
 /* END SETTINGS POPUP */
 
 
@@ -152,7 +172,8 @@ div.game-cell {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    background-color: #c0c0c0;  /* minesweeper gray */
+    background-color: #c0c0c0;
+    /* minesweeper gray */
 
     box-sizing: border-box;
     width: 25px;
@@ -164,6 +185,7 @@ div.game-cell {
     font-size: 15px;
     font-weight: 800;
 }
+
 /* END GENERAL GAME */
 
 /* START SPECIFIC CELL TYPES */
@@ -175,9 +197,8 @@ div.game-cell:not(.secret) {
 
 div.game-cell.flag {
     background-size: contain;
-    background-image: url(
-        "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2OTknIGhlaWdodD0nNjk5Jz48cmVjdCB4PScxMjEnIHk9JzU3OCcgd2lkdGg9JzQ4MCcgaGVpZ2h0PSc5NicgZmlsbD0nYmxhY2snLz48cmVjdCB4PScyMjQnIHk9JzUzMycgd2lkdGg9JzI1NCcgaGVpZ2h0PSc2NicgZmlsbD0nYmxhY2snLz48cmVjdCB4PSczMjQnIHk9JzIxNScgd2lkdGg9JzU1JyBoZWlnaHQ9JzMyMCcgZmlsbD0nYmxhY2snLz48cG9seWdvbiBwb2ludHM9JzM3OSwzNzggMTAwLDE4MiAzNzgsMjUnIGZpbGw9J3JlZCcvPjwvc3ZnPg=="
-    );
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2OTknIGhlaWdodD0nNjk5Jz48cmVjdCB4PScxMjEnIHk9JzU3OCcgd2lkdGg9JzQ4MCcgaGVpZ2h0PSc5NicgZmlsbD0nYmxhY2snLz48cmVjdCB4PScyMjQnIHk9JzUzMycgd2lkdGg9JzI1NCcgaGVpZ2h0PSc2NicgZmlsbD0nYmxhY2snLz48cmVjdCB4PSczMjQnIHk9JzIxNScgd2lkdGg9JzU1JyBoZWlnaHQ9JzMyMCcgZmlsbD0nYmxhY2snLz48cG9seWdvbiBwb2ludHM9JzM3OSwzNzggMTAwLDE4MiAzNzgsMjUnIGZpbGw9J3JlZCcvPjwvc3ZnPg=="
+        );
     /*
     based on https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Minesweeper_flag.svg/1024px-Minesweeper_flag.svg.png
     <svg xmlns='http://www.w3.org/2000/svg' width='699' height='699'>
@@ -201,15 +222,19 @@ div#minesweeperContainer.active-game div.game-cell.secret:not(.flag):active {
 }
 
 div.game-cell.mine {
-    background-color: black; /* placeholder, hopefully I can create or find mine graphic */
-    color: black; /* no text shown */
+    background-color: black;
+    /* placeholder, hopefully I can create or find mine graphic */
+    color: black;
+    /* no text shown */
     border: none;
 }
+
 div.game-cell.mine.clicked {
     background-color: red;
     color: red;
     border: none;
 }
+
 /* END SPECIFIC CELL TYPES */
 
 /* START NUMBER COLORS */
@@ -244,5 +269,6 @@ div.game-cell.value7 {
 div.game-cell.value8 {
     color: #7f7f7f;
 }
+
 /* END NUMBER COLORS */
 /* END MINESWEEPER GAME */

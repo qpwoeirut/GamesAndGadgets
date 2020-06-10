@@ -1,102 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Minesweeper</title>
 
-        <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<head>
+    <title>Minesweeper</title>
 
-        <script src="deque.js"></script>
-        <script src="minesweeperUtil.js"></script>
-        <script src="minesweeperSettingsPopup.js"></script>
-        <script src="minesweeperGame.js"></script>
-        <script src="minesweeperSolver.js"></script>
-        <link rel="stylesheet" href="minesweeper.css">
-    </head>
-    <body>
-        <div id="navbarContainer"></div>
-        <h1 class="textCenter">Minesweeper</h1>
+    <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-        <div id="buttonsContainer" class="button-container container">
-            <button id="settingButton" onclick="solve()">(Bad) Auto Solve</button>
-            <button id="newGameButton" onclick="startGame(game);">New Game</button>
-            <button id="settingButton" onclick="openPopup();">Settings</button>
+    <script src="deque.js"></script>
+    <script src="minesweeperUtil.js"></script>
+    <script src="minesweeperSettingsPopup.js"></script>
+    <script src="minesweeperGame.js"></script>
+    <script src="minesweeperSolver.js"></script>
+    <link rel="stylesheet" href="minesweeper.css">
+</head>
+
+<body>
+    <div id="navbarContainer"></div>
+    <h1 class="textCenter">Minesweeper</h1>
+
+    <div id="buttonsContainer" class="button-container container">
+        <button id="settingButton" onclick="solve()">(Bad) Auto Solve</button>
+        <button id="newGameButton" onclick="startGame(game);">New Game</button>
+        <button id="settingButton" onclick="openPopup();">Settings</button>
+    </div>
+    <div id="gameContainer" class="center textCenter">
+        <div id="scoreContainer" class="clearfix">
+            <div id="minesBoard" class="scoreboard">000</div>
+            <div id="timeBoard" class="scoreboard">000</div>
         </div>
-        <div id="gameContainer" class="center textCenter">
-            <div id="scoreContainer" class="clearfix">
-                <div id="minesBoard" class="scoreboard">000</div>
-                <div id="timeBoard" class="scoreboard">000</div>
-            </div>
-            <div id="minesweeperContainer">
+        <div id="minesweeperContainer">
 
-            </div>
         </div>
-        <br>
-        <br>
+    </div>
+    <br>
+    <br>
 
-        <div id="popupContainer" class="container popup">
-            <h2>Controls</h2>
-            <div class="container">
-                <label for="useMiddleClick">Use Middle Click to Open Adjacent Cells</label>
-                <input id="useMiddleClick" name="useMiddleClick" type="checkbox" checked>
-                <br><br>
-                <label for="useDoubleClick">Use Double Click to Open Adjacent Cells</label>
-                <input id="useDoubleClick" name="useDoubleClick" type="checkbox" checked>
-            </div>
-            <br>
-            <h2>Auto-Solver</h2>
-            <div class="container">
-                <label for="solverPause">Milliseconds Between Solver Moves</label>
-                <input id="solverPause" name="solverPause" type="number" required value="50">
-            </div>
-            <br>
-            <h2>Grid Dimensions</h2>
-            <div class="container">
-                <label for="rowCount">Number of Rows:</label>
-                <input id="rowCount" name="rowCount" type="number" required value="16">
-                <br><br>
-                <label for="colCount">Number of Columns:</label>
-                <input id="colCount" name="colCount" type="number" required value="30">
-                <br><br>
-                <label for="mineCount">Number of Mines</label>
-                <input id="mineCount" name="mineCount" type="number" required value="99">
-            </div>
-
-            <br><br>
-            <button type="submit" onclick="closePopup(true);startGame(game);">Save and Start New Game</button>
-            <button type="submit" onclick="closePopup(true);">Save and Continue Game</button>
-            <button type="submit" onclick="closePopup(false);">Cancel</button>
-        </div>
-
-        <br><br><br>
+    <div id="popupContainer" class="container popup">
+        <h2>Controls</h2>
         <div class="container">
-            <h3 class="center">Credits</h3>
-            <div class="container">
-                <p>
-                    This was created by Stanley Zhong.
-                    The page is written in pure HTML, JavaScript, and CSS.
-                    <br>
-                    The custom fonts used are from FontStruct.
-                    Specifically, the font for the cells in the game grid is <a href="https://fontstruct.com/fontstructions/show/1501665">here</a> 
-                    and the font for the scoreboard is based off of <a href="https://fontstruct.com/fontstructions/show/1462474">this font</a>.
-                    Both use this Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/">License</a>.
-                    The final font for the scoreboard uses the same <a href="http://creativecommons.org/licenses/by-sa/3.0/">license</a>.
-                    <br>
-                    Most of the cell visuals (like cell colors) came from this <a href="https://upload.wikimedia.org/wikipedia/commons/1/1e/Minesweeper_Game_Most_Common_Setup.png">Wikimedia image</a>.
-                    The flag is a SVG based on this <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Minesweeper_flag.svg/1024px-Minesweeper_flag.svg.png">Wikimedia image</a>.
-                    <br>
-                    I also used some tricks from StackOverflow.
-                    I'm not sure if I have to post every individual thing or not, but it's better to be on the safe side I guess.
-                    The code to prevent the user from highlighting text is from <a href="https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting">here</a>.
-                    The code in the solver to pause execution for some time is from <a href="https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep">here</a>.
-                </p>
-            </div>
+            <label for="useMiddleClick">Use Middle Click to Open Adjacent Cells</label>
+            <input id="useMiddleClick" name="useMiddleClick" type="checkbox" checked>
+            <br><br>
+            <label for="useDoubleClick">Use Double Click to Open Adjacent Cells</label>
+            <input id="useDoubleClick" name="useDoubleClick" type="checkbox" checked>
         </div>
-    </body>
-    <script>
-        $("#navbarContainer").load("navbar.html");
+        <br>
+        <h2>Auto-Solver</h2>
+        <div class="container">
+            <label for="solverPause">Milliseconds Between Solver Moves</label>
+            <input id="solverPause" name="solverPause" type="number" required value="50">
+        </div>
+        <br>
+        <h2>Grid Dimensions</h2>
+        <div class="container">
+            <label for="rowCount">Number of Rows:</label>
+            <input id="rowCount" name="rowCount" type="number" required value="16">
+            <br><br>
+            <label for="colCount">Number of Columns:</label>
+            <input id="colCount" name="colCount" type="number" required value="30">
+            <br><br>
+            <label for="mineCount">Number of Mines</label>
+            <input id="mineCount" name="mineCount" type="number" required value="99">
+        </div>
 
-        var game = new Object();
-        startGame(game);
-    </script>
+        <br><br>
+        <button type="submit" onclick="closePopup(true);startGame(game);">Save and Start New Game</button>
+        <button type="submit" onclick="closePopup(true);">Save and Continue Game</button>
+        <button type="submit" onclick="closePopup(false);">Cancel</button>
+    </div>
+
+    <br><br><br>
+    <div class="container">
+        <h3 class="center">Credits</h3>
+        <div class="container">
+            <p>
+                This was created by Stanley Zhong. The page is written in pure HTML, JavaScript, and CSS.
+                <br>
+                The custom fonts used are from FontStruct. Specifically, the font for the cells in the game grid is <a
+                    href="https://fontstruct.com/fontstructions/show/1501665">here</a> and the font for the scoreboard
+                is based off of <a href="https://fontstruct.com/fontstructions/show/1462474">this font</a>. Both use
+                this Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/">License</a>. The final
+                font for the scoreboard uses the same <a
+                    href="http://creativecommons.org/licenses/by-sa/3.0/">license</a>.
+                <br>
+                Most of the cell visuals (like cell colors) came from this <a
+                    href="https://upload.wikimedia.org/wikipedia/commons/1/1e/Minesweeper_Game_Most_Common_Setup.png">Wikimedia
+                    image</a>. The flag is a SVG based on this <a
+                    href="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Minesweeper_flag.svg/1024px-Minesweeper_flag.svg.png">Wikimedia
+                    image</a>.
+                <br>
+                I also used some tricks from StackOverflow. I'm not sure if I have to post every individual thing or
+                not, but it's better to be on the safe side I guess. The code to prevent the user from highlighting text
+                is from <a
+                    href="https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting">here</a>.
+                The code in the solver to pause execution for some time is from <a
+                    href="https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep">here</a>.
+            </p>
+        </div>
+    </div>
+</body>
+<script>
+    $("#navbarContainer").load("navbar.html");
+
+    var game = new Object();
+    startGame(game);
+</script>
+
 </html>

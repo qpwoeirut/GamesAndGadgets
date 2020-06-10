@@ -50,9 +50,9 @@ function startGame(game) {
     game.solver = makeSolver();
 
     if (game.timer) {
-        clearInterval(game.timer);  // make sure the timers don't compound and speed up
+        clearInterval(game.timer); // make sure the timers don't compound and speed up
     }
-    game.timer = setInterval(function() {
+    game.timer = setInterval(function () {
         if (game.state === RUNNING) {
             setBoard("timeBoard", ++game.timeElapsed, SCOREBOARD_SIZE);
         }
@@ -104,7 +104,7 @@ function renderGrid() {
 
 function handleRightClick(event) {
     console.debug("invoking handleRightClick with event");
-    event.preventDefault();  // prevent menu from appearing
+    event.preventDefault(); // prevent menu from appearing
     const target = event.currentTarget;
     const row = fromId(target.id)[0];
     const col = fromId(target.id)[1];
@@ -125,15 +125,14 @@ function addFlag(row, col) {
             game.status[row][col] = FLAG;
             target.classList.add("flag");
             --game.unflagged;
-        }
-        else if (game.status[row][col] === FLAG) {
+        } else if (game.status[row][col] === FLAG) {
             game.status[row][col] = SECRET;
             target.classList.remove("flag");
             ++game.unflagged;
         }
         setBoard("minesBoard", game.unflagged, SCOREBOARD_SIZE);
     }
-    
+
     return;
 }
 
@@ -162,7 +161,7 @@ function handleCellAuxClick(event) {
     }
 
     if (statusNeighborCount(row, col, FLAG) === game.grid[row][col]) {
-        for (let i=0; i<8; i++) {
+        for (let i = 0; i < 8; i++) {
             if (inBounds(row + chRow[i], col + chCol[i])) {
                 executeClick(row + chRow[i], col + chCol[i]);
             }
@@ -195,12 +194,10 @@ function executeClick(row, col) {
     let affected = [];
     if (game.status[row][col] === FLAG) {
         return affected;
-    }
-    else if (game.grid[row][col] === MINE) {
+    } else if (game.grid[row][col] === MINE) {
         loseGame(row, col);
         affected.push(toId(row, col));
-    }
-    else if (game.status[row][col] === SECRET) {
+    } else if (game.status[row][col] === SECRET) {
         affected = revealCell(row, col);
     }
 
@@ -213,7 +210,7 @@ function executeClick(row, col) {
 
 function initializeGrid(safeRow, safeCol) {
     console.debug("invoking initializeGrid with safeRow=" + safeRow + ', safeCol=' + safeCol + ", game.mineCount=" + game.mineCount);
-    
+
     let minesSet = 0;
     while (minesSet < game.mineCount) {
         let randRow = randint(0, game.rows);
@@ -225,7 +222,7 @@ function initializeGrid(safeRow, safeCol) {
         if (randRow === safeRow && randCol === safeCol) {
             works = false;
         }
-        for (let i=0; i<8; i++) {
+        for (let i = 0; i < 8; i++) {
             if (randRow + chRow[i] == safeRow && randCol + chCol[i] === safeCol) {
                 works = false;
             }
@@ -251,18 +248,17 @@ function revealCell(row, col) {
     if (!inBounds(row, col) || game.status[row][col] !== SECRET) return ret;
     console.debug("invoked revealCell with row=" + row + ", col=" + col);
     game.status[row][col] = SHOWN;
-    
+
     let curCell = document.getElementById(row + '-' + col)
     curCell.classList.remove("secret");
     curCell.classList.add("value" + game.grid[row][col]);
-    
+
 
     if (game.grid[row][col] === 0) {
-        for (let i=0; i<8; i++) {
+        for (let i = 0; i < 8; i++) {
             ret.push(...revealCell(row + chRow[i], col + chCol[i]));
         }
-    }
-    else {
+    } else {
         curCell.textContent = game.grid[row][col];
         ret.push(toId(row, col));
     }
@@ -274,8 +270,8 @@ function revealCell(row, col) {
 
 function winGame() {
     console.debug("invoked winGame");
-    for (let i=0; i<game.rows; i++) {
-        for (let j=0; j<game.cols; j++) {
+    for (let i = 0; i < game.rows; i++) {
+        for (let j = 0; j < game.cols; j++) {
             if (game.status[i][j] === SECRET) {
                 addFlag(i, j);
             }
@@ -283,7 +279,7 @@ function winGame() {
     }
     cleanupGame();
     console.log("You won!");
-    setTimeout(function() {
+    setTimeout(function () {
         alert("You won!");
     }, 400);
 }
@@ -291,8 +287,8 @@ function winGame() {
 
 function loseGame(mineRow, mineCol) {
     console.debug("invoked loseGame with mineRow=" + mineRow + ", mineCol=" + mineCol);
-    for (let i=0; i<game.rows; i++) {
-        for (let j=0; j<game.cols; j++) {
+    for (let i = 0; i < game.rows; i++) {
+        for (let j = 0; j < game.cols; j++) {
             if (game.grid[i][j] === MINE && game.status[i][j] !== FLAG) {
                 document.getElementById(toId(i, j)).classList.add("mine");
             }
@@ -301,7 +297,7 @@ function loseGame(mineRow, mineCol) {
     cleanupGame();
     document.getElementById(toId(mineRow, mineCol)).classList.add("clicked");
     console.log("You lost!");
-    setTimeout(function() {
+    setTimeout(function () {
         alert("You lost!");
     }, 400);
 }
