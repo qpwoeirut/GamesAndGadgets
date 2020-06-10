@@ -212,6 +212,7 @@ div.game-cell.flag {
 
 
 div.game-cell.secret {
+    text-align: center;
     border-style: solid;
     border-width: 3px;
     border-color: #ffffff #7a7a7a #7a7a7a #ffffff;
@@ -222,17 +223,15 @@ div#minesweeperContainer.active-game div.game-cell.secret:not(.flag):active {
 }
 
 div.game-cell.mine {
-    background-color: black;
-    /* placeholder, hopefully I can create or find mine graphic */
     color: black;
-    /* no text shown */
-    border: none;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #7f7f7f;
+    padding: 2px 0px 0px 2px;
 }
 
 div.game-cell.mine.clicked {
     background-color: red;
-    color: red;
-    border: none;
 }
 
 /* END SPECIFIC CELL TYPES */

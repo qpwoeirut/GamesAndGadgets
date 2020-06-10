@@ -290,7 +290,10 @@ function loseGame(mineRow, mineCol) {
     for (let i = 0; i < game.rows; i++) {
         for (let j = 0; j < game.cols; j++) {
             if (game.grid[i][j] === MINE && game.status[i][j] !== FLAG) {
-                document.getElementById(toId(i, j)).classList.add("mine");
+                const mineElem = document.getElementById(toId(i, j));
+                mineElem.classList.add("mine");
+                mineElem.classList.remove("secret");
+                mineElem.textContent = '*';  // mine font will show mine
             }
         }
     }
