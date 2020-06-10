@@ -14,14 +14,18 @@ function solve() {
             }
         }
         while (queue.hasItems()) {
-            const [row, col, moveAdded] = queue.pop(); // unpack array
+            const [row, col, moveAdded] = game.solver.queue.pop(); // unpack array
             if (moveAdded > 0 && moveAdded === game.solver.moveCount) {
                 // we're just cycling through everything without making progress
                 return;
             }
 
-            
+            makeMove(row, col);
         }
     }
+}
 
+
+function makeMove(row, col) {
+    
 }
