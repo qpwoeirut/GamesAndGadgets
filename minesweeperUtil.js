@@ -37,3 +37,16 @@ function statusNeighborCount(row, col, value) {
     }
     return count;
 }
+
+
+function createGrid(fillValue) {
+    console.debug("invoking createGrid with fillValue=" + fillValue);
+    let grid = [];
+    for (let i = 0; i < game.rows; i++) {
+        grid.push([]);
+        for (let j = 0; j < game.cols; j++) {
+            grid[i].push(fillValue);
+        }
+    }
+    return grid;
+}

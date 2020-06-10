@@ -63,19 +63,6 @@ function setBoard(boardId, value, len) {
 }
 
 
-function createGrid(fillValue) {
-    console.debug("invoking createGrid with fillValue=" + fillValue);
-    let grid = [];
-    for (let i = 0; i < game.rows; i++) {
-        grid.push([]);
-        for (let j = 0; j < game.cols; j++) {
-            grid[i].push(fillValue);
-        }
-    }
-    return grid;
-}
-
-
 function fromId(idString) {
     return [parseInt(idString.split('-')[0]), parseInt(idString.split('-')[1])];
 }
@@ -100,7 +87,7 @@ function renderGrid() {
             cell.textContent = " "; // make sure divs are visible, not 0x0
             cell.onclick = handleCellClick;
             cell.ondblclick = handleCellDoubleClick;
-            cell.oncontextmenu = addFlag;
+            cell.oncontextmenu = handleRightClick;
             currentRow.appendChild(cell);
         }
         container.appendChild(currentRow);
@@ -108,13 +95,20 @@ function renderGrid() {
 }
 
 
-function addFlag(event) {
-    console.debug("invoking addFlag with event");
+function handleRightClick(event) {
+    console.debug("invoking handleRightClick with event");
     event.preventDefault();  // prevent menu from appearing
+    const target = event.currentTarget;
+    const row = fromId(target.id)[0];
+    const col = fromId(target.id)[1];
+    addFlag(row, col);
+}
+
+
+function addFlag(row, col) {
+    console.debug("invoking addFlag with row=" + row + ", col=" + col);
     if (game.state === RUNNING) {
-        const target = event.currentTarget;
-        const row = fromId(target.id)[0];
-        const col = fromId(target.id)[1];
+        const target = document.getElementById(toId(row, col));
         if (game.status[row][col] === SECRET) {
             if (game.unflagged === 0) {
                 alert("You can't have more flags than mines");
@@ -172,26 +166,31 @@ function handleCellClick(event) {
 }
 
 
+// return coords of all affected cells, in Id format (for Set usage)
 function executeClick(row, col) {
+    console.debug("invoking executeClick with row=" + row + ", col=" + col);
     if (game.state === NOT_STARTED) {
         initializeGrid(row, col);
         document.getElementById("minesweeperContainer").classList.add("active-game");
         game.state = RUNNING;
     }
 
+    let affected = [];
     if (game.status[row][col] === FLAG) {
-        return;
+        return affected;
     }
     else if (game.grid[row][col] === MINE) {
         loseGame(row, col);
+        affected.push(toId(row, col));
     }
     else if (game.status[row][col] === SECRET) {
-        revealCell(row, col);
+        affected = revealCell(row, col);
     }
 
     if (game.remaining === 0 && game.state === RUNNING) {
         winGame();
     }
+    return affected;
 }
 
 
@@ -231,7 +230,8 @@ function initializeGrid(safeRow, safeCol) {
 
 
 function revealCell(row, col) {
-    if (!inBounds(row, col) || game.status[row][col] !== SECRET) return;
+    let ret = [];
+    if (!inBounds(row, col) || game.status[row][col] !== SECRET) return ret;
     console.debug("invoked revealCell with row=" + row + ", col=" + col);
     game.status[row][col] = SHOWN;
     
@@ -242,14 +242,16 @@ function revealCell(row, col) {
 
     if (game.grid[row][col] === 0) {
         for (let i=0; i<8; i++) {
-            revealCell(row + chRow[i], col + chCol[i]);
+            ret.push(...revealCell(row + chRow[i], col + chCol[i]));
         }
     }
     else {
         curCell.textContent = game.grid[row][col];
+        ret.push(toId(row, col));
     }
 
     --game.remaining;
+    return ret;
 }
 
 
