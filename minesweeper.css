@@ -32,11 +32,16 @@ div#gameContainer {
 
 
 /* START BUTTONS */
+div#buttonsContainer {
+    width: fit-content;
+    margin: auto;
+}
+
 div#buttonsContainer > button, div#popupContainer > button {
     min-width: 100px;
     width: fit-content;
     padding: 5px;
-    margin: 10px 30px;
+    margin: 10px 20px;
     box-sizing: border-box;
     background-color: #c0c0c0;
 

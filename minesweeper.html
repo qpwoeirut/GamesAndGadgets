@@ -16,13 +16,12 @@
         <div id="navbarContainer"></div>
         <h1 class="textCenter">Minesweeper</h1>
 
-
+        <div id="buttonsContainer" class="button-container container">
+            <button id="settingButton" onclick="console.error('Not implemented!');">Auto Solve</button>
+            <button id="newGameButton" onclick="startGame(game);">New Game</button>
+            <button id="settingButton" onclick="openPopup();">Settings</button>
+        </div>
         <div id="gameContainer" class="center textCenter">
-            <div id="buttonsContainer" class="button-container container">
-                <button id="settingButton" onclick="console.error('Not implemented!');">Auto Solve</button>
-                <button id="newGameButton" onclick="startGame(game);">New Game</button>
-                <button id="settingButton" onclick="openPopup();">Settings</button>
-            </div>
             <div id="scoreContainer" class="clearfix">
                 <div id="minesBoard" class="scoreboard">000</div>
                 <div id="timeBoard" class="scoreboard">000</div>
