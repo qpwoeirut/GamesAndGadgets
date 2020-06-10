@@ -15,15 +15,19 @@ const DEFAULT_ROW = 16;
 const DEFAULT_COLS = 30;
 const DEFAULT_MINES = 99;
 
+const DEFAULT_PAUSE = 50;
+
 var BYPASS_SIZE_CHECK = false;
 var BYPASS_MINE_CHECK = false;
 var MIN_SIZE = 8;
 var MAX_SIZE = 50;
-var MAX_MINE_PERCENTAGE = 80;
+var MAX_MINE_PERCENTAGE = 95;
 
 const BYPASS_SIZE_CHECK_STRING = "To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console"
 const BYPASS_MINE_CHECK_STRING = "To disable mine count checks, type BYPASS_MINE_CHECK = true; into the console"
 
+var USE_DOUBLE_CLICK = true;
+var USE_MIDDLE_CLICK = true;
 
 const chRow = [1, 1, 1, 0, -1, -1, -1, 0];
 const chCol = [1, 0, -1, 1, 1, 0, -1, -1];
@@ -42,6 +46,8 @@ function startGame(game) {
     setBoard("timeBoard", game.timeElapsed, SCOREBOARD_SIZE);
     game.unflagged = game.mineCount;
     setBoard("minesBoard", game.unflagged, SCOREBOARD_SIZE);
+
+    game.solver = makeSolver();
 
     if (game.timer) {
         clearInterval(game.timer);  // make sure the timers don't compound and speed up
@@ -86,7 +92,8 @@ function renderGrid() {
             cell.classList = "game-cell secret";
             cell.textContent = " "; // make sure divs are visible, not 0x0
             cell.onclick = handleCellClick;
-            cell.ondblclick = handleCellDoubleClick;
+            cell.ondblclick = handleCellAuxClick;
+            cell.onauxclick = handleCellAuxClick;
             cell.oncontextmenu = handleRightClick;
             currentRow.appendChild(cell);
         }
@@ -131,11 +138,18 @@ function addFlag(row, col) {
 }
 
 
-function handleCellDoubleClick(event) {
+function handleCellAuxClick(event) {
+    console.log(event);
     if (game.state !== RUNNING) {
         return
     }
-    console.debug("invoking handleCellDoubleClick with event");
+    if (event.which === 1 && USE_MIDDLE_CLICK === false) {
+        return;
+    }
+    if (event.which === 2 && USE_DOUBLE_CLICK === false) {
+        return;
+    }
+    console.debug("invoking handleCellAuxClick with event");
     const target = event.currentTarget;
     const row = fromId(target.id)[0];
     const col = fromId(target.id)[1];
@@ -293,18 +307,52 @@ function cleanupGame() {
 
 function openPopup() {
     document.getElementById("popupContainer").classList.add("active");
+    const solverPauseElem = document.getElementById("solverPause")
+    solverPauseElem.value = game.solver.pauseMSec;
+    solverPauseElem.min = 0;
+    solverPauseElem.max = 5000;
+
+    const rowInputElem = document.getElementById("rowCount");
+    rowInputElem.value = game.rows;
+    rowInputElem.min = 0;
+    if (BYPASS_SIZE_CHECK === false) {
+        rowInputElem.max = MAX_SIZE;
+    }
+
+    const colInputElem = document.getElementById("colCount");
+    colInputElem.value = game.cols;
+    colInputElem.min = 0;
+    if (BYPASS_SIZE_CHECK === false) {
+        colInputElem.max = MAX_SIZE;
+    }
+
+    const mineInputElem = document.getElementById("mineCount")
+    mineInputElem.value = game.mineCount;
+    mineInputElem.min = 0;
+    if (BYPASS_SIZE_CHECK === false && BYPASS_MINE_CHECK === false) {
+        mineInputElem.max = MAX_SIZE * MAX_SIZE * MAX_MINE_PERCENTAGE / 100;
+    }
 }
 
 
 function closePopup(saveData) {
     console.debug("invoking closePopup with saveData=" + saveData)
     if (saveData === false) {
+        document.getElementById("solverPause").value = game.solver.pauseMSec;
         document.getElementById("rowCount").value = game.rows;
         document.getElementById("colCount").value = game.cols;
         document.getElementById("mineCount").value = game.mineCount;
         document.getElementById("popupContainer").classList.remove("active");
         return;
     }
+
+    const solverPauseInput = document.getElementById("solverPause").value;
+    if (isNaN(solverPauseInput) || solverPauseInput < 0) {
+        console.warn("Input for solver pause time is invalid");
+        alert("Input for solver pause time is invalid");
+        return;
+    }
+
     const rowInput = document.getElementById("rowCount").value;
     const colInput = document.getElementById("colCount").value;
     const mineInput = document.getElementById("mineCount").value;
@@ -314,13 +362,13 @@ function closePopup(saveData) {
         return;
     }
     if (isNaN(colInput)) {
-        console.warn("Input for number of columns is invalid. Defaulting to " + DEFAULT_COLS + " columns");
-        alert("Input for number of columns is invalid. Defaulting to " + DEFAULT_COLS + " columns");
+        console.warn("Input for number of columns is invalid");
+        alert("Input for number of columns is invalid");
         return;
     }
     if (isNaN(mineInput)) {
-        console.warn("Input for number of mines is invalid. Defaulting to " + DEFAULT_MINES + " mines");
-        alert("Input for number of mines is invalid. Defaulting to " + DEFAULT_MINES + " mines");
+        console.warn("Input for number of mines is invalid");
+        alert("Input for number of mines is invalid");
         return;
     }
 
@@ -359,6 +407,7 @@ function closePopup(saveData) {
         alert("Number of mines can't be negative");
         return;
     }
+    game.solver.pauseMSec = solverPauseInput;
     game.nextRows = rowInput;
     game.nextCols = colInput;
     game.nextMineCount = mineInput;

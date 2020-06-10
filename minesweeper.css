@@ -128,6 +128,10 @@ div.popup.active {
     border-width: 2px;
     border-radius: 10px;
 }
+
+div.popup label, div.popup input {
+    font-size: large;
+}
 /* END SETTINGS POPUP */
 
 
@@ -239,10 +243,6 @@ div.game-cell.value7 {
 
 div.game-cell.value8 {
     color: #7f7f7f;
-}
-
-div#popupContainer * {
-    font-size: large;
 }
 /* END NUMBER COLORS */
 /* END MINESWEEPER GAME */

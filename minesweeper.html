@@ -34,17 +34,27 @@
         <br>
 
         <div id="popupContainer" class="container popup">
-            <label for="rowCount">Number of Rows:</label>
-            <input id="rowCount" name="rowCount" type="number" required value="16">
-            <br><br>
-            <label for="colCount">Number of Columns:</label>
-            <input id="colCount" name="colCount" type="number" required value="30">
-            <br><br>
-            <label for="mineCount">Number of Mines</label>
-            <input id="mineCount" name="mineCount" type="number" required value="99">
+            <h2>Auto-Solver</h2>
+            <div class="container">
+                <label for="solverPause">Milliseconds Between Solver Moves</label>
+                <input id="solverPause" name="solverPause" type="number" required value="50">
+            </div>
+            <br>
+            <h2>Grid Dimensions</h2>
+            <div class="container">
+                <label for="rowCount">Number of Rows:</label>
+                <input id="rowCount" name="rowCount" type="number" required value="16">
+                <br><br>
+                <label for="colCount">Number of Columns:</label>
+                <input id="colCount" name="colCount" type="number" required value="30">
+                <br><br>
+                <label for="mineCount">Number of Mines</label>
+                <input id="mineCount" name="mineCount" type="number" required value="99">
+            </div>
 
             <br><br>
             <button type="submit" onclick="closePopup(true);startGame(game);">Save and Start New Game</button>
+            <button type="submit" onclick="closePopup(true);">Save and Continue Game</button>
             <button type="submit" onclick="closePopup(false);">Cancel</button>
         </div>
 
@@ -58,12 +68,14 @@
                     The custom fonts used are from FontStruct.
                     Specifically, the font for the cells in the game grid is <a href="https://fontstruct.com/fontstructions/show/1501665">here</a> 
                     and the font for the scoreboard is based off of <a href="https://fontstruct.com/fontstructions/show/1462474">this font</a>.
-                    Both use this Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/">License</a>. The final font for the scoreboard uses the same <a href="http://creativecommons.org/licenses/by-sa/3.0/">license</a>.
+                    Both use this Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/">License</a>.
+                    The final font for the scoreboard uses the same <a href="http://creativecommons.org/licenses/by-sa/3.0/">license</a>.
                     <br>
                     Most of the cell visuals (like cell colors) came from this <a href="https://upload.wikimedia.org/wikipedia/commons/1/1e/Minesweeper_Game_Most_Common_Setup.png">Wikimedia image</a>.
                     The flag is a SVG based on this <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Minesweeper_flag.svg/1024px-Minesweeper_flag.svg.png">Wikimedia image</a>.
                     <br>
-                    I also used some tricks from StackOverflow. I'm not sure if I have to post every individual thing or not, but it's better to be on the safe side I guess.
+                    I also used some tricks from StackOverflow.
+                    I'm not sure if I have to post every individual thing or not, but it's better to be on the safe side I guess.
                     The code to prevent the user from highlighting text is from <a href="https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting">here</a>.
                     The code in the solver to pause execution for some time is from <a href="https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep">here</a>.
                 </p>

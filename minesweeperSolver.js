@@ -1,4 +1,11 @@
-const PAUSE_MS = 50;
+function makeSolver() {
+    let solver = new Object();
+    solver.pauseMSec = (game.solver ? game.solver.pauseMSec : null) || DEFAULT_PAUSE;
+    solver.moveCount = 1;
+    solver.deque = new Deque();
+    solver.processed = createGrid(false);
+    return solver;
+}
 
 
 async function solve() {
@@ -6,17 +13,11 @@ async function solve() {
         return;
     }
     console.log("Auto-Solver started");
-    if (game.solver) {
-        return;
-    }
-    game.solver = new Object();
-    game.solver.moveCount = 1;
-    game.solver.processed = createGrid(false);
+    game.solver = makeSolver();
     if (game.state === NOT_STARTED) {
         executeClick(game.rows >> 1, game.cols >> 1);
-        await sleep(PAUSE_MS);
+        await sleep(game.solver.pauseMSec);
     }
-    game.solver.deque = new Deque(); // holds items with [row, col, moveAdded]
     for (let i = 0; i < game.rows; i++) {
         for (let j = 0; j < game.cols; j++) {
             if (game.status[i][j] === SHOWN && hasSecretNeighbors(i,j) === true) {
@@ -27,28 +28,18 @@ async function solve() {
             }
         }
     }
-    console.debug(game.solver.deque);
     while (game.state === RUNNING && game.solver.deque.hasItems()) {
         const [row, col, moveAdded] = game.solver.deque.popFront(); // unpack array
-        console.debug(row + ' ' + col + ' ' + moveAdded);
         if (moveAdded === game.solver.moveCount) {
-            console.log("Finished Auto-Solve after cycle");
             // we're just cycling through everything without making progress
             break;
         }
 
-        const finishedCell = await makeMove(row, col)
+        const finishedCell = await makeMove(row, col);
         if (!finishedCell && hasSecretNeighbors(row, col)) {
             game.solver.deque.pushBack([row, col, game.solver.moveCount]);
         }
     }
-    while (game.solver.deque.hasItems()) {
-        const [row, col, moveAdded] = game.solver.deque.popFront();
-        console.log(document.getElementById(toId(row, col)));
-    }
-    console.debug(game.solver.deque);
-    console.debug(game.solver.processed);
-    delete game.solver;
     return;
 }
 
@@ -75,7 +66,7 @@ async function makeMove(row, col) {
                 for (const affected of curAffected) {
                     affectedCells.add(affected);
                 }
-                await sleep(PAUSE_MS);
+                await sleep(game.solver.pauseMSec);
                 ++game.solver.moveCount;
             }
         }
@@ -95,7 +86,7 @@ async function makeMove(row, col) {
             if (inBounds(row + chRow[i], col + chCol[i]) && game.status[row + chRow[i]][col + chCol[i]] === SECRET) {
                 addFlag(row + chRow[i], col + chCol[i]);
                 ++game.solver.moveCount;
-                await sleep(PAUSE_MS);
+                await sleep(game.solver.pauseMSec);
             }
         }
     }
