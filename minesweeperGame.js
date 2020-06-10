@@ -143,10 +143,13 @@ function handleCellAuxClick(event) {
     if (game.state !== RUNNING) {
         return
     }
-    if (event.which === 1 && USE_MIDDLE_CLICK === false) {
+    if (event.which !== 1 && event.which !== 2) {
         return;
     }
-    if (event.which === 2 && USE_DOUBLE_CLICK === false) {
+    if (event.which === 1 && USE_DOUBLE_CLICK === false) {
+        return;
+    }
+    if (event.which === 2 && USE_MIDDLE_CLICK === false) {
         return;
     }
     console.debug("invoking handleCellAuxClick with event");
@@ -407,7 +410,12 @@ function closePopup(saveData) {
         alert("Number of mines can't be negative");
         return;
     }
+
+    USE_MIDDLE_CLICK = document.getElementById("useMiddleClick").checked;
+    USE_DOUBLE_CLICK = document.getElementById("useDoubleClick").checked;
+
     game.solver.pauseMSec = solverPauseInput;
+    
     game.nextRows = rowInput;
     game.nextCols = colInput;
     game.nextMineCount = mineInput;
