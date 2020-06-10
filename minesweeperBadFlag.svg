@@ -1,0 +1,8 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='699' height='699'>
+    <rect x='121' y='578' width='480' height='96' fill='black'/>
+    <rect x='224' y='533' width='254' height='66' fill='black'/>
+    <rect x='324' y='215' width='55' height='320' fill='black'/>
+    <polygon points='379,378 100,182 378,25' fill='red'/>
+    <polygon points='50,0 0,50 649,699 699,649' fill='red'/>
+    <polygon points='0,649 50,699 699,50 649,0' fill='red'/>
+</svg>

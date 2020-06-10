@@ -200,6 +200,11 @@ div.game-cell.flag {
     background-image: url("minesweeperFlag.svg");
 }
 
+div.game-cell.flag.bad-flag {
+    background-size: contain;
+    background-image: url("minesweeperBadFlag.svg");
+}
+
 
 div.game-cell.secret {
     border-style: solid;
