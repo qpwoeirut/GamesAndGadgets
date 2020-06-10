@@ -152,6 +152,11 @@ div.popup input {
     font-size: large;
 }
 
+div.popup input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+}
+
 /* END SETTINGS POPUP */
 
 
