@@ -91,7 +91,7 @@ div#timeBoard {
 
 /* START SETTINGS POPUP */
 div.popup {
-    visibility: hidden;
+    display: none;
 }
 div.popup.active {
     display: inline-block;
