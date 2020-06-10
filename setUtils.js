@@ -17,3 +17,13 @@ function intersection(a, b) {
     }
     return intersectionSet;
 }
+function difference(a, b) {
+    let differenceSet = new Set();
+    for (const item of a) {
+        if (!b.has(item)) differenceSet.add(item);
+    }
+    return differenceSet;
+}
+function symmetricDifference(a, b) {
+    return union(difference(a, b), difference(b, a));
+}

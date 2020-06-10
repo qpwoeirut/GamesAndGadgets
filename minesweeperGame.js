@@ -68,15 +68,6 @@ function setBoard(boardId, value, len) {
     document.getElementById(boardId).textContent = value.toString().padStart(len, '0');
 }
 
-
-function fromId(idString) {
-    return [parseInt(idString.split('-')[0]), parseInt(idString.split('-')[1])];
-}
-
-function toId(row, col) {
-    return row + '-' + col;
-}
-
 function renderGrid() {
     console.debug("invoking renderGrid");
     let container = document.getElementById("minesweeperContainer");
