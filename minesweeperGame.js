@@ -21,7 +21,7 @@ var BYPASS_SIZE_CHECK = false;
 var BYPASS_MINE_CHECK = false;
 var MIN_SIZE = 8;
 var MAX_SIZE = 50;
-var MAX_MINE_PERCENTAGE = 95;
+var MAX_MINE_PERCENTAGE = 90;
 
 const BYPASS_SIZE_CHECK_STRING = "To disable grid size checks, type BYPASS_SIZE_CHECK = true; into the console"
 const BYPASS_MINE_CHECK_STRING = "To disable mine count checks, type BYPASS_MINE_CHECK = true; into the console"
