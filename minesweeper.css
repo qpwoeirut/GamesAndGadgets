@@ -168,8 +168,10 @@ div.game-cell {
     box-sizing: border-box;
     width: 25px;
     min-width: 25px;
+    max-width: 25px;
     height: 25px;
     min-height: 25px;
+    max-height: 25px;
 
     font-family: 'MinesweeperFont', 'Courier New', Courier, monospace;
     font-size: 1em;
