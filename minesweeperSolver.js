@@ -149,6 +149,7 @@ async function patternSolver(depth=1) {
                     let affectedCells = new Set();
                     for (const cell of difference(otherNeighbors, neighbors)) {
                         affectedCells = union(affectedCells, executeClick(fromId(cell)[0], fromId(cell)[1]));
+                        await sleep(game.solver.pauseMSec);
                         ++game.solver.moveCount;
                         success = true;
                     }
@@ -158,6 +159,8 @@ async function patternSolver(depth=1) {
                 if (otherMinesLeft - minesLeft === difference(otherNeighbors, neighbors).size) {
                     for (const cell of difference(otherNeighbors, neighbors)) {
                         addFlag(fromId(cell)[0], fromId(cell)[1]);
+                        await sleep(game.solver.pauseMSec);
+                        ++game.solver.moveCount;
                         success = true;
                     }
                 }
