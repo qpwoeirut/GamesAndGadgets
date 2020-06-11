@@ -6,10 +6,6 @@ body {
     margin: 0;
 }
 
-.verticalAlignMid {
-    vertical-align: middle !important;
-}
-
 .textCenter {
     text-align: center !important;
 }
@@ -18,27 +14,8 @@ body {
     margin: auto;
 }
 
-.fullWidth {
-    width: 100% !important;
-}
-
-.right {
-    position: absolute !important;
-    right: 0px !important;
-}
-
 .clearfix {
     overflow: auto;
-}
-
-.fixedTop {
-    position: fixed !important;
-    top: 0px !important;
-}
-
-.underNavbar {
-    position: relative !important;
-    top: 140px !important;
 }
 
 .displayInlineBlock {
@@ -49,16 +26,12 @@ body {
     display: none !important;
 }
 
-.backgroundRed {
-    background-color: red !important;
-}
-
 .container {
     margin-left: 2em;
     margin-right: 2em;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
     .smallWindowHide {
         display: none !important;
     }

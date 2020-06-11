@@ -1,18 +1,21 @@
 /* ====================Menu Icon Styling==================== */
 
+#navbarDropdown {
+    background-color: red;
+}
+
 #navbarDropdown button {
     display: block
 }
 
 #menuIconContainer {
-    display: inline-block;
     cursor: pointer;
     float: right;
-    margin-right: 30px;
-    margin-top: 30px;
+    margin-right: 1.5em;
+    margin-top: 1.5em;
 }
 .iconTopBar, .iconMiddleBar, .iconBottomBar {
-    width: 35px;
+    width: 30px;
     height: 5px;
     background-color: white;
     margin: 6px 0;
@@ -32,8 +35,8 @@
     -webkit-transform: rotate(45deg) translate(-8px, -8px);
     transform: rotate(45deg) translate(-8px, -8px);
 }
-/* Hide the menu icon until the window is under 750px and the navbar is gone */
-@media only screen and (min-width: 801px) {
+/* Hide the menu icon until the window is under 600px and the navbar is gone */
+@media only screen and (min-width: 600px) {
     #menuIconContainer, #navbarDropdown {
         display: none;
     }
@@ -51,26 +54,25 @@
     /* Light Gray */
 }
 .navbutton {
-    background-color: #ff0000;
-    /* Red */
-    border: none;
     color: white;
+    background-color: red;
+    border: none;
     float: left;
-    margin-right: 30px;
+    margin-right: 1.2em;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 1.2em;
 }
 
 .navbutton.dropdownButton {
-    font-size: 30px;
-    margin-bottom: 30px;
+    font-size: 0.75em;
+    margin-bottom: 1em;
 }
 
 #navbar {
     background-color: red;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: 1em;
+    padding-top: 1em;
 }
 /* ====================Navigation Bar Styling End==================== */
