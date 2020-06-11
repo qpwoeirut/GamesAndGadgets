@@ -10,7 +10,7 @@
     <script src="setUtils.js"></script>
     <script src="deque.js"></script>
     <script src="minesweeperUtil.js"></script>
-    <script src="minesweeperSettingsPopup.js"></script>
+    <script src="minesweeperPopups.js"></script>
     <script src="minesweeperGame.js"></script>
     <script src="minesweeperSolver.js"></script>
     <link rel="stylesheet" href="minesweeper.css">
@@ -21,11 +21,11 @@
     <h1 class="textCenter">Minesweeper</h1>
 
     <div id="buttonsContainer" class="button-container container">
-        <button id="howToButton">How To Play</button>
-        <button id="settingButton" onclick="openPopup();">Settings</button>
+        <button id="howToButton" onclick="openHowToPlay();">How To Play</button>
+        <button id="settingButton" onclick="openSettings();">Settings</button>
         <button id="newGameButton" onclick="startGame(game);">New Game</button>
-        <button id="settingButton" onclick="solve()">Auto Solve</button>
-        <button id="hintButton">Hint</button>
+        <button id="settingButton" onclick="solve(false);">Auto Solve</button>
+        <button id="hintButton" onclick="solve(true);">Hint</button>
     </div>
     <div id="gameContainer" class="center textCenter">
         <div id="scoreContainer" class="clearfix">
@@ -39,7 +39,24 @@
     <br>
     <br>
 
-    <div id="popupContainer" class="container popup">
+    <div id="howToPlayContainer" class="popup-container popup">
+        <h2>Overview</h2>
+        <div class="container">
+            <p>
+                Try to open all the squares and stuff.
+            </p>
+        </div>
+        <br>
+        <h2>Controls</h2>
+        <div class="container">
+            <p>
+                You're gonna have to figure it out for now, since this section isn't finished. Mess around and see what happens!
+            </p>
+        </div>
+        <button type="submit" onclick="closeHowToPlay();">Close</button>
+    </div>
+
+    <div id="settingsContainer" class="popup-container popup">
         <h2>Controls</h2>
         <div class="container">
             <label for="useMiddleClick">Use Middle Click to Chord (Open Adjacent Cells)</label>
@@ -72,9 +89,9 @@
         </div>
 
         <br><br>
-        <button type="submit" onclick="closePopup(true);startGame(game);">Save and Start New Game</button>
-        <button type="submit" onclick="closePopup(true);">Save and Continue Game</button>
-        <button type="submit" onclick="closePopup(false);">Cancel</button>
+        <button type="submit" onclick="closeSettings(true);startGame(game);">Save and Start New Game</button>
+        <button type="submit" onclick="closeSettings(true);">Save and Continue Game</button>
+        <button type="submit" onclick="closeSettings(false);">Cancel</button>
     </div>
 
     <br><br><br>

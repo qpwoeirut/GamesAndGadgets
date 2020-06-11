@@ -38,7 +38,7 @@ div#buttonsContainer {
 }
 
 div#buttonsContainer>button,
-div#popupContainer button {
+div.popup-container button {
     min-width: 110px;
     width: fit-content;
     padding: 5px;
@@ -54,7 +54,7 @@ div#popupContainer button {
 }
 
 div#buttonsContainer>button:active,
-div#popupContainer>button:active {
+div#popup-container button:active {
     border-style: solid;
     border-width: 3px;
     border-color: #7a7a7a #ffffff #ffffff #7a7a7a;
@@ -141,6 +141,11 @@ div.popup input {
 div.popup input[type="checkbox"] {
     width: 1em;
     height: 1em;
+}
+
+div.popup-container {
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 /* END SETTINGS POPUP */

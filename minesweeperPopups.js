@@ -1,3 +1,13 @@
+function openHowToPlay() {
+    document.getElementById("howToPlayContainer").classList.add("active");
+
+}
+
+function closeHowToPlay() {
+    document.getElementById("howToPlayContainer").classList.remove("active");
+}
+
+
 function prefillDifficulty(level) {
     console.debug("invoked prefillDifficulty with level=" + level);
 
@@ -55,8 +65,8 @@ function openSettings() {
 }
 
 
-function closePopup(saveData) {
-    console.debug("invoking closePopup with saveData=" + saveData)
+function closeSettings(saveData) {
+    console.debug("invoking closeSettings with saveData=" + saveData)
     if (saveData === false) {
         document.getElementById("solverPause").value = game.solver.pauseMSec;
         document.getElementById("rowCount").value = game.rows;
@@ -137,5 +147,5 @@ function closePopup(saveData) {
     game.nextCols = colInput;
     game.nextMineCount = mineInput;
     document.getElementById("settingsContainer").classList.remove("active");
-    console.debug("finished closePopup with game.nextRows=" + game.nextRows + ", game.nextCols=" + game.nextCols + ", game.nextMineCount=" + game.nextMineCount);
+    console.debug("finished closeSettings with game.nextRows=" + game.nextRows + ", game.nextCols=" + game.nextCols + ", game.nextMineCount=" + game.nextMineCount);
 }

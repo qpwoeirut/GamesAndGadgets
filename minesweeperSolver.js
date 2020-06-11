@@ -1,4 +1,5 @@
 let SOLVER_ON = false;
+let HINT = false;
 
 function makeSolver() {
     let solver = new Object();
@@ -9,11 +10,11 @@ function makeSolver() {
     return solver;
 }
 
-
-async function solve() {
+async function solve(hint=false) {
     if (game.status === DONE || SOLVER_ON === true) {
         return;
     }
+    HINT = hint;
     console.log("Auto-Solver started");
     SOLVER_ON = true;
     game.solver = makeSolver();
@@ -44,6 +45,9 @@ async function solve() {
         if (!finishedCell && hasSecretNeighbors(row, col)) {
             game.solver.deque.pushBack([row, col, game.solver.moveCount]);
         }
+        else if (finishedCell && HINT) {
+            break;
+        }
     }
     SOLVER_ON = false;
 }
@@ -68,6 +72,11 @@ async function makeMove(row, col) {
         for (let i = 0; i < 8; i++) {
             if (inBounds(row + chRow[i], col + chCol[i]) && game.status[row + chRow[i]][col + chCol[i]] === SECRET) {
                 affectedCells = union(affectedCells, executeClick(row + chRow[i], col + chCol[i], false));
+                if (HINT === true) {
+                    return new Promise(f => {
+                        f(success)
+                    });
+                }
                 await sleep(game.solver.pauseMSec);
                 ++game.solver.moveCount;
             }
@@ -78,8 +87,13 @@ async function makeMove(row, col) {
         for (let i = 0; i < 8; i++) {
             if (inBounds(row + chRow[i], col + chCol[i]) && game.status[row + chRow[i]][col + chCol[i]] === SECRET) {
                 addFlag(row + chRow[i], col + chCol[i]);
-                ++game.solver.moveCount;
+                if (HINT === true) {
+                    return new Promise(f => {
+                        f(success)
+                    });
+                }
                 await sleep(game.solver.pauseMSec);
+                ++game.solver.moveCount;
             }
         }
     }
