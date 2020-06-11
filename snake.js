@@ -3,6 +3,7 @@ var context = canvas.getContext('2d');
 
 var grid = 16;
 var count = 0;
+var countLimit = 6;
 
 var snake = {
     x: 160,
@@ -10,13 +11,17 @@ var snake = {
     speedX: grid,
     speedY: 0,
     cells: [],
-    maxCells: 3,
-    score: 0,
-    play: true
+    maxCells: 3
 };
 var apple = {
     x: 320,
     y: 320
+};
+var environment = {
+    score: 0,
+    play: true,
+    hasPaused: false,
+    difficulty: 1
 };
 
 // Used to place a new apple
@@ -26,50 +31,69 @@ function getRandomInt(min, max) {
 
 // Play the game
 function loop() {
-    if (snake.play === true) {
+    if (environment.play === true) {
         requestAnimationFrame(loop);
     
-        // Lowers the frame rate
-        if (++count < 10) {
-            return;
+    if (environment.hasPaused === false) {
+        // Change the speed of the snake
+        if (environment.difficulty === 0) {
+            countLimit = 10;
+        }
+        else if (environment.difficulty === 1) {
+            countLimit = 6;
+        }
+        else if (environment.difficulty === 2) {
+            countLimit = 4;
+        }
+    }
+    else if (environment.hasPaused === true) {
+        if (environment.difficulty === 0) {
+            countLimit = 5;
+        }
+        else if (environment.difficulty === 1) {
+            countLimit = 3;
+        }
+        else if (environment.difficulty === 2) {
+            countLimit = 2;
+        }
+    }
+
+    // Lowers the frame rate
+    if (count++ < countLimit) {
+        return;
+    }
+    count = 0;
+
+    // Display score and canvas
+    document.getElementById("snakeScore").innerHTML = environment.score;
+    context.clearRect(0,0,canvas.width,canvas.height);
+
+    // Move the snake
+    snake.x += snake.speedX;
+    snake.y += snake.speedY;
+
+    snake.cells.unshift({x: snake.x, y: snake.y});
+    if (snake.cells.length > snake.maxCells) {
+        snake.cells.pop();
+    }
+
+    // Draw apple as red and snake as white
+    context.fillStyle = 'red';
+    context.fillRect(apple.x, apple.y, grid-1, grid-1);
+
+    context.fillStyle = 'white';
+    snake.cells.forEach(function(cell, index) {
+        context.fillRect(cell.x, cell.y, grid-1, grid-1);  
+
+        // Eat the apple
+        if (cell.x === apple.x && cell.y === apple.y) {
+            environment.score++;
+            snake.maxCells++;
+            apple.x = getRandomInt(0, 25) * grid;
+            apple.y = getRandomInt(0, 25) * grid;
         }
 
-        count = 0;
-
-        document.getElementById("snakeScore").innerHTML = snake.score;
-
-        context.clearRect(0,0,canvas.width,canvas.height);
-
-        // Move the snake
-        snake.x += snake.speedX;
-        snake.y += snake.speedY;
-
-
-        snake.cells.unshift({x: snake.x, y: snake.y});
-
-        if (snake.cells.length > snake.maxCells) {
-            snake.cells.pop();
-        }
-
-        // Draw apple as red and snake as white
-        context.fillStyle = 'red';
-        context.fillRect(apple.x, apple.y, grid-1, grid-1);
-
-        context.fillStyle = 'white';
-        snake.cells.forEach(function(cell, index) {
-            
-            context.fillRect(cell.x, cell.y, grid-1, grid-1);  
-
-            // Eat the apple
-            if (cell.x === apple.x && cell.y === apple.y) {
-                snake.score++;
-                snake.maxCells++;
-                apple.x = getRandomInt(0, 25) * grid;
-                apple.y = getRandomInt(0, 25) * grid;
-            }
-
-            for (var i = index + 1; i < snake.cells.length; i++) {
-            
+        for (var i = index + 1; i < snake.cells.length; i++) {
             // Hit tail or walls
             if ((cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) || (snake.x < 0 || snake.x >= canvas.width) || (snake.y < 0 || snake.y >= canvas.height)) {
                 // Reset the snake
@@ -79,23 +103,19 @@ function loop() {
                 snake.maxCells = 3;
                 snake.speedX = grid;
                 snake.speedY = 0;
-                snake.score = 0;
+                environment.score = 0;
                 // Reset the apple
                 apple.x = getRandomInt(0, 25) * grid;
                 apple.y = getRandomInt(0, 25) * grid;
             }
-            }
-        });
-    } 
-    else {
-        console.debug("DEBUG: else - game not play")
+        }
+    });
     }  
 }
 
 
 // Snake movement controls (arrow keys)
 document.addEventListener('keydown', function(e) {
-
     if (e.which === 37 && snake.speedX === 0) {
         snake.speedX = -grid;
         snake.speedY = 0;
@@ -112,17 +132,27 @@ document.addEventListener('keydown', function(e) {
         snake.speedY = grid;
         snake.speedX = 0;
     }
-
-    if (e.which === 80 && snake.play === true) {
-        snake.play = false;
-        console.debug("DEBUG: paused / snake.play:" + snake.play);
+    // Pause the game
+    else if (e.which === 80 && environment.play === true) {
+        environment.play = false;
     }
-    else if (e.which === 80 && snake.play === false) {
-        snake.play = true;
-        console.debug("DEBUG: unpaused / snake.play:" + snake.play);
+    else if (e.which === 80 && environment.play === false) {
+        environment.play = true;
+        requestAnimationFrame(loop);
+        // Change the speed of the snake (lower the number the faster the speed)
+        environment.hasPaused = true;
+        if (environment.difficulty === 0) {
+            countLimit = 5;
+        }
+        else if (environment.difficulty === 1) {
+            countLimit = 3;
+        }
+        else if (environment.difficulty === 2) {
+            countLimit = 2;
+        }
     }
 });
 
-if (snake.play === true) {
+if (environment.play === true) {
     requestAnimationFrame(loop);
 }
