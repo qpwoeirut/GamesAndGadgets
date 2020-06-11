@@ -134,7 +134,7 @@ async function patternSolver(depth=1) {
             const minesLeft = game.grid[row][col] - statusNeighborCount(row, col, FLAG);
             if (neighbors.size === 0) continue;
             // if depth=1, 0...7
-            // if depth=2, 8...24
+            // if depth=2, 8...23
             for (let i = 8 * (depth - 1); i < 8 * (depth - 1) + (8 * depth); i++) {
                 const otherRow = row + chRow[i];
                 const otherCol = col + chCol[i];
