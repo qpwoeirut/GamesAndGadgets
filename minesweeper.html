@@ -20,140 +20,144 @@
     <div id="navbarContainer"></div>
     <h1 class="textCenter">Minesweeper</h1>
 
-    <div id="buttonsContainer" class="button-container container">
-        <button id="howToButton" onclick="openHowToPlay();">How To Play</button>
-        <button id="settingButton" onclick="openSettings();">Settings</button>
-        <button id="newGameButton" onclick="startGame(game);">New Game</button>
-        <button id="settingButton" onclick="solve(false);">Auto Solve</button>
-        <button id="hintButton" onclick="solve(true);">Hint</button>
-    </div>
-    <div id="gameContainer" class="center textCenter">
-        <div id="scoreContainer" class="clearfix">
-            <div id="minesBoard" class="scoreboard">000</div>
-            <div id="timeBoard" class="scoreboard">000</div>
+    <div id="pageContainer">
+        <div id="buttonsContainer" class="button-container container">
+            <button id="howToButton" onclick="openHowToPlay();">How To Play</button>
+            <button id="settingButton" onclick="openSettings();">Settings</button>
+            <button id="newGameButton" onclick="startGame(game);">New Game</button>
+            <button id="settingButton" onclick="solve(false);">Auto Solve</button>
+            <button id="hintButton" onclick="solve(true);">Hint</button>
         </div>
-        <div id="minesweeperContainer">
+        <div id="gameContainer" class="center textCenter">
+            <div id="scoreContainer" class="clearfix">
+                <div id="minesBoard" class="scoreboard">000</div>
+                <div id="timeBoard" class="scoreboard">000</div>
+            </div>
+            <div id="minesweeperContainer">
 
-        </div>
-    </div>
-    <br>
-    <br>
-
-    <div id="howToPlayContainer" class="popup-container popup">
-        <h2>Overview</h2>
-        <div class="container">
-            <p>
-                Try to open all the squares and stuff.
-            </p>
+            </div>
         </div>
         <br>
-        <h2>Controls</h2>
-        <div class="container">
-            <p>
-                You're gonna have to figure it out for now, since this section isn't finished. Mess around and see what happens!
-            </p>
-        </div>
-        <button type="submit" onclick="closeHowToPlay();">Close</button>
-    </div>
-
-    <div id="settingsContainer" class="popup-container popup">
-        <h2>Controls</h2>
-        <div class="container">
-            <label for="useMiddleClick">Use Middle Click to Chord (Open Adjacent Cells)</label>
-            <input id="useMiddleClick" name="useMiddleClick" type="checkbox" checked>
-            <br><br>
-            <label for="useDoubleClick">Use Double Click to Chord (Open Adjacent Cells)</label>
-            <input id="useDoubleClick" name="useDoubleClick" type="checkbox" checked>
-        </div>
         <br>
-        <h2>Auto-Solver</h2>
-        <div class="container">
-            <label for="solverPause">Milliseconds Between Solver Moves</label>
-            <input id="solverPause" name="solverPause" type="number" required value="50">
-        </div>
-        <br>
-        <h2>Difficulty</h2>
-        <div class="container">
-            <button onclick="prefillDifficulty('EASY');">Easy</button>
-            <button onclick="prefillDifficulty('INTERMEDIATE');">Intermediate</button>
-            <button onclick="prefillDifficulty('EXPERT');">Expert</button>
-            <br><br>
-            <label for="rowCount">Number of Rows:</label>
-            <input id="rowCount" name="rowCount" type="number" required value="16">
-            <br><br>
-            <label for="colCount">Number of Columns:</label>
-            <input id="colCount" name="colCount" type="number" required value="30">
-            <br><br>
-            <label for="mineCount">Number of Mines</label>
-            <input id="mineCount" name="mineCount" type="number" required value="99">
+
+        <div id="howToPlayContainer" class="popup-container popup">
+            <h2>Overview</h2>
+            <div class="container">
+                <p>
+                    Try to open all the squares and stuff.
+                </p>
+            </div>
+            <br>
+            <h2>Controls</h2>
+            <div class="container">
+                <p>
+                    You're gonna have to figure it out for now, since this section isn't finished. Mess around and see
+                    what happens!
+                </p>
+            </div>
+            <button type="submit" onclick="closeHowToPlay();">Close</button>
         </div>
 
-        <br><br>
-        <button type="submit" onclick="closeSettings(true);startGame(game);">Save and Start New Game</button>
-        <button type="submit" onclick="closeSettings(true);">Save and Continue Game</button>
-        <button type="submit" onclick="closeSettings(false);">Cancel</button>
-    </div>
+        <div id="settingsContainer" class="popup-container popup">
+            <h2>Controls</h2>
+            <div class="container">
+                <label for="useMiddleClick">Use Middle Click to Chord (Open Adjacent Cells)</label>
+                <input id="useMiddleClick" name="useMiddleClick" type="checkbox" checked>
+                <br><br>
+                <label for="useDoubleClick">Use Double Click to Chord (Open Adjacent Cells)</label>
+                <input id="useDoubleClick" name="useDoubleClick" type="checkbox" checked>
+            </div>
+            <br>
+            <h2>Auto-Solver</h2>
+            <div class="container">
+                <label for="solverPause">Milliseconds Between Solver Moves</label>
+                <input id="solverPause" name="solverPause" type="number" required value="50">
+            </div>
+            <br>
+            <h2>Difficulty</h2>
+            <div class="container">
+                <button onclick="prefillDifficulty('EASY');">Easy</button>
+                <button onclick="prefillDifficulty('INTERMEDIATE');">Intermediate</button>
+                <button onclick="prefillDifficulty('EXPERT');">Expert</button>
+                <br><br>
+                <label for="rowCount">Number of Rows:</label>
+                <input id="rowCount" name="rowCount" type="number" required value="16">
+                <br><br>
+                <label for="colCount">Number of Columns:</label>
+                <input id="colCount" name="colCount" type="number" required value="30">
+                <br><br>
+                <label for="mineCount">Number of Mines</label>
+                <input id="mineCount" name="mineCount" type="number" required value="99">
+            </div>
 
-    <br><br><br>
-    <div id="footerContainer" class="container">
-        <h3>Credits</h3>
-        <div class="container">
-            <p>
-                This was created by Stanley Zhong. The page is written in pure HTML, JavaScript, and CSS.
-                <br>
-                The custom fonts used are from FontStruct. Specifically, the font for the cells in the game grid is <a
-                    href="https://fontstruct.com/fontstructions/show/1501665" target="_blank">here</a> and the font for
-                the scoreboard
-                is based off of <a href="https://fontstruct.com/fontstructions/show/1462474" target="_blank">this
-                    font</a>. I edited the
-                scoreboard font to have the off segments be faintly displayed, but most of the content was from the
-                original font.
-                <br>
-                Most of the cell visuals (like cell colors) came from this <a
-                    href="https://commons.wikimedia.org/wiki/File:Minesweeper_Game_Most_Common_Setup.png"
-                    target="_blank">Wikimedia
-                    image</a>. The flag is a SVG based on this <a
-                    href="https://commons.wikimedia.org/wiki/File:Minesweeper_flag.svg" target="_blank">Wikimedia
-                    image</a>.
-                <br>
-                I also used some tricks from StackOverflow. I'm not sure if I have to post every individual thing or
-                not, but it's better to be on the safe side I guess. The code to prevent the user from highlighting text
-                is from <a href="https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting"
-                    target="_blank">here</a>.
-                The code in the solver to pause execution for some time is from <a
-                    href="https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep"
-                    target="_blank">here</a>.
-                <br>
-                A lot of my information about Minesweeper rules, presets, and strategy came from the <a
-                    href="http://www.minesweeper.info/wiki/Main_Page" target="_blank">Minesweeper Wiki</a>.
-                The solver's patterns are from <a href="http://www.minesweeper.info/wiki/Strategy"
-                    target="_blank">here</a>.
-                The preset difficulties came from <a href="http://www.minesweeper.info/wiki/Minesweeper_Official_Rules"
-                    target="_blank">here</a>. The beginner preset was
-                taken from the top-left logo, not the text.
-            </p>
+            <br><br>
+            <button type="submit" onclick="closeSettings(true);startGame(game);">Save and Start New Game</button>
+            <button type="submit" onclick="closeSettings(true);">Save and Continue Game</button>
+            <button type="submit" onclick="closeSettings(false);">Cancel</button>
         </div>
-        <h3>Licenses</h3>
-        <div class="container">
-            <p>
-                All FontStruct fonts are licensed under the Creative Commons <a
-                    href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">License 3.0</a>.
-                <br>
-                The Minesweeper Wiki is powered by MediaWiki, which is a Wikimedia project. It uses the <a
-                    href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank">GNU General Public
-                    License</a>.
-                <br>
-                The Wikimedia minesweeper game image is licensed under the Creative Commons <a
-                    href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank">Attribution-Share
-                    Alike 4.0 International</a>. The Wikimedia Minesweeper flag image is licensed under the Creative
-                Commons Attribution-Share Alike <a href="https://creativecommons.org/licenses/by-sa/4.0/"
-                    target="_blank">4.0 International</a>,
-                <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank">3.0 Unported</a>, <a
-                    href="https://creativecommons.org/licenses/by-sa/2.5/deed.en" target="_blank">2.5 Generic</a>, <a
-                    href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" target="_blank">2.0 Generic</a> and <a
-                    href="https://creativecommons.org/licenses/by-sa/1.0/deed.en" target="_blank">1.0 Generic
-                    license</a>.
-            </p>
+
+        <br><br><br><br><br>
+        <div id="footerContainer" class="container">
+            <h3>Credits</h3>
+            <div class="container">
+                <p>
+                    This was created by Stanley Zhong. The page is written in pure HTML, JavaScript, CSS, and XML.
+                    <br>
+                    The custom fonts used are from FontStruct. Specifically, the font for the cells in the game grid is
+                    <a href="https://fontstruct.com/fontstructions/show/1501665" target="_blank">here</a> and the font
+                    for the scoreboard is based off of <a href="https://fontstruct.com/fontstructions/show/1462474"
+                        target="_blank">this font</a>. I edited the scoreboard font to have the off segments be faintly
+                    displayed, but most of the content was from the original font.
+                    <br>
+                    Most of the cell visuals (like cell colors) came from this <a
+                        href="https://commons.wikimedia.org/wiki/File:Minesweeper_Game_Most_Common_Setup.png"
+                        target="_blank">Wikimedia image</a>. The flag is a SVG based on this <a
+                        href="https://commons.wikimedia.org/wiki/File:Minesweeper_flag.svg" target="_blank">Wikimedia
+                        image</a>.
+                    <br>
+                    I also used some tricks from StackOverflow. I'm not sure if I have to post every individual thing or
+                    not, but it's better to be on the safe side I guess. The code to prevent the user from highlighting
+                    text is from <a
+                        href="https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting"
+                        target="_blank">here</a>. The code in the solver to pause execution for some time is from <a
+                        href="https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep"
+                        target="_blank">here</a>.
+                    <br>
+                    A lot of my information about Minesweeper rules, presets, and strategy came from the <a
+                        href="http://www.minesweeper.info/wiki/Main_Page" target="_blank">Minesweeper Wiki</a>. The
+                    solver's patterns are from <a href="http://www.minesweeper.info/wiki/Strategy"
+                        target="_blank">here</a>. The preset difficulties came from <a
+                        href="http://www.minesweeper.info/wiki/Minesweeper_Official_Rules" target="_blank">here</a>. The
+                    beginner preset was taken from the top-left logo, not the text.
+                </p>
+            </div>
+            <br>
+            <h3>Licenses</h3>
+            <div class="container">
+                <p>
+                    All FontStruct fonts are licensed under the Creative Commons <a
+                        href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">License 3.0</a>.
+                    <br>
+                    The Wikimedia minesweeper game image is licensed under the Creative Commons <a
+                        href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank">Attribution-Share
+                        Alike 4.0 International</a>. The Wikimedia Minesweeper flag image is licensed under the Creative
+                    Commons Attribution-Share Alike <a href="https://creativecommons.org/licenses/by-sa/4.0/"
+                        target="_blank">4.0 International</a>, <a
+                        href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank">3.0 Unported</a>,
+                    <a href="https://creativecommons.org/licenses/by-sa/2.5/deed.en" target="_blank">2.5 Generic</a>, <a
+                        href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" target="_blank">2.0 Generic</a>
+                    and <a href="https://creativecommons.org/licenses/by-sa/1.0/deed.en" target="_blank">1.0 Generic
+                        license</a>.
+                    <br>
+                    The information for StackOverflow licensing is <a
+                        href="https://stackoverflow.com/help/licensing">here</a>. Everything is under some version of a
+                    Creative Commons License.
+                    <br>
+                    The Minesweeper Wiki is powered by MediaWiki, which is a Wikimedia project. It uses the <a
+                        href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank">GNU General Public
+                        License</a>.
+                </p>
+            </div>
         </div>
     </div>
 </body>
