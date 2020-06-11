@@ -1,16 +1,21 @@
 <link rel="stylesheet" type="text/css" href="general.css">
 <link rel="stylesheet" type="text/css" href="navbar.css">
-<div id="navbar">
-    <div class="displayInlineBlock smallWindowHide">
-        <ul class="displayInlineBlock">
-            <li class="displayInlineBlock">
+<div id="navbar" class="navbar">
+    <div class="navbar smallWindowHide">
+        <ul class="navbar navbuttons-container">
+            <li class="navbar navbutton-container">
                 <a href="index.html" target="_parent">
                     <button class="navbutton">Home</button>
                 </a>
             </li>
+            <li class="navbar navbutton-container">
+                <a href="minesweeper.html" target="_parent">
+                    <button class="navbutton">Minesweeper</button>
+                </a>
+            </li>
         </ul>
     </div>
-    <div id="menuIconContainer" onclick="toggleNavDropdown(this)">
+    <div id="menuIconContainer" class="navbutton" onclick="toggleNavDropdown(this)">
         <div class="iconTopBar"></div>
         <div class="iconMiddleBar"></div>
         <div class="iconBottomBar"></div>
