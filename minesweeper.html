@@ -41,12 +41,14 @@
         <br>
 
         <div id="howToPlayContainer" class="popup-container popup">
-            <button class="collapsible-control">Summary</button>
+            <button class="collapsible-control">Summary For Experienced Players</button>
             <div class="container collapsible">
                 <p>
                     Controls for chording can be changed in Settings.
                     The speed of the Auto-Solver can also be changed in Settings.
-                    Basically check out Settings, and if you have a feature request (or a complaint), then hope that
+                    Spamming Auto Solve will NOT help.
+                    If it can't find anything, you probably have to guess or find a complex pattern to continue.
+                    Check out Settings, and if you have a feature request (or a complaint), then hope that
                     there's a working contact page or submit an issue on this project's <a
                         href="https://github.com/qpwoeirut/GamesAndGadgets/issues" target="_blank">GitHub</a>.
                 </p>
@@ -87,9 +89,16 @@
                     <br>
                     It's relatively simple, and works pretty quickly.
                     For aesthetic purposes, it pauses before opening a square or flagging a mine.
-                    This can be changed in settings.
+                    This can be changed in Settings.
                     <br>
                     The hint button performs the same thing, but stops after flagging or opening one square.
+                    <br>
+                    After Auto Solve finishes, if there's still unopened squares, you probably have to guess.
+                    Of course, there are some ways to figure out safe squares that Auto Solve doesn't use (like # of mines left),
+                    but these aren't always useful.
+                    Once Auto Solve is done, spamming it will NOT help.
+                    If clicking Auto Solve a second time does anything, then the solver is broken.
+                    In that case, open an issue on <a href="https://github.com/qpwoeirut/GamesAndGadgets/issues">GitHub</a>
                 </p>
             </div>
             <br>
@@ -115,6 +124,10 @@
                     In the future, direct email contacts may also be added.
                     For now, open an issue in the GitHub repository if you have any requests or complaints.
                 </p>
+            </div>
+            <br>
+            <div class="container">
+                Last updated June 2020
             </div>
             <br><br>
             <button type="submit" onclick="closeHowToPlay();">Close</button>

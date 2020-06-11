@@ -12,10 +12,10 @@ const UNINITIALIZED = 11;
 const SCOREBOARD_SIZE = 3;
 
 const DEFAULT_ROW = 16;
-const DEFAULT_COLS = 30;
-const DEFAULT_MINES = 99;
+const DEFAULT_COLS = 16;
+const DEFAULT_MINES = 40;
 
-const DEFAULT_PAUSE = 50;
+const DEFAULT_PAUSE = 100;
 
 var BYPASS_SIZE_CHECK = false;
 var BYPASS_MINE_CHECK = false;
