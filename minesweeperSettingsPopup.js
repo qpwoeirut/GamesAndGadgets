@@ -33,21 +33,21 @@ function openPopup() {
     solverPauseElem.max = 5000;
 
     const rowInputElem = document.getElementById("rowCount");
-    rowInputElem.value = game.rows;
+    rowInputElem.value = game.nextRows;
     rowInputElem.min = 0;
     if (BYPASS_SIZE_CHECK === false) {
         rowInputElem.max = MAX_SIZE;
     }
 
     const colInputElem = document.getElementById("colCount");
-    colInputElem.value = game.cols;
+    colInputElem.value = game.nextCols;
     colInputElem.min = 0;
     if (BYPASS_SIZE_CHECK === false) {
         colInputElem.max = MAX_SIZE;
     }
 
     const mineInputElem = document.getElementById("mineCount")
-    mineInputElem.value = game.mineCount;
+    mineInputElem.value = game.nextMineCount;
     mineInputElem.min = 0;
     if (BYPASS_SIZE_CHECK === false && BYPASS_MINE_CHECK === false) {
         mineInputElem.max = MAX_SIZE * MAX_SIZE * MAX_MINE_PERCENTAGE / 100;

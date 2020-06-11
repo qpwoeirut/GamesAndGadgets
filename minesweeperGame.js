@@ -35,9 +35,12 @@ const chCol = [1, 0, -1, 1, 1, 0, -1, -1];
 
 function startGame(game) {
     console.debug("invoked startGame with game")
-    game.rows = game.nextRows || DEFAULT_ROW;
-    game.cols = game.nextCols || DEFAULT_COLS;
-    game.mineCount = game.nextMineCount || DEFAULT_MINES;
+    game.nextRows = game.nextRows || DEFAULT_ROW;
+    game.nextCols = game.nextCols || DEFAULT_COLS;
+    game.nextMineCount = game.nextMineCount || DEFAULT_MINES;
+    game.rows = game.nextRows;
+    game.cols = game.nextCols;
+    game.mineCount = game.nextMineCount;
     game.state = NOT_STARTED;
     game.grid = createGrid(UNINITIALIZED);
     game.status = createGrid(SECRET);
