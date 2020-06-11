@@ -37,7 +37,7 @@ div#buttonsContainer {
 }
 
 div#buttonsContainer>button,
-div#popupContainer>button {
+div#popupContainer button {
     min-width: 100px;
     width: fit-content;
     padding: 5px;

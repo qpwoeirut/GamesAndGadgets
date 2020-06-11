@@ -1,3 +1,30 @@
+function prefillDifficulty(level) {
+    console.debug("invoked prefillDifficulty with level=" + level);
+
+    const rowInputElem = document.getElementById("rowCount");
+    const colInputElem = document.getElementById("colCount");
+    const mineInputElem = document.getElementById("mineCount")
+    if (level === "EASY") {
+        rowInputElem.value = "9";
+        colInputElem.value = "9";
+        mineInputElem.value = "10";
+    }
+    else if (level === "INTERMEDIATE") {
+        rowInputElem.value = "16";
+        colInputElem.value = "16";
+        mineInputElem.value = "40";
+    }
+    else if (level === "EXPERT") {
+        rowInputElem.value = "16";
+        colInputElem.value = "30";
+        mineInputElem.value = "99";
+    }
+    else {
+        console.error("prefillDifficulty called with invalid level " + level)
+    }
+}
+
+
 function openPopup() {
     document.getElementById("popupContainer").classList.add("active");
     const solverPauseElem = document.getElementById("solverPause")

@@ -53,8 +53,12 @@
             <input id="solverPause" name="solverPause" type="number" required value="50">
         </div>
         <br>
-        <h2>Grid Dimensions</h2>
+        <h2>Difficulty</h2>
         <div class="container">
+            <button onclick="prefillDifficulty('EASY');">Easy</button>
+            <button onclick="prefillDifficulty('INTERMEDIATE');">Intermediate</button>
+            <button onclick="prefillDifficulty('EXPERT');">Expert</button>
+            <br><br>
             <label for="rowCount">Number of Rows:</label>
             <input id="rowCount" name="rowCount" type="number" required value="16">
             <br><br>
