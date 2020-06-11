@@ -1,8 +1,8 @@
 <link rel="stylesheet" type="text/css" href="general.css">
 <link rel="stylesheet" type="text/css" href="navbar.css">
 <div id="navbar" class="navbar">
-    <div class="navbar smallWindowHide">
-        <ul class="navbar navbuttons-container">
+    <div class="navbar">
+        <ul id="navbuttonList" class="navbar navbuttons-container">
             <li class="navbar navbutton-container">
                 <a href="index.html" target="_parent">
                     <button class="navbutton">Home</button>
@@ -13,30 +13,21 @@
                     <button class="navbutton">Minesweeper</button>
                 </a>
             </li>
+            <li class="navbar navbutton-container">
+                <a href="snake.html" target="_parent">
+                    <button class="navbutton">Snake</button>
+                </a>
+            </li>
         </ul>
     </div>
-    <div id="menuIconContainer" class="navbutton" onclick="toggleNavDropdown(this)">
+    <div id="menuIconContainer" class="navbutton" onclick="toggleNavDropdown()">
         <div class="iconTopBar"></div>
         <div class="iconMiddleBar"></div>
         <div class="iconBottomBar"></div>
     </div>
 </div>
-<div id="navbarDropdown" class="floatRight hidden">
-    <ul class="displayInlineBlock">
-        <li class="displayTr">
-            <a href="index.html" target="_parent">
-                <button class="navbutton dropdownButton">Home</button>
-            </a>
-        </li>
-    </ul>
-</div>
 <script>
-    // Used in div#menuIconContainer
-    // Toggles visibility of the navigation dropdown
-    // Note: the dropdown will only be shown with width under 800
-    function toggleNavDropdown(elem) {
-        elem.classList.toggle("change")
-        var dropdownElem = document.getElementById("navbarDropdown")
-        dropdownElem.classList.toggle("hidden")
+    function toggleNavDropdown() {
+        document.getElementById("navbuttonList").classList.toggle("active");
     }
 </script>

@@ -1,52 +1,4 @@
-/* ====================Menu Icon Styling==================== */
-
-#navbarDropdown {
-    background-color: red;
-}
-
-#navbarDropdown button {
-    display: block;
-}
-
-#menuIconContainer {
-    cursor: pointer;
-    float: right;
-    margin-right: 0.8em;
-}
-
-.iconTopBar, .iconMiddleBar, .iconBottomBar {
-    width: 30px;
-    height: 5px;
-    background-color: white;
-    margin: 6px 0;
-    transition: 0.4s;
-}
-/* Rotate first bar */
- .change > .iconTopBar {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
-/* Fade out the second bar */
- .change > .iconMiddleBar {
-    opacity: 0;
-}
-/* Rotate last bar */
- .change > .iconBottomBar {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-    transform: rotate(45deg) translate(-8px, -8px);
-}
-/* Hide the menu icon until the window is under 600px and the navbar is gone */
-@media only screen and (min-width: 601px) {
-    #menuIconContainer, #navbarDropdown {
-        display: none;
-    }
-}
-
-
-/* ====================Menu Icon Styling End==================== */
-
-
-/* ====================Navigation Bar Styling==================== */
+/* START GENERAL NAVBAR */
 
 #navbarContainer {
     background-color: red;
@@ -54,10 +6,10 @@
 
 #navbar {
     min-height: 3.5em;
-    max-height: 3.5em;
     padding-top: 1.2em;
     padding-bottom: 1.2em;
     width: 100%;
+    background-color: red;
 }
 
 .navbar {
@@ -68,11 +20,7 @@
     min-width: 4em;
     width: fit-content;
 
-    margin-right: 3em;
-
     color: white;
-    font-size: 1.2em;
-    text-align: center;
     background-color: red;
 
     border: none;
@@ -83,8 +31,76 @@
     color: #d9d9d9;
 }
 
-.navbutton.dropdownButton {
-    font-size: 0.75em;
-    margin-bottom: 1em;
+#navbar a {
+    text-decoration: none;
 }
-/* ====================Navigation Bar Styling End==================== */
+
+/* END GENERAL NAVBAR */
+
+/* START LARGE WINDOW NAVBAR */
+@media only screen and (min-width: 600px) {
+    .navbutton {
+        margin-right: 3em;
+
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    .navbutton.dropdownButton {
+        font-size: 0.75em;
+        margin-bottom: 1em;
+    }
+
+    #menuIconContainer {
+        display: none;
+    }
+}
+/* END LARGE WINDOW NAVBAR */
+
+/* START SMALL WINDOW NAVBAR */
+@media only screen and (max-width: 601px) {
+    ul#navbuttonList {
+        display: none;
+    }
+    ul#navbuttonList.active {
+        display: inline-block;
+    }
+    ul#navbuttonList.active > li {
+        display: table-row;
+    }
+    ul#navbuttonList.active .navbutton {
+        display: block;
+        font-size: 1em;
+        text-align: left;
+        margin-top: 1em;
+    }
+
+    #menuIconContainer {
+        cursor: pointer;
+        float: right;
+        margin-right: 0.8em;
+    }
+
+    .iconTopBar, .iconMiddleBar, .iconBottomBar {
+        width: 30px;
+        height: 5px;
+        background-color: white;
+        margin: 6px 0;
+        transition: 0.4s;
+    }
+    /* Rotate first bar */
+    .change > .iconTopBar {
+        -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+        transform: rotate(-45deg) translate(-9px, 6px);
+    }
+    /* Fade out the second bar */
+    .change > .iconMiddleBar {
+        opacity: 0;
+    }
+    /* Rotate last bar */
+    .change > .iconBottomBar {
+        -webkit-transform: rotate(45deg) translate(-8px, -8px);
+        transform: rotate(45deg) translate(-8px, -8px);
+    }
+}
+/* END SMALL WINDOW NAVBAR */
