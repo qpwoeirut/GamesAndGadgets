@@ -34,14 +34,15 @@ div#gameContainer {
 div#buttonsContainer {
     width: fit-content;
     margin: auto;
+    padding-bottom: 20px;
 }
 
 div#buttonsContainer>button,
 div#popupContainer button {
-    min-width: 100px;
+    min-width: 110px;
     width: fit-content;
     padding: 5px;
-    margin: 10px 20px;
+    margin: 5px 16px;
     box-sizing: border-box;
     background-color: #c0c0c0;
 
@@ -214,6 +215,7 @@ div.game-cell.mine {
     border-width: 1px;
     border-color: #7f7f7f;
     padding: 0.1em 0em 0em 0.1em;
+    font-size: 0.95em;
 }
 
 div.game-cell.mine.clicked {
