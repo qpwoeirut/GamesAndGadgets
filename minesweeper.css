@@ -256,3 +256,9 @@ div.game-cell.value8 {
 
 /* END NUMBER COLORS */
 /* END MINESWEEPER GAME */
+
+/* START FOOTER */
+div#footerContainer h3 {
+    text-align: center;
+}
+/* END FOOTER */
