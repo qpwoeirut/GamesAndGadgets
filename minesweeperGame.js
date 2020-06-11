@@ -274,6 +274,14 @@ function revealCell(row, col, affectedCellSet) {
 }
 
 
+function handleKeyPress(event) {
+    // if (game.state !== RUNNING) {
+    //     return;
+    // }
+    console.debug("invoked handleKeyPress with event, event.code=" + event.code);
+}
+
+
 function winGame() {
     console.debug("invoked winGame");
     for (let i = 0; i < game.rows; i++) {

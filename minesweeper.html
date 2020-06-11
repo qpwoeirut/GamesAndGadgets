@@ -41,18 +41,39 @@
         <br>
 
         <div id="howToPlayContainer" class="popup-container popup">
-            <h2>Overview</h2>
+            <h2>Summary</h2>
             <div class="container">
                 <p>
-                    Try to open all the squares and stuff.
+                    Controls for chording can be changed in Settings.
+                    The speed of the Auto-Solver can also be changed in Settings.
+                    Basically check out Settings, and if you have a feature request (or a complaint), then hope that
+                    there's a working contact page.
+                </p>
+            </div>
+            <br>
+            <h2>Overview of the Game</h2>
+            <div class="container">
+                <p>
+                    In Minesweeper, there's a grid with some hidden mines in it.
+                    The player's job is to open up all the squares, except for the mines.
+                    To do this, the player makes logical deductions from the squares that are already opened.
+                    Every open square has a number from 1 to 8 (or is blank, for 0).
+                    This number tells the player how many adjacent squares are mines.
                 </p>
             </div>
             <br>
             <h2>Controls</h2>
             <div class="container">
                 <p>
-                    You're gonna have to figure it out for now, since this section isn't finished. Mess around and see
-                    what happens!
+                    Left click to open a square.
+                    <br>
+                    Right click to mark a square as a mine, or "flag" it.
+                    Flagged squares can't be opened until the flag is removed by right-clicking it again.
+                    <br>
+                    To speed up solving, a square that has all of its adjacent mines flagged can be "chorded", which
+                    opens up the remaining adjacent squares.
+                    By default, both middle click and double click can be used to chord.
+                    This can be changed in Settings.
                 </p>
             </div>
             <button type="submit" onclick="closeHowToPlay();">Close</button>
@@ -166,6 +187,8 @@
 
     var game = new Object();
     startGame(game);
+
+    window.onkeypress = handleKeyPress;
 </script>
 
 </html>

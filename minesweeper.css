@@ -121,10 +121,11 @@ div.popup.active {
     right: 0;
     bottom: 0;
     left: 0;
-    min-height: fit-content;
+
     height: fit-content;
+    min-height: fit-content;
     width: fit-content;
-    min-width: fit-content;
+    max-width: 80%;
     padding: 2%;
 
     background-color: #d0d0d0;
