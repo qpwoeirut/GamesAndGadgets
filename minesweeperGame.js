@@ -29,8 +29,14 @@ const BYPASS_MINE_CHECK_STRING = "To disable mine count checks, type BYPASS_MINE
 var USE_DOUBLE_CLICK = true;
 var USE_MIDDLE_CLICK = true;
 
-const chRow = [1, 1, 1, 0, -1, -1, -1, 0];
-const chCol = [1, 0, -1, 1, 1, 0, -1, -1];
+const chRow = [
+    1, 1, 1, 0, -1, -1, -1, 0, // 1 away
+    2, 2, 2, 2, 2, 1, 0, -1, -2, -2, -2, -2, -2, -1, 0, 1 // 2 away
+];
+const chCol = [
+    1, 0, -1, 1, 1, 0, -1, -1, // 1 away
+    -2, -1, 0, 1, 2, 2, 2, 2, 2, 1, 0, -1, -2, -2, -2, -2 // 2 away
+];
 
 
 function startGame(game) {
@@ -177,7 +183,7 @@ function handleCellClick(event) {
 
 
 // return coords of all affected cells, in Id format (for Set usage)
-function executeClick(row, col, shouldInitialize=true) {
+function executeClick(row, col, shouldInitialize = true) {
     let affected = new Set();
     console.debug("invoking executeClick with row=" + row + ", col=" + col);
     if (game.state === DONE) {
@@ -293,7 +299,7 @@ function loseGame(mineRow, mineCol) {
                 const mineElem = document.getElementById(toId(i, j));
                 mineElem.classList.add("mine");
                 mineElem.classList.remove("secret");
-                mineElem.textContent = '*';  // mine font will show mine
+                mineElem.textContent = '*'; // mine font will show mine
             }
             if (game.status[i][j] === FLAG && game.grid[i][j] !== MINE) {
                 const flagElem = document.getElementById(toId(i, j));

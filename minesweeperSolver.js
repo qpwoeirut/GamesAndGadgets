@@ -121,10 +121,9 @@ async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
 // based on http://www.minesweeper.info/wiki/Strategy
-async function patternSolver() {
-    console.debug("invoking patternSolver");
+async function patternSolver(depth=1) {
+    console.debug("invoking patternSolver with depth=" + depth);
     let success = false;
     for (let row = 0; row < game.rows; row++) {
         for (let col = 0; col < game.cols; col++) {
@@ -134,7 +133,9 @@ async function patternSolver() {
             let neighbors = allStatusNeighbors(row, col, SECRET);
             const minesLeft = game.grid[row][col] - statusNeighborCount(row, col, FLAG);
             if (neighbors.size === 0) continue;
-            for (let i = 0; i < 8; i++) {
+            // if depth=1, 0...7
+            // if depth=2, 8...24
+            for (let i = 8 * (depth - 1); i < 8 * (depth - 1) + (8 * depth); i++) {
                 const otherRow = row + chRow[i];
                 const otherCol = col + chCol[i];
                 if (!inBounds(otherRow, otherCol) || game.status[otherRow][otherCol] !== SHOWN) {
@@ -162,6 +163,11 @@ async function patternSolver() {
                 }
             }
         }
+    }
+
+    if (depth === 1) {
+        const secondLevel = await patternSolver(2);
+        success = success || secondLevel;
     }
 
     return new Promise(f => {
