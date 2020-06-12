@@ -19,13 +19,8 @@
     <div id="pageContainer">
         <h1 class="textCenter">John Conway's Game of Life</h1>
         <div id="gameContainer" class="center">
-            <canvas id="lifeCanvas">
-
-            </canvas>
-            <br><br>
+            <br>
             <div id="inputContainer" class="center">
-                <h2 class="center">Settings</h2>
-                <br>
                 <div class="center">
                     <label for="speedInput">Cycles per Second</label>
                     <input id="speedInput" name="speedInput" type="number" min="1" max="200" value="10">
@@ -40,6 +35,10 @@
                     <button id="updateButton" class="clickable" onclick="updateSettings();">Update Settings</button>
                 </div>
             </div>
+            <br>
+            <canvas id="lifeCanvas">
+
+            </canvas>
         </div>
     </div>
 
