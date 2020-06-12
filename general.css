@@ -31,6 +31,10 @@ body {
     margin-right: 2em;
 }
 
+div#footerContainer h3 {
+    text-align: center;
+}
+
 @media only screen and (max-width: 600px) {
     .smallWindowHide {
         display: none !important;

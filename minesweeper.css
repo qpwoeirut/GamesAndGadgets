@@ -95,6 +95,7 @@ div#minesBoard {
 div#timeBoard {
     float: right;
 }
+
 /* END SCOREBOARD */
 
 
@@ -177,15 +178,18 @@ div.popup-container .collapsible.collapsible-show {
 }
 
 button.collapsible-control:before {
-    content: '\02795'; /* Unicode for plus sign (+) */
+    content: '\02795';
+    /* Unicode for plus sign (+) */
     font-size: 0.8em;
     color: black;
     margin-right: 1em;
 }
 
 button.collapsible-control.collapsible-open:before {
-    content: '\2796'; /* Unicode for minus sign (-) */
+    content: '\2796';
+    /* Unicode for minus sign (-) */
 }
+
 /* END SETTINGS POPUP */
 
 
@@ -264,6 +268,7 @@ div.game-cell.mine {
 div.game-cell.mine.clicked {
     background-color: red;
 }
+
 /* END SPECIFIC CELL TYPES */
 
 /* START NUMBER COLORS */
@@ -301,9 +306,3 @@ div.game-cell.value8 {
 
 /* END NUMBER COLORS */
 /* END MINESWEEPER GAME */
-
-/* START FOOTER */
-div#footerContainer h3 {
-    text-align: center;
-}
-/* END FOOTER */

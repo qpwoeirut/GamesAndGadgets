@@ -1,39 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Conway's Game of Life</title>
 
-        <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<head>
+    <title>Conway's Game of Life</title>
 
-        <script src="logger.js"></script>
-        <script src="grid.js"></script>
-        <script src="life.js"></script>
-        <link rel="stylesheet" href="life.css">
-    </head>
-    <body>
-        <div id="navbarContainer"></div>
-        <div id="pageContainer">
-            <h1 class="textCenter">John Conway's Game of Life</h1>
-            <div id="gameContainer" class="center">
-                <canvas id="lifeCanvas">
+    <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-                </canvas>
-                <br>
-                <div id="inputContainer">
-                    <button onclick="startGame();">Start</button>
-                    <button onclick="stopGame();">Stop</button>
-                    <label for="speedInput">Cycles per Second</label>
-                    <input id="speedInput" name="speedInput" type="number" min="1" max="200" value="10">
-                </div>
+    <script src="logger.js"></script>
+    <script src="grid.js"></script>
+    <script src="life.js"></script>
+    <link rel="stylesheet" href="life.css">
+</head>
+
+<body>
+    <div id="navbarContainer"></div>
+    <div id="pageContainer">
+        <h1 class="textCenter">John Conway's Game of Life</h1>
+        <div id="gameContainer" class="center">
+            <canvas id="lifeCanvas">
+
+            </canvas>
+            <br>
+            <div id="inputContainer">
+                <button onclick="startGame();">Start</button>
+                <button onclick="stopGame();">Stop</button>
+                <label for="speedInput">Cycles per Second</label>
+                <input id="speedInput" name="speedInput" type="number" min="1" max="200" value="10">
             </div>
         </div>
-    </body>
-    <script>
-        $("#navbarContainer").load("navbar.html");
+    </div>
+    <div id="footerContainer">
+        <div class="container">
+            <h3>Credits</h3>
+            <div class="container">
+                All of my information came from the Wikipedia Page for <a
+                    href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>.
+                <br>
+                Also, thanks to John Conway for making an interesting game that I could recreate in about a day or so.
+                Rest in peace.
+                <br><br>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $("#navbarContainer").load("navbar.html");
 
-        VERBOSITY = 10;
-        var game = new Object();
-        newGame(game);
-    </script>
+    VERBOSITY = 10;
+    var game = new Object();
+    newGame(game);
+</script>
+
 </html>
