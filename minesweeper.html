@@ -15,6 +15,7 @@
     <script src="minesweeperPopups.js"></script>
     <script src="minesweeperGame.js"></script>
     <script src="minesweeperSolver.js"></script>
+    <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="minesweeper.css">
 </head>
 
@@ -24,12 +25,12 @@
         <h1 class="textCenter">Minesweeper</h1>
         <p class="center">Make sure you check out Settings to see what you can change!</p>
         <br>
-        <div id="buttonsContainer" class="button-container container">
-            <button id="howToButton" onclick="openHowToPlay();">How To Play</button>
-            <button id="settingButton" onclick="openSettings();">Settings</button>
-            <button id="newGameButton" onclick="startGame(game);">New Game</button>
-            <button id="settingButton" onclick="solve(false);">Auto Solve</button>
-            <button id="hintButton" onclick="solve(true);">Hint</button>
+        <div id="clickableContainer" class="button-container container">
+            <button id="howToButton" class="clickable" onclick="openHowToPlay();">How To Play</button>
+            <button id="settingButton" class="clickable" onclick="openSettings();">Settings</button>
+            <button id="newGameButton" class="clickable" onclick="startGame(game);">New Game</button>
+            <button id="settingButton" class="clickable" onclick="solve(false);">Auto Solve</button>
+            <button id="hintButton" class="clickable" onclick="solve(true);">Hint</button>
         </div>
         <div id="gameContainer" class="center textCenter">
             <div id="scoreContainer" class="clearfix">
@@ -133,7 +134,7 @@
                 Last updated June 2020
             </div>
             <br><br>
-            <button type="submit" onclick="closeHowToPlay();">Close</button>
+            <button class="clickable" type="submit" onclick="closeHowToPlay();">Close</button>
         </div>
 
         <div id="settingsContainer" class="popup-container popup">
@@ -154,9 +155,9 @@
             <br>
             <h3>Difficulty</h3>
             <div class="container">
-                <button onclick="prefillDifficulty('EASY');">Easy</button>
-                <button onclick="prefillDifficulty('INTERMEDIATE');">Intermediate</button>
-                <button onclick="prefillDifficulty('EXPERT');">Expert</button>
+                <button class="clickable" onclick="prefillDifficulty('EASY');">Easy</button>
+                <button class="clickable" onclick="prefillDifficulty('INTERMEDIATE');">Intermediate</button>
+                <button class="clickable" onclick="prefillDifficulty('EXPERT');">Expert</button>
                 <br><br>
                 <label for="rowCount">Number of Rows:</label>
                 <input id="rowCount" name="rowCount" type="number" required value="16">
@@ -169,9 +170,9 @@
             </div>
 
             <br><br>
-            <button type="submit" onclick="closeSettings(true);startGame(game);">Save and Start New Game</button>
-            <button type="submit" onclick="closeSettings(true);">Save and Continue Game</button>
-            <button type="submit" onclick="closeSettings(false);">Cancel</button>
+            <button class="clickable" type="submit" onclick="closeSettings(true);startGame(game);">Save and Start New Game</button>
+            <button class="clickable" type="submit" onclick="closeSettings(true);">Save and Continue Game</button>
+            <button class="clickable" type="submit" onclick="closeSettings(false);">Cancel</button>
         </div>
 
         <br><br><br><br><br>

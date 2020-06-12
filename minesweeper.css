@@ -30,39 +30,6 @@ div#gameContainer {
 }
 
 
-/* START BUTTONS */
-div#buttonsContainer {
-    width: fit-content;
-    margin: auto;
-    padding-bottom: 20px;
-}
-
-div#buttonsContainer>button,
-div.popup-container button:not(.collapsible-control) {
-    min-width: 110px;
-    width: fit-content;
-    padding: 5px;
-    margin: 5px 16px;
-    box-sizing: border-box;
-    background-color: #c0c0c0;
-
-    border-style: solid;
-    border-width: 3px;
-    border-color: #ffffff #7a7a7a #7a7a7a #ffffff;
-
-    font-size: medium;
-}
-
-div#buttonsContainer>button:active,
-div.popup-container button:active:not(.collapsible-control) {
-    border-style: solid;
-    border-width: 3px;
-    border-color: #7a7a7a #ffffff #ffffff #7a7a7a;
-}
-
-/* END BUTTONS */
-
-
 /* START SCOREBOARD */
 div#scoreContainer {
     border-style: solid;
