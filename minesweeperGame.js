@@ -15,7 +15,7 @@ const DEFAULT_ROW = 16;
 const DEFAULT_COLS = 16;
 const DEFAULT_MINES = 40;
 
-const DEFAULT_PAUSE = 100;
+const DEFAULT_PAUSE = 50;
 
 var BYPASS_SIZE_CHECK = false;
 var BYPASS_MINE_CHECK = false;
