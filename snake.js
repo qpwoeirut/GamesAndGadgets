@@ -19,7 +19,7 @@ var apple = {
 };
 var environment = {
     score: 0,
-    play: true,
+    play: false,
     hasPaused: false,
     difficulty: 1
 };
@@ -77,11 +77,11 @@ function loop() {
         snake.cells.pop();
     }
 
-    // Draw apple as red and snake as white
+    // Draw apple as red and snake as green
     context.fillStyle = 'red';
     context.fillRect(apple.x, apple.y, grid-1, grid-1);
 
-    context.fillStyle = 'white';
+    context.fillStyle = 'lightgreen';
     snake.cells.forEach(function(cell, index) {
         context.fillRect(cell.x, cell.y, grid-1, grid-1);  
 
@@ -106,7 +106,11 @@ function loop() {
                 environment.score = 0;
                 // Reset the apple
                 apple.x = getRandomInt(0, 25) * grid;
-                apple.y = getRandomInt(0, 25) * grid;
+                apple.y = getRandomInt(0, 25) * grid; 
+                // Stop playing the game
+                environment.play = false;
+                context.fillStyle = 'red';
+                context.fillRect(cell.x, cell.y, grid-1, grid-1);  
             }
         }
     });
@@ -116,6 +120,8 @@ function loop() {
 
 // Snake movement controls (arrow keys)
 document.addEventListener('keydown', function(e) {
+    e.preventDefault()
+    
     if (e.which === 37 && snake.speedX === 0) {
         snake.speedX = -grid;
         snake.speedY = 0;
