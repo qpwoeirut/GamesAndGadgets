@@ -39,6 +39,18 @@ function handleRunClick() {
 function startGame() {
     logMessage("invoked startGame");
 
+    updateSettings();
+    game.state = ON;
+}
+
+function stopGame() {
+    logMessage("invoked stopGame");
+
+    game.state = OFF;
+    clearInterval(game.runner);
+}
+
+function updateSettings() {
     const speedInput = parseInt(document.getElementById("speedInput").value);
     if (isNaN(speedInput) || speedInput < 0) {
         alert("Speed Input is invalid");
@@ -49,18 +61,12 @@ function startGame() {
         return;
     }
     game.speed = speedInput;
-    game.state = ON;
+    
+    clearInterval(game.runner);
     game.runner = setInterval(function() {
         updateGrid();
         renderGrid();
     }, 1000/game.speed);
-}
-
-function stopGame() {
-    logMessage("invoked stopGame");
-
-    game.state = OFF;
-    clearInterval(game.runner);
 }
 
 function setSize(size) {

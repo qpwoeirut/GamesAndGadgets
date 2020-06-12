@@ -4,12 +4,10 @@ canvas#lifeCanvas {
     border-width: 1px;
 
     margin: auto;
-    height: 501px;
-    width: 1201px;
 
     background-image: url("lifeGrid.svg");
 }
 
-button#runButton {
+div#inputContainer button {
     font-size: large;
 }
