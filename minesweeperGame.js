@@ -40,7 +40,7 @@ const chCol = [
 
 
 function startGame(game) {
-    console.debug("invoked startGame with game")
+    logMessage("invoked startGame with game")
     game.nextRows = game.nextRows || DEFAULT_ROW;
     game.nextCols = game.nextCols || DEFAULT_COLS;
     game.nextMineCount = game.nextMineCount || DEFAULT_MINES;
@@ -69,7 +69,7 @@ function startGame(game) {
 
     renderGrid();
 
-    console.log("Created new game with " + game.rows + " by " + game.cols + " grid and " + game.mineCount + " mines");
+    logMessage("Created new game with " + game.rows + " by " + game.cols + " grid and " + game.mineCount + " mines", LOG_LEVEL);
 }
 
 
@@ -78,7 +78,7 @@ function setBoard(boardId, value, len) {
 }
 
 function renderGrid() {
-    console.debug("invoking renderGrid");
+    logMessage("invoking renderGrid");
     let container = document.getElementById("minesweeperContainer");
     while (container.firstChild) { // clear any previous game
         container.removeChild(container.lastChild);
@@ -103,7 +103,7 @@ function renderGrid() {
 
 
 function handleRightClick(event) {
-    console.debug("invoking handleRightClick with event");
+    logMessage("invoking handleRightClick with event");
     event.preventDefault(); // prevent menu from appearing
     const target = event.currentTarget;
     const row = fromId(target.id)[0];
@@ -113,7 +113,7 @@ function handleRightClick(event) {
 
 
 function addFlag(row, col) {
-    console.debug("invoking addFlag with row=" + row + ", col=" + col);
+    logMessage("invoking addFlag with row=" + row + ", col=" + col);
     if (game.state === RUNNING) {
         const target = document.getElementById(toId(row, col));
         if (game.status[row][col] === SECRET) {
@@ -138,7 +138,6 @@ function addFlag(row, col) {
 
 
 function handleCellAuxClick(event) {
-    console.log(event);
     if (game.state !== RUNNING) {
         return
     }
@@ -151,7 +150,7 @@ function handleCellAuxClick(event) {
     if (event.which === 2 && USE_MIDDLE_CLICK === false) {
         return;
     }
-    console.debug("invoking handleCellAuxClick with event");
+    logMessage("invoking handleCellAuxClick with event");
     const target = event.currentTarget;
     const row = fromId(target.id)[0];
     const col = fromId(target.id)[1];
@@ -174,7 +173,7 @@ function handleCellClick(event) {
     if (game.state === DONE) {
         return;
     }
-    console.debug("invoking handleCellClick with event");
+    logMessage("invoking handleCellClick with event");
     const target = event.currentTarget;
     const row = fromId(target.id)[0];
     const col = fromId(target.id)[1];
@@ -185,7 +184,7 @@ function handleCellClick(event) {
 // return coords of all affected cells, in Id format (for Set usage)
 function executeClick(row, col, shouldInitialize = true) {
     let affected = new Set();
-    console.debug("invoking executeClick with row=" + row + ", col=" + col);
+    logMessage("invoking executeClick with row=" + row + ", col=" + col);
     if (game.state === DONE) {
         return affected;
     }
@@ -215,7 +214,7 @@ function executeClick(row, col, shouldInitialize = true) {
 
 
 function initializeGrid(safeRow, safeCol) {
-    console.debug("invoking initializeGrid with safeRow=" + safeRow + ', safeCol=' + safeCol + ", game.mineCount=" + game.mineCount);
+    logMessage("invoking initializeGrid with safeRow=" + safeRow + ', safeCol=' + safeCol + ", game.mineCount=" + game.mineCount);
 
     let minesSet = 0;
     while (minesSet < game.mineCount) {
@@ -251,7 +250,7 @@ function initializeGrid(safeRow, safeCol) {
 
 function revealCell(row, col, affectedCellSet) {
     if (game.state !== RUNNING || !inBounds(row, col) || game.status[row][col] !== SECRET) return;
-    console.debug("invoked revealCell with row=" + row + ", col=" + col + ", affectedCellSet");
+    logMessage("invoked revealCell with row=" + row + ", col=" + col + ", affectedCellSet");
     game.status[row][col] = SHOWN;
 
     let curCell = document.getElementById(row + '-' + col)
@@ -278,12 +277,12 @@ function handleKeyPress(event) {
     // if (game.state !== RUNNING) {
     //     return;
     // }
-    console.debug("invoked handleKeyPress with event, event.code=" + event.code);
+    logMessage("invoked handleKeyPress with event, event.code=" + event.code);
 }
 
 
 function winGame() {
-    console.debug("invoked winGame");
+    logMessage("invoked winGame");
     for (let i = 0; i < game.rows; i++) {
         for (let j = 0; j < game.cols; j++) {
             if (game.status[i][j] === SECRET) {
@@ -292,7 +291,7 @@ function winGame() {
         }
     }
     cleanupGame();
-    console.log("You won!");
+    logMessage("You won!", LOG_LEVEL);
     setTimeout(function () {
         alert("You won!");
     }, 400);
@@ -300,7 +299,7 @@ function winGame() {
 
 
 function loseGame(mineRow, mineCol) {
-    console.debug("invoked loseGame with mineRow=" + mineRow + ", mineCol=" + mineCol);
+    logMessage("invoked loseGame with mineRow=" + mineRow + ", mineCol=" + mineCol);
     for (let i = 0; i < game.rows; i++) {
         for (let j = 0; j < game.cols; j++) {
             if (game.grid[i][j] === MINE && game.status[i][j] !== FLAG) {
@@ -317,7 +316,7 @@ function loseGame(mineRow, mineCol) {
     }
     cleanupGame();
     document.getElementById(toId(mineRow, mineCol)).classList.add("clicked");
-    console.log("You lost!");
+    logMessage("You lost!", LOG_LEVEL);
     setTimeout(function () {
         alert("You lost!");
     }, 400);
@@ -325,7 +324,7 @@ function loseGame(mineRow, mineCol) {
 
 
 function cleanupGame() {
-    console.debug("invoked cleanupGame");
+    logMessage("invoked cleanupGame");
     document.getElementById("minesweeperContainer").classList.remove("active-game");
     clearInterval(game.timer);
     game.state = DONE;

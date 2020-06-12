@@ -9,7 +9,7 @@ function closeHowToPlay() {
 
 
 function prefillDifficulty(level) {
-    console.debug("invoked prefillDifficulty with level=" + level);
+    logMessage("invoked prefillDifficulty with level=" + level);
 
     const rowInputElem = document.getElementById("rowCount");
     const colInputElem = document.getElementById("colCount");
@@ -66,7 +66,7 @@ function openSettings() {
 
 
 function closeSettings(saveData) {
-    console.debug("invoking closeSettings with saveData=" + saveData)
+    logMessage("invoking closeSettings with saveData=" + saveData)
     if (saveData === false) {
         document.getElementById("solverPause").value = game.solver.pauseMSec;
         document.getElementById("rowCount").value = game.rows;
@@ -147,5 +147,5 @@ function closeSettings(saveData) {
     game.nextCols = colInput;
     game.nextMineCount = mineInput;
     document.getElementById("settingsContainer").classList.remove("active");
-    console.debug("finished closeSettings with game.nextRows=" + game.nextRows + ", game.nextCols=" + game.nextCols + ", game.nextMineCount=" + game.nextMineCount);
+    logMessage("finished closeSettings with game.nextRows=" + game.nextRows + ", game.nextCols=" + game.nextCols + ", game.nextMineCount=" + game.nextMineCount);
 }

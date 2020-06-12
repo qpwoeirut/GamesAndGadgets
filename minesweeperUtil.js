@@ -60,7 +60,7 @@ function allStatusNeighbors(row, col, val) {
 
 
 function createGrid(fillValue) {
-    console.debug("invoking createGrid with fillValue=" + fillValue);
+    logMessage("invoking createGrid with fillValue=" + fillValue);
     let grid = [];
     for (let i = 0; i < game.rows; i++) {
         grid.push([]);

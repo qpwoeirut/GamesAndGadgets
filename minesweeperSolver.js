@@ -15,7 +15,7 @@ async function solve(hint=false) {
         return;
     }
     HINT = hint;
-    console.log("Auto-Solver started");
+    logMessage("Auto-Solver started", 6);
     SOLVER_ON = true;
     game.solver = makeSolver();
     if (game.state === NOT_STARTED) {
@@ -64,7 +64,7 @@ function hasSecretNeighbors(row, col) {
 
 
 async function makeMove(row, col) {
-    console.debug("invoked makeMove with row=" + row + ", col=" + col);
+    logMessage("invoked makeMove with row=" + row + ", col=" + col);
     let success = false;
     if (statusNeighborCount(row, col, FLAG) === game.grid[row][col]) {
         success = true;
@@ -123,7 +123,7 @@ async function sleep(ms) {
 
 // based on http://www.minesweeper.info/wiki/Strategy
 async function patternSolver(depth=1) {
-    console.debug("invoking patternSolver with depth=" + depth);
+    logMessage("invoking patternSolver with depth=" + depth);
     let success = false;
     for (let row = 0; row < game.rows; row++) {
         for (let col = 0; col < game.cols; col++) {
