@@ -23,6 +23,19 @@ function newGame(game) {
     canvas.style.backgroundSize = game.cellSize + "px";
 }
 
+function handleClick(event) {
+    logMessage("invoked handleClick with event");
+    const row = Math.floor(event.offsetY / game.cellSize);
+    const col = Math.floor(event.offsetX / game.cellSize);
+    logMessage("handled click at row=" + row + ", col=" + col);
+    if (!inBounds(row, col)) {
+        return;
+    }
+
+    game.grid[row][col] = !game.grid[row][col];
+    renderGrid();
+}
+
 function handleRunClick() {
     if (game.state === OFF) {
         startGame();

@@ -21,23 +21,6 @@ function gridNeighborCount(row, col, value) {
     return count;
 }
 
-function handleClick(event) {
-    if (game.state === ON) {
-        return;
-    }
-    logMessage("invoked handleClick with event");
-    const row = Math.floor(event.offsetY / game.cellSize);
-    const col = Math.floor(event.offsetX / game.cellSize);
-    logMessage("handled click at row=" + row + ", col=" + col);
-    if (!inBounds(row, col)) {
-        logMessage("click out of bounds");
-        return;
-    }
-
-    game.grid[row][col] = !game.grid[row][col];
-    renderGrid();
-}
-
 function createGrid(fillValue) {
     logMessage("invoking createGrid with fillValue=" + fillValue);
     let grid = [];
