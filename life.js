@@ -36,10 +36,11 @@ function handleRunClick() {
 function startGame() {
     logMessage("invoked startGame");
 
-    const runButton = document.getElementById("runButton");
-    runButton.textContent = "Stop";
-    updateSettings();
-    game.state = ON;
+    if (updateSettings() === true) {
+        const runButton = document.getElementById("runButton");
+        runButton.textContent = "Stop";
+        game.state = ON;
+    }
 }
 
 function stopGame() {
@@ -55,19 +56,31 @@ function updateSettings() {
     const speedInput = parseInt(document.getElementById("speedInput").value);
     if (isNaN(speedInput) || speedInput < 1) {
         alert("Speed Input is invalid");
-        return;
+        return false;
     }
     if (speedInput > 200) {
         alert("Speed Input must be at most 200. (Values over 200 probably won't change anything anyway).");
-        return;
+        return false;
+    }
+
+    const cellSizeInput = parseInt(document.getElementById("cellSizeInput").value);
+    if (isNaN(cellSizeInput) || cellSizeInput < 1) {
+        alert("Cell Size Input is invalid");
+        return false;
+    }
+    if (cellSizeInput > 100) {
+        alert("Cell Size Input must be at most 100.");
+        return false;
     }
     game.speed = speedInput;
+    setCellSize(cellSizeInput);
     
     clearInterval(game.runner);
     game.runner = setInterval(function() {
         updateGrid();
         renderGrid();
     }, 1000/game.speed);
+    return true;
 }
 
 function clearGrid() {
@@ -76,7 +89,7 @@ function clearGrid() {
     renderGrid();
 }
 
-function setSize(size) {
+function setCellSize(size) {
     game.cellSize = size;
     game.visibleRows = Math.ceil(CANVAS_HEIGHT / game.cellSize);
     game.visibleCols = Math.ceil(CANVAS_WIDTH / game.cellSize);
