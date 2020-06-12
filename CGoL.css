@@ -1,0 +1,12 @@
+canvas#lifeCanvas {
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+
+    margin: auto;
+    height: 501px;
+    width: 1201px;
+
+    background-image: url("lifeGrid.svg");
+    background-size: 10px;
+}

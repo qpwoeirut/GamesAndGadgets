@@ -5,12 +5,27 @@
 
         <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script src="logger.js"></script>
+        <script src="CGoL.js"></script>
+        <link rel="stylesheet" href="CGoL.css">
     </head>
     <body>
         <div id="navbarContainer"></div>
-        <div></div>
+        <div id="pageContainer">
+            <h1 class="textCenter">John Conway's Game of Life</h1>
+            <div id="gameContainer" class="center">
+                <canvas id="lifeCanvas">
+
+                </canvas>
+            </div>
+        </div>
     </body>
     <script>
         $("#navbarContainer").load("navbar.html");
+
+        VERBOSITY = 10;
+        var game = new Object();
+        startGame(game);
     </script>
 </html>
