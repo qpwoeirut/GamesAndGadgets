@@ -1,5 +1,5 @@
 let VERBOSITY = 5;
-let LOGGER_KEYWORDS = new Map([["invoking", 8]]);
+let LOGGER_KEYWORDS = new Map([["invoking", 8], ["invoked", 8]]);
 const DEBUG_LEVEL = 10;
 const LOG_LEVEL = 5;
 
