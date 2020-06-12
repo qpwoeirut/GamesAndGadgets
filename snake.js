@@ -4,6 +4,7 @@ var context = canvas.getContext('2d');
 var grid = 16;
 var count = 0;
 var countLimit = 6;
+var turning = false;
 
 var snake = {
     x: 160,
@@ -130,7 +131,7 @@ document.addEventListener('keydown', function(e) {
         snake.speedY = -grid;
         snake.speedX = 0;
     }
-    else if (e.which === 39 && snake.speedX === 0) {
+    else if (e.which === 39 && snake.speedX === 0 ) {
         snake.speedX = grid;
         snake.speedY = 0;
     }
@@ -145,7 +146,7 @@ document.addEventListener('keydown', function(e) {
     else if (e.which === 80 && environment.play === false) {
         environment.play = true;
         requestAnimationFrame(loop);
-        // Change the speed of the snake (lower the number the faster the speed)
+        // Change the speed of the snake (the lower the number the faster the speed)
         environment.hasPaused = true;
         if (environment.difficulty === 0) {
             countLimit = 5;

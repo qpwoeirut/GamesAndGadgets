@@ -11,6 +11,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: white;
         }
 
         canvas {
@@ -32,6 +33,7 @@
         <div id="gameContainer">
             <canvas style="position: relative; left: 100px;" width="400" height="400" id="Snake"></canvas>
             <h2 style="position: relative; top: 220px; right: 305px;">Score:  <span id="snakeScore"></span></h2>
+            <p style="position: relative; top: 250px;right: 370px;">P: play and pause</p>
             <button style="position: relative; top: 220px; right: 275px; height: 20px; width: 60;" onClick="environment.difficulty = 0;">Easy</button>
             <button style="position: relative; top: 220px; right: 270px; height: 20px; width: 60;" onClick="environment.difficulty = 1;">Normal</button>
             <button style="position: relative; top: 220px; right: 265px; height: 20px; width: 60;" onClick="environment.difficulty = 2;">Hard</button>
