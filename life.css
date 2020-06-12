@@ -8,5 +8,4 @@ canvas#lifeCanvas {
     width: 1201px;
 
     background-image: url("lifeGrid.svg");
-    background-size: 10px;
 }

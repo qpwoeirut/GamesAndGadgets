@@ -29,14 +29,6 @@ const BYPASS_MINE_CHECK_STRING = "To disable mine count checks, type BYPASS_MINE
 var USE_DOUBLE_CLICK = true;
 var USE_MIDDLE_CLICK = true;
 
-const chRow = [
-    1, 1, 1, 0, -1, -1, -1, 0, // 1 away
-    2, 2, 2, 2, 2, 1, 0, -1, -2, -2, -2, -2, -2, -1, 0, 1 // 2 away
-];
-const chCol = [
-    1, 0, -1, 1, 1, 0, -1, -1, // 1 away
-    -2, -1, 0, 1, 2, 2, 2, 2, 2, 1, 0, -1, -2, -2, -2, -2 // 2 away
-];
 
 
 function startGame(game) {
