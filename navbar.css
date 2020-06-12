@@ -12,7 +12,7 @@
     background-color: red;
 }
 
-.navbar {
+div#largeNavbar, ul#navbuttonList, ul#navbuttonList > li {
     display: inline-block;
 }
 
