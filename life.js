@@ -94,7 +94,7 @@ function updateGrid() {
     if (game.state === OFF) {
         return;
     }
-    console.debug("invoked updateGrid");
+    logMessage("invoked updateGrid");
     let nextGrid = createGrid(false);
     for (let i=0; i<game.grid.length; i++) {
         for (let j=0; j<game.grid[i].length; j++) {
