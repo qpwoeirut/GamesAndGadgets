@@ -27,8 +27,17 @@ function newGame(game) {
 function startGame() {
     logMessage("invoked startGame");
 
+    const speedInput = parseInt(document.getElementById("speedInput").value);
+    if (isNaN(speedInput) || speedInput < 0) {
+        alert("Speed Input is invalid");
+        return;
+    }
+    if (speedInput > 200) {
+        alert("Speed Input must be at most 200. (Values over 200 probably won't change anything anyway).");
+        return;
+    }
+    game.speed = speedInput;
     game.state = ON;
-    game.speed = 5;
     game.runner = setInterval(function() {
         updateGrid();
         renderGrid();
@@ -46,6 +55,8 @@ function setSize(size) {
     game.cellSize = size;
     game.visibleRows = Math.ceil(CANVAS_HEIGHT / game.cellSize);
     game.visibleCols = Math.ceil(CANVAS_WIDTH / game.cellSize);
+    const canvas = document.getElementById("lifeCanvas");
+    canvas.style.backgroundSize = game.cellSize + "px";
     renderGrid();
 }
 
@@ -54,8 +65,8 @@ function renderGrid() {
 
     const canvas = document.getElementById("lifeCanvas");
     const context = canvas.getContext("2d");
-    context.fillStyle = "black";
     context.clearRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "black";
     for (let i=0; i<game.rows; i++) {
         for (let j=0; j<game.cols; j++) {
             if (game.grid[i][j]) {
