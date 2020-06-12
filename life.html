@@ -10,6 +10,7 @@
     <script src="logger.js"></script>
     <script src="grid.js"></script>
     <script src="life.js"></script>
+    <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="life.css">
 </head>
 
@@ -23,12 +24,15 @@
             </canvas>
             <br><br>
             <div id="inputContainer" class="center">
-                <label for="speedInput">Cycles per Second</label>
-                <input id="speedInput" name="speedInput" type="number" min="1" max="200" value="10">
-                <br><br>
                 <div class="center">
-                    <button id="runButton" onclick="handleRunClick();">Start</button>
-                    <button id="updateButton" onclick="updateSettings();">Update Settings</button>
+                    <label for="speedInput">Cycles per Second</label>
+                    <input id="speedInput" name="speedInput" type="number" min="1" max="200" value="10">
+                </div>
+                <br>
+                <div class="center">
+                    <button class="clickable" onclick="clearGrid()">Clear Grid</button>
+                    <button id="runButton" class="clickable" onclick="handleRunClick();">Start</button>
+                    <button id="updateButton" class="clickable" onclick="updateSettings();">Update Settings</button>
                 </div>
             </div>
         </div>

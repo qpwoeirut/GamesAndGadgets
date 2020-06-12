@@ -25,13 +25,10 @@ function newGame(game) {
 }
 
 function handleRunClick() {
-    const runButton = document.getElementById("runButton");
     if (game.state === OFF) {
-        runButton.textContent = "Stop";
         startGame();
     }
     else {
-        runButton.textContent = "Start"
         stopGame();
     }
 }
@@ -39,6 +36,8 @@ function handleRunClick() {
 function startGame() {
     logMessage("invoked startGame");
 
+    const runButton = document.getElementById("runButton");
+    runButton.textContent = "Stop";
     updateSettings();
     game.state = ON;
 }
@@ -46,13 +45,15 @@ function startGame() {
 function stopGame() {
     logMessage("invoked stopGame");
 
+    const runButton = document.getElementById("runButton");
+    runButton.textContent = "Start"
     game.state = OFF;
     clearInterval(game.runner);
 }
 
 function updateSettings() {
     const speedInput = parseInt(document.getElementById("speedInput").value);
-    if (isNaN(speedInput) || speedInput < 0) {
+    if (isNaN(speedInput) || speedInput < 1) {
         alert("Speed Input is invalid");
         return;
     }
@@ -67,6 +68,12 @@ function updateSettings() {
         updateGrid();
         renderGrid();
     }, 1000/game.speed);
+}
+
+function clearGrid() {
+    stopGame();
+    game.grid = createGrid(false);
+    renderGrid();
 }
 
 function setSize(size) {
