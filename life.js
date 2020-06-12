@@ -24,6 +24,18 @@ function newGame(game) {
     canvas.style.backgroundSize = game.cellSize + "px";
 }
 
+function handleRunClick() {
+    const runButton = document.getElementById("runButton");
+    if (game.state === OFF) {
+        runButton.textContent = "Stop";
+        startGame();
+    }
+    else {
+        runButton.textContent = "Start"
+        stopGame();
+    }
+}
+
 function startGame() {
     logMessage("invoked startGame");
 

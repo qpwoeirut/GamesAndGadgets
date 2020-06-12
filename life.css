@@ -9,3 +9,7 @@ canvas#lifeCanvas {
 
     background-image: url("lifeGrid.svg");
 }
+
+button#runButton {
+    font-size: large;
+}
