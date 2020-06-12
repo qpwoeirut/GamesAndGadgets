@@ -6,8 +6,8 @@ const CANVAS_HEIGHT = 500;
 const CANVAS_WIDTH = 1200;
 let lifeGrid = [];
 
-function startGame(game) {
-    logMessage("invoked startGame with game");
+function newGame(game) {
+    logMessage("invoked newGame with game");
 
     game.cellSize = game.cellSize || DEFAULT_CELL_SIZE;
     game.rows = CANVAS_HEIGHT;
@@ -16,13 +16,30 @@ function startGame(game) {
     game.visibleCols = Math.ceil(CANVAS_WIDTH / game.cellSize);
     game.grid = createGrid(false);
     game.state = OFF;
+
+    const canvas = document.getElementById("lifeCanvas");
+    canvas.height = CANVAS_HEIGHT;
+    canvas.width = CANVAS_WIDTH;
+    canvas.onclick = handleClick;
+    canvas.style.backgroundSize = game.cellSize + "px";
+}
+
+function startGame() {
+    logMessage("invoked startGame");
+
+    game.state = ON;
+    game.speed = 5;
     game.runner = setInterval(function() {
-        if (game.state === OFF) return;
         updateGrid();
         renderGrid();
-    }, 100);
+    }, 1000/game.speed);
+}
 
-    renderGrid();
+function stopGame() {
+    logMessage("invoked stopGame");
+
+    game.state = OFF;
+    clearInterval(game.runner);
 }
 
 function setSize(size) {
@@ -36,13 +53,9 @@ function renderGrid() {
     logMessage("invoking renderGrid");
 
     const canvas = document.getElementById("lifeCanvas");
-    canvas.height = CANVAS_HEIGHT;
-    canvas.width = CANVAS_WIDTH;
-    canvas.onclick = handleClick;
-    canvas.style.backgroundSize = game.cellSize + "px";
-
     const context = canvas.getContext("2d");
     context.fillStyle = "black";
+    context.clearRect(0, 0, canvas.width, canvas.height);
     for (let i=0; i<game.rows; i++) {
         for (let j=0; j<game.cols; j++) {
             if (game.grid[i][j]) {
