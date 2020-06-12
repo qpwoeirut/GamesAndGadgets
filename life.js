@@ -4,7 +4,6 @@ const ON = 1;
 let DEFAULT_CELL_SIZE = 10;
 const CANVAS_HEIGHT = 500;
 const CANVAS_WIDTH = 1200;
-let lifeGrid = [];
 
 function newGame(game) {
     logMessage("invoked newGame with game");
