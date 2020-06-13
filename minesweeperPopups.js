@@ -1,3 +1,23 @@
+function handleClickAway(event) {
+    if (event.target.closest(".popup") === null && event.target.classList.contains("clickable") === false) {
+        for (const popup of document.getElementsByClassName("popup")) {
+            popup.classList.remove("active");
+        }
+    }
+}
+
+
+function addCollapsibleListeners() {
+    const controls = document.getElementsByClassName("collapsible-control");
+    for (const control of controls) {
+        control.addEventListener("click", function (e) {
+            this.classList.toggle("collapsible-open");
+            this.nextElementSibling.classList.toggle("collapsible-show");
+        });
+    }
+}
+
+
 function openHowToPlay() {
     document.getElementById("howToPlayContainer").classList.add("active");
 

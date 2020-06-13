@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="minesweeper.css">
 </head>
 
-<body>
+<body id="body">
     <div id="navbarContainer"></div>
     <div id="pageContainer">
         <h1 class="textCenter">Minesweeper</h1>
@@ -132,6 +132,66 @@
                 </p>
             </div>
             <br>
+            <button class="collapsible-control">Credits</button>
+            <div class="container collapsible">
+                <p>
+                    This was created by Stanley Zhong. The page is written in pure HTML, JavaScript, CSS, and XML.
+                    <br>
+                    The custom fonts used are from FontStruct. Specifically, the font for the cells in the game grid is
+                    <a href="https://fontstruct.com/fontstructions/show/1501665" target="_blank">here</a> and the font
+                    for the scoreboard is based off of <a href="https://fontstruct.com/fontstructions/show/1462474"
+                        target="_blank">this font</a>. I edited the scoreboard font to have the off segments be faintly
+                    displayed, but most of the content was from the original font.
+                    <br>
+                    Most of the cell visuals (like cell colors) came from this <a
+                        href="https://commons.wikimedia.org/wiki/File:Minesweeper_Game_Most_Common_Setup.png"
+                        target="_blank">Wikimedia image</a>. The flag is a SVG based on this <a
+                        href="https://commons.wikimedia.org/wiki/File:Minesweeper_flag.svg" target="_blank">Wikimedia
+                        image</a>.
+                    <br>
+                    I also used some tricks from StackOverflow. I'm not sure if I have to post every individual thing or
+                    not, but it's better to be on the safe side I guess. The code to prevent the user from highlighting
+                    text is from <a
+                        href="https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting"
+                        target="_blank">here</a>. The code in the solver to pause execution for some time is from <a
+                        href="https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep"
+                        target="_blank">here</a>.
+                    <br>
+                    A lot of my information about Minesweeper rules, presets, and strategy came from the <a
+                        href="http://www.minesweeper.info/wiki/Main_Page" target="_blank">Minesweeper Wiki</a>. The
+                    solver's patterns are from <a href="http://www.minesweeper.info/wiki/Strategy"
+                        target="_blank">here</a>. The preset difficulties came from <a
+                        href="http://www.minesweeper.info/wiki/Minesweeper_Official_Rules" target="_blank">here</a>.
+                </p>
+            </div>
+            <br>
+            <button class="collapsible-control">Licenses</button>
+            <div class="container collapsible">
+                <p>
+                    All FontStruct fonts are licensed under the Creative Commons <a
+                        href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">License 3.0</a>.
+                    <br>
+                    The Wikimedia minesweeper game image is licensed under the Creative Commons <a
+                        href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank">Attribution-Share
+                        Alike 4.0 International</a>. The Wikimedia Minesweeper flag image is licensed under the Creative
+                    Commons Attribution-Share Alike <a href="https://creativecommons.org/licenses/by-sa/4.0/"
+                        target="_blank">4.0 International</a>, <a
+                        href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank">3.0 Unported</a>,
+                    <a href="https://creativecommons.org/licenses/by-sa/2.5/deed.en" target="_blank">2.5 Generic</a>, <a
+                        href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" target="_blank">2.0 Generic</a>
+                    and <a href="https://creativecommons.org/licenses/by-sa/1.0/deed.en" target="_blank">1.0 Generic
+                        license</a>.
+                    <br>
+                    The information for StackOverflow licensing is <a
+                        href="https://stackoverflow.com/help/licensing">here</a>. Everything is under some version of a
+                    Creative Commons License.
+                    <br>
+                    The Minesweeper Wiki is powered by MediaWiki, which is a Wikimedia project. It uses the <a
+                        href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank">GNU General Public
+                        License</a>.
+                </p>
+            </div>
+            <br>
             <div class="container">
                 Last updated June 2020
             </div>
@@ -179,65 +239,6 @@
 
         <br><br><br><br><br>
         <div id="footerContainer" class="container">
-            <h3>Credits</h3>
-            <div class="container">
-                <p>
-                    This was created by Stanley Zhong. The page is written in pure HTML, JavaScript, CSS, and XML.
-                    <br>
-                    The custom fonts used are from FontStruct. Specifically, the font for the cells in the game grid is
-                    <a href="https://fontstruct.com/fontstructions/show/1501665" target="_blank">here</a> and the font
-                    for the scoreboard is based off of <a href="https://fontstruct.com/fontstructions/show/1462474"
-                        target="_blank">this font</a>. I edited the scoreboard font to have the off segments be faintly
-                    displayed, but most of the content was from the original font.
-                    <br>
-                    Most of the cell visuals (like cell colors) came from this <a
-                        href="https://commons.wikimedia.org/wiki/File:Minesweeper_Game_Most_Common_Setup.png"
-                        target="_blank">Wikimedia image</a>. The flag is a SVG based on this <a
-                        href="https://commons.wikimedia.org/wiki/File:Minesweeper_flag.svg" target="_blank">Wikimedia
-                        image</a>.
-                    <br>
-                    I also used some tricks from StackOverflow. I'm not sure if I have to post every individual thing or
-                    not, but it's better to be on the safe side I guess. The code to prevent the user from highlighting
-                    text is from <a
-                        href="https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting"
-                        target="_blank">here</a>. The code in the solver to pause execution for some time is from <a
-                        href="https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep"
-                        target="_blank">here</a>.
-                    <br>
-                    A lot of my information about Minesweeper rules, presets, and strategy came from the <a
-                        href="http://www.minesweeper.info/wiki/Main_Page" target="_blank">Minesweeper Wiki</a>. The
-                    solver's patterns are from <a href="http://www.minesweeper.info/wiki/Strategy"
-                        target="_blank">here</a>. The preset difficulties came from <a
-                        href="http://www.minesweeper.info/wiki/Minesweeper_Official_Rules" target="_blank">here</a>.
-                </p>
-            </div>
-            <br>
-            <h3>Licenses</h3>
-            <div class="container">
-                <p>
-                    All FontStruct fonts are licensed under the Creative Commons <a
-                        href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">License 3.0</a>.
-                    <br>
-                    The Wikimedia minesweeper game image is licensed under the Creative Commons <a
-                        href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank">Attribution-Share
-                        Alike 4.0 International</a>. The Wikimedia Minesweeper flag image is licensed under the Creative
-                    Commons Attribution-Share Alike <a href="https://creativecommons.org/licenses/by-sa/4.0/"
-                        target="_blank">4.0 International</a>, <a
-                        href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank">3.0 Unported</a>,
-                    <a href="https://creativecommons.org/licenses/by-sa/2.5/deed.en" target="_blank">2.5 Generic</a>, <a
-                        href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" target="_blank">2.0 Generic</a>
-                    and <a href="https://creativecommons.org/licenses/by-sa/1.0/deed.en" target="_blank">1.0 Generic
-                        license</a>.
-                    <br>
-                    The information for StackOverflow licensing is <a
-                        href="https://stackoverflow.com/help/licensing">here</a>. Everything is under some version of a
-                    Creative Commons License.
-                    <br>
-                    The Minesweeper Wiki is powered by MediaWiki, which is a Wikimedia project. It uses the <a
-                        href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank">GNU General Public
-                        License</a>.
-                </p>
-            </div>
         </div>
     </div>
 </body>
@@ -247,15 +248,9 @@
     var game = new Object();
     startGame(game);
 
+    addCollapsibleListeners();
     window.onkeypress = handleKeyPress;
-
-    const controls = document.getElementsByClassName("collapsible-control");
-    for (const control of controls) {
-        control.addEventListener("click", function (e) {
-            this.classList.toggle("collapsible-open");
-            this.nextElementSibling.classList.toggle("collapsible-show");
-        });
-    }
+    window.onclick = handleClickAway;
 </script>
 
 </html>
