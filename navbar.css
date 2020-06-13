@@ -5,13 +5,13 @@
 }
 
 #navbar {
-    min-height: 3.5em;
-    padding-top: 1.2em;
-    padding-bottom: 1.2em;
+    min-height: 4em;
+    height: 4em;
     width: 100%;
 }
 
-div#largeNavbar, ul#navbuttonList, ul#navbuttonList > li {
+div#navbuttonList, div.navbutton-container, button.navbutton {
+    height: 100%;
     display: inline-block;
 }
 
@@ -32,14 +32,20 @@ div#largeNavbar, ul#navbuttonList, ul#navbuttonList > li {
 
 #navbar a {
     text-decoration: none;
+    color: white;
 }
 
 /* END GENERAL NAVBAR */
 
 /* START LARGE WINDOW NAVBAR */
 @media only screen and (min-width: 60em) {
+    #navbar {
+        max-height: 4em;
+    }
+
     .navbutton {
-        margin-right: 3em;
+        margin-left: 1.5em;
+        margin-right: 1.5em;
 
         font-size: 1.2em;
         text-align: center;
@@ -53,46 +59,52 @@ div#largeNavbar, ul#navbuttonList, ul#navbuttonList > li {
 
 /* START SMALL WINDOW NAVBAR */
 @media only screen and (max-width: 60em) {
-    ul#navbuttonList {
+    #navbar {
+        height: max-content;  /* For Firefox */
+        height: fit-content;
+    }
+
+    div#navbuttonList {
         display: none;
     }
-    ul#navbuttonList.active {
+    div#navbuttonList.active {
         display: inline-block;
     }
-    ul#navbuttonList.active > li {
+    div#navbuttonList.active > div.navbutton-container {
         display: table-row;
     }
-    ul#navbuttonList.active .navbutton {
+    div#navbuttonList.active .navbutton {
         display: block;
         font-size: 1em;
         text-align: left;
-        margin-top: 1em;
+        padding: 1em;
     }
 
     #menuIconContainer {
         cursor: pointer;
         float: right;
-        margin-right: 0.8em;
+        margin: 0.5em;
+        vertical-align: middle;
     }
 
-    .iconTopBar, .iconMiddleBar, .iconBottomBar {
-        width: 30px;
-        height: 5px;
+    div.iconTopBar, div.iconMiddleBar, div.iconBottomBar {
+        width: 2em;
+        height: 0.333em;
         background-color: white;
         margin: 6px 0;
         transition: 0.4s;
     }
     /* Rotate first bar */
-    .change > .iconTopBar {
+    div.change > .iconTopBar {
         -webkit-transform: rotate(-45deg) translate(-9px, 6px);
         transform: rotate(-45deg) translate(-9px, 6px);
     }
     /* Fade out the second bar */
-    .change > .iconMiddleBar {
+    div.change > .iconMiddleBar {
         opacity: 0;
     }
     /* Rotate last bar */
-    .change > .iconBottomBar {
+    div.change > .iconBottomBar {
         -webkit-transform: rotate(45deg) translate(-8px, -8px);
         transform: rotate(45deg) translate(-8px, -8px);
     }
