@@ -1,7 +1,7 @@
 /* START GENERAL NAVBAR */
 
 #navbarContainer {
-    background-color: red;
+    background-color: #38a9c1;
 }
 
 #navbar {
@@ -9,7 +9,6 @@
     padding-top: 1.2em;
     padding-bottom: 1.2em;
     width: 100%;
-    background-color: red;
 }
 
 div#largeNavbar, ul#navbuttonList, ul#navbuttonList > li {
@@ -21,7 +20,7 @@ div#largeNavbar, ul#navbuttonList, ul#navbuttonList > li {
     width: fit-content;
 
     color: white;
-    background-color: red;
+    background-color: #38a9c1;
 
     border: none;
     cursor: pointer;
@@ -44,11 +43,6 @@ div#largeNavbar, ul#navbuttonList, ul#navbuttonList > li {
 
         font-size: 1.2em;
         text-align: center;
-    }
-
-    .navbutton.dropdownButton {
-        font-size: 0.75em;
-        margin-bottom: 1em;
     }
 
     #menuIconContainer {
