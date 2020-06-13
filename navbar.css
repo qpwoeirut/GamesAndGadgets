@@ -37,7 +37,7 @@ div#largeNavbar, ul#navbuttonList, ul#navbuttonList > li {
 /* END GENERAL NAVBAR */
 
 /* START LARGE WINDOW NAVBAR */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 60em) {
     .navbutton {
         margin-right: 3em;
 
@@ -52,7 +52,7 @@ div#largeNavbar, ul#navbuttonList, ul#navbuttonList > li {
 /* END LARGE WINDOW NAVBAR */
 
 /* START SMALL WINDOW NAVBAR */
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 60em) {
     ul#navbuttonList {
         display: none;
     }
