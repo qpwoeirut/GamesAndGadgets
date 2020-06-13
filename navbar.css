@@ -16,7 +16,7 @@ div#navbuttonList, div.navbutton-container, button.navbutton {
 }
 
 .navbutton {
-    min-width: 4em;
+    min-width: 5em;
     width: fit-content;
 
     color: white;
