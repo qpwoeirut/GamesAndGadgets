@@ -44,9 +44,9 @@ function generatePatternTypeButtons(containerId, patternList) {
 }
 
 
-function handleMouseMove(event) {
-    mousePosX = event.clientX;
-    mousePosY = event.clientY;
+function trackMouse(event) {
+    mousePosX = event.pageX;
+    mousePosY = event.pageY;
     setFollowerPos();
 }
 
