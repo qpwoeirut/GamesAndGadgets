@@ -19,11 +19,13 @@ function newGame(game) {
     const canvas = document.getElementById("lifeCanvas");
     canvas.height = CANVAS_HEIGHT;
     canvas.width = CANVAS_WIDTH;
-    canvas.onclick = handleClick;
     canvas.style.backgroundSize = game.cellSize + "px";
 }
 
 function handleClick(event) {
+    if (event.target.id !== "lifeCanvas") {
+        return;
+    }
     logMessage("invoked handleClick with event");
     const row = Math.floor(event.offsetY / game.cellSize);
     const col = Math.floor(event.offsetX / game.cellSize);
