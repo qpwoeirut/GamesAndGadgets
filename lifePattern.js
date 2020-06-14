@@ -55,8 +55,8 @@ function trackMouse(event) {
 function setFollowerPos() {
     const follower = document.getElementById("follower");
     if (follower) {
-        follower.style.left = (mousePosX + 3) + "px";  // make sure click events go to canvas, not follower
-        follower.style.top = (mousePosY + 3) + "px";
+        follower.style.left = (mousePosX + 4) + "px";  // make sure click events go to canvas, not follower
+        follower.style.top = (mousePosY + 4) + "px";
     }
 }
 
