@@ -9,8 +9,9 @@ function newGame(game) {
     logMessage("invoked newGame with game");
 
     game.cellSize = game.cellSize || DEFAULT_CELL_SIZE;
-    game.rows = CANVAS_HEIGHT;
-    game.cols = CANVAS_WIDTH;
+    game.buffer = 256;
+    game.rows = CANVAS_HEIGHT + game.buffer;
+    game.cols = CANVAS_WIDTH + game.buffer;
     game.visibleRows = Math.ceil(CANVAS_HEIGHT / game.cellSize);
     game.visibleCols = Math.ceil(CANVAS_WIDTH / game.cellSize);
     game.grid = createGrid(false);
@@ -27,8 +28,8 @@ function handleClick(event) {
         return;
     }
     logMessage("invoked handleClick with event");
-    const row = Math.floor(event.offsetY / game.cellSize);
-    const col = Math.floor(event.offsetX / game.cellSize);
+    const row = Math.floor(event.offsetY / game.cellSize) + game.buffer;
+    const col = Math.floor(event.offsetX / game.cellSize) + game.buffer;
     logMessage("handled click at row=" + row + ", col=" + col);
     if (!inBounds(row, col)) {
         return;
@@ -122,11 +123,11 @@ function renderGrid() {
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = "black";
-    for (let i=0; i<game.rows; i++) {
-        for (let j=0; j<game.cols; j++) {
+    for (let i=game.buffer; i+game.buffer<game.rows; i++) {
+        for (let j=game.buffer; j+game.buffer<game.cols; j++) {
             if (game.grid[i][j]) {
                 // swap from row-col to x-y
-                context.fillRect(game.cellSize * j, game.cellSize * i, game.cellSize, game.cellSize);
+                context.fillRect(game.cellSize * (j - game.buffer), game.cellSize * (i - game.buffer), game.cellSize, game.cellSize);
             }
         }
     }
