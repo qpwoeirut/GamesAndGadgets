@@ -1,7 +1,0 @@
-<svg xmlns='http://www.w3.org/2000/svg' height="64" width="64">
-  <rect x="0" y="0" height="1" width="1" fill="black"/>
-  <rect x="1" y="0" height="1" width="1" fill="black"/>
-  <rect x="2" y="0" height="1" width="1" fill="black"/>
-  <rect x="2" y="1" height="1" width="1" fill="black"/>
-  <rect x="1" y="2" height="1" width="1" fill="black"/>
-</svg>
