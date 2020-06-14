@@ -1,4 +1,4 @@
-div#clickableContainer {
+div.clickable-container {
     width: max-content; /* For Firefox */
     width: fit-content;
     margin: auto;
