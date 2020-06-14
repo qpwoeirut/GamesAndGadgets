@@ -68,6 +68,10 @@ function createFollower(followerType) {
     follower.classList = patternStrings.get(followerType);
     follower.setAttribute("data-type", followerType);
     follower.style.backgroundSize = (game.cellSize * 64) + "px";
+    const backgroundSvg = createFollowerSVG(patternArrays.get(followerType));
+    console.log(backgroundSvg);
+    const svgAsBase64 = btoa(backgroundSvg);
+    follower.style.backgroundImage = "url('data:image/svg+xml;base64," + svgAsBase64 + "')"
     document.getElementById("pageContainer").appendChild(follower);
 
     setFollowerPos();
@@ -79,6 +83,29 @@ function deleteAnyFollowers() {
     if (oldFollower) {
         oldFollower.parentElement.removeChild(oldFollower);
     }
+}
+
+
+const svgNS = "http://www.w3.org/2000/svg";
+function createFollowerSVG(patternArray) {
+    const svg = document.createElement("svg");
+    svg.setAttribute("xmlns", svgNS);
+    svg.setAttribute("width", 64);
+    svg.setAttribute("height", 64);
+    for (let y=0; y<patternArray.length; y++) {
+        for (let x=0; x<patternArray[y].length; x++) {
+            if (patternArray[y][x]) {
+                const rect = document.createElementNS(svgNS, "rect");
+                rect.setAttributeNS(null, "x", x);
+                rect.setAttributeNS(null, "y", y);
+                rect.setAttributeNS(null, "height", 1);
+                rect.setAttributeNS(null, "width", 1);
+                rect.setAttributeNS(null, "fill", "black");
+                svg.appendChild(rect);
+            }
+        }
+    }
+    return svg.outerHTML;
 }
 
 
