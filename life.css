@@ -35,3 +35,7 @@ div#patternClickableContainer h2{
     width: 100%;
     text-align: center;
 }
+
+p#patternInfo {
+    font-size: x-large;
+}

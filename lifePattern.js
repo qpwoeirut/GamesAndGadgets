@@ -69,10 +69,11 @@ function createFollower(followerType) {
     follower.setAttribute("data-type", followerType);
     follower.style.backgroundSize = (game.cellSize * 64) + "px";
     const backgroundSvg = createFollowerSVG(patternArrays.get(followerType));
-    console.log(backgroundSvg);
     const svgAsBase64 = btoa(backgroundSvg);
     follower.style.backgroundImage = "url('data:image/svg+xml;base64," + svgAsBase64 + "')"
     document.getElementById("pageContainer").appendChild(follower);
+
+    document.getElementById("currentPattern").textContent = capitalizeWithSpaces(patternStrings.get(followerType));
 
     setFollowerPos();
 }
@@ -83,6 +84,7 @@ function deleteAnyFollowers() {
     if (oldFollower) {
         oldFollower.parentElement.removeChild(oldFollower);
     }
+    document.getElementById("currentPattern").textContent = "Cell";
 }
 
 
