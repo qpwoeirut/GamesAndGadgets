@@ -11,6 +11,8 @@ let BYPASS_CELL_SIZE_CHECK = false;
 let BYPASS_GRID_WIDTH_CHECK = false;
 const MAX_CELL_SIZE = 40;
 
+const PACK_MULTIPLIER = 100000;
+
 function newGame(game) {
     logMessage("invoked newGame with game");
 
@@ -19,6 +21,7 @@ function newGame(game) {
     game.rows = MAX_HEIGHT + game.buffer + game.buffer;
     game.cols = MAX_WIDTH + game.buffer + game.buffer;
     game.grid = createGrid(false);
+    game.active = new Set();
     game.state = OFF;
 
     const canvas = document.getElementById("lifeCanvas");
@@ -41,6 +44,10 @@ function handleClick(event) {
 
     if (writeFollowerPattern(row, col) === false) {
         game.grid[row][col] = !game.grid[row][col];
+        updateActive(row, col);
+        for (let i=0; i<8; i++) {
+            updateActive(row + chRow[i], col + chCol[i]);
+        }
     }
     
     renderGrid();
@@ -145,6 +152,7 @@ function updateCanvasSize() {
 function clearGrid() {
     stopGame();
     game.grid = createGrid(false);
+    game.active = new Set();
     renderGrid();
 }
 
@@ -171,18 +179,53 @@ function updateGrid() {
         return;
     }
     logMessage("invoked updateGrid");
-    let nextGrid = createGrid(false);
-    for (let i=0; i<game.rows; i++) {
-        for (let j=0; j<game.cols; j++) {
-            const liveNeighbors = gridNeighborCount(i, j, true);
-            
-            if (liveNeighbors === 2) {
-                nextGrid[i][j] = game.grid[i][j];
+    let toUpdate = [];
+    for (const cell of game.active) {
+        const [curRow, curCol] = unpackCell(cell);
+        const liveNeighbors = gridNeighborCount(curRow, curCol, true);
+        if (liveNeighbors < 2) {
+            if (game.grid[curRow][curCol] === true) {
+                toUpdate.push(cell);
             }
-            else if (liveNeighbors === 3) {
-                nextGrid[i][j] = true;
+        }
+        else if (liveNeighbors === 2) {
+            // cell stays the same
+        }
+        else if (liveNeighbors === 3) {
+            if (game.grid[curRow][curCol] === false) {
+                toUpdate.push(cell);
+            }
+        }
+        else if (liveNeighbors > 3) {
+            if (game.grid[curRow][curCol] === true) {
+                toUpdate.push(cell);
             }
         }
     }
-    game.grid = nextGrid;
+
+    for (const update of toUpdate) {
+        const [curRow, curCol] = unpackCell(update);
+        game.grid[curRow][curCol] = !game.grid[curRow][curCol];
+        updateActive(curRow, curCol);
+        for (let i=0; i<8; i++) {
+            updateActive(curRow + chRow[i], curCol + chCol[i]);
+        }
+    }
+}
+
+function updateActive(row, col) {
+    if (game.grid[row][col] || gridNeighborCount(row, col, true) > 0) {
+        game.active.add(packCell(row, col));
+    }
+    else {
+        game.active.delete(packCell(row, col));
+    }
+}
+
+function packCell(row, col) {
+    return (row * PACK_MULTIPLIER) + col;
+}
+
+function unpackCell(cell) {
+    return [Math.floor(cell / PACK_MULTIPLIER), cell % PACK_MULTIPLIER];
 }

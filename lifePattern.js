@@ -133,6 +133,10 @@ function setPattern(row, col, pattern) {
     for (let r=0; r<pattern.length; r++) {
         for (let c=0; c<pattern[r].length; c++) {
             game.grid[row + r][col + c] = pattern[r][c] === 1;
+            updateActive(row + r, col + c);
+            for (let i=0; i<8; i++) {
+                updateActive(row + r + chRow[i], col + c + chCol[i]);
+            }
         }
     }
 }
