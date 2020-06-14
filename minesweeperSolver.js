@@ -49,6 +49,17 @@ async function solve(hint=false) {
             break;
         }
     }
+
+    if (game.state === RUNNING && game.unflagged === 0 && !HINT) {
+        for (let i=0; i<game.rows; i++) {
+            for (let j=0; j<game.cols; j++) {
+                if (game.status[i][j] === SECRET) {
+                    executeClick(i, j);
+                    game.solver.moveCount++;
+                }
+            }
+        }
+    }
     SOLVER_ON = false;
 }
 
