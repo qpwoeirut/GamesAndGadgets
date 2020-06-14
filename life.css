@@ -21,8 +21,9 @@ div#follower {
     position: absolute;
     top: 0px;
     left: 0px;
-    width: 128px;
-    height: 128px;
+    width:  768px;
+    height: 512px;
+    background-repeat: no-repeat;
 }
 
 

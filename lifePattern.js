@@ -29,6 +29,7 @@ function generatePatternButtons() {
     generatePatternTypeButtons("stillPatternContainer", stillPatterns);
     generatePatternTypeButtons("oscillatingPatternContainer", oscillatingPatterns);
     generatePatternTypeButtons("spaceshipPatternContainer", spaceshipPatterns);
+    generatePatternTypeButtons("miscPatternContainer", miscPatterns);
 }
 
 

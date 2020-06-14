@@ -12,6 +12,10 @@ const GLIDER = 300;
 const LWSS = 301;
 const MWSS = 302;
 const HWSS = 303;
+const R_PENTOMINO = 900;
+const DIEHARD = 901;
+const ACORN = 902;
+const GOSPER_GLIDER_GUN = 903;
 
 const stillPatterns = [
     BLOCK,
@@ -33,6 +37,12 @@ const spaceshipPatterns = [
     MWSS,
     HWSS
 ];
+const miscPatterns = [
+    R_PENTOMINO,
+    DIEHARD,
+    ACORN,
+    GOSPER_GLIDER_GUN
+]
 
 const patternStrings = new Map([
     [BLOCK, "block"],
@@ -48,7 +58,11 @@ const patternStrings = new Map([
     [GLIDER, "glider"],
     [LWSS, "light-weight-spaceship"],
     [MWSS, "middle-weight-spaceship"],
-    [HWSS, "heavy-weight-spaceship"]
+    [HWSS, "heavy-weight-spaceship"],
+    [R_PENTOMINO, "r-pentomino"],
+    [DIEHARD, "diehard"],
+    [ACORN, "acorn"],
+    [GOSPER_GLIDER_GUN, "gosper-glider-gun"]
 ]);
 
 const blockPattern = [
@@ -151,6 +165,33 @@ const HWSSPattern = [
     [0, 0, 0, 0, 0, 0, 0] // empty row since ship uses this row as it moves
 ]
 
+const rPentominoPattern = [
+    [0, 1, 1],
+    [1, 1, 0],
+    [0, 1, 0]
+]
+const diehardPattern = [
+    [0, 0, 0, 0, 0, 0, 1, 0],
+    [1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 1, 1, 1]
+]
+const acornPattern = [
+    [0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0],
+    [1, 1, 0, 0, 1, 1, 1]
+]
+const gosperGliderGunPattern = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+    [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+    [1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+]
+
 const patternArrays = new Map([
     [BLOCK, blockPattern],
     [BEEHIVE, beehivePattern],
@@ -165,5 +206,9 @@ const patternArrays = new Map([
     [GLIDER, gliderPattern],
     [LWSS, LWSSPattern],
     [MWSS, MWSSPattern],
-    [HWSS, HWSSPattern]
+    [HWSS, HWSSPattern],
+    [R_PENTOMINO, rPentominoPattern],
+    [DIEHARD, diehardPattern],
+    [ACORN, acornPattern],
+    [GOSPER_GLIDER_GUN, gosperGliderGunPattern]
 ]);

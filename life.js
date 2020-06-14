@@ -5,6 +5,9 @@ let DEFAULT_CELL_SIZE = 10;
 const CANVAS_HEIGHT = 500;
 const CANVAS_WIDTH = 1200;
 
+let BYPASS_CELL_SIZE_CHECK = false;
+const MAX_CELL_SIZE = 20;
+
 function newGame(game) {
     logMessage("invoked newGame with game");
 
@@ -84,8 +87,9 @@ function updateSettings() {
         alert("Cell Size Input is invalid");
         return false;
     }
-    if (cellSizeInput > 100) {
-        alert("Cell Size Input must be at most 100.");
+    if (cellSizeInput > MAX_CELL_SIZE && BYPASS_CELL_SIZE_CHECK !== true) {
+        alert("Cell Size Input must be at most " + MAX_CELL_SIZE + ".\n" + 
+              "To disable cell size checks, type BYPASS_CELL_SIZE_CHECKS = true; into the console");
         return false;
     }
     game.speed = speedInput;
