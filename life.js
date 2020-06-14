@@ -10,10 +10,8 @@ function newGame(game) {
 
     game.cellSize = game.cellSize || DEFAULT_CELL_SIZE;
     game.buffer = 256;
-    game.rows = CANVAS_HEIGHT + game.buffer;
-    game.cols = CANVAS_WIDTH + game.buffer;
-    game.visibleRows = Math.ceil(CANVAS_HEIGHT / game.cellSize);
-    game.visibleCols = Math.ceil(CANVAS_WIDTH / game.cellSize);
+    game.rows = CANVAS_HEIGHT + game.buffer + game.buffer;
+    game.cols = CANVAS_WIDTH + game.buffer + game.buffer;
     game.grid = createGrid(false);
     game.state = OFF;
 
@@ -35,7 +33,7 @@ function handleClick(event) {
         return;
     }
 
-    if (!writeFollowerPattern(row, col)) {
+    if (writeFollowerPattern(row, col) === false) {
         game.grid[row][col] = !game.grid[row][col];
     }
     
@@ -109,8 +107,6 @@ function clearGrid() {
 
 function setCellSize(size) {
     game.cellSize = size;
-    game.visibleRows = Math.ceil(CANVAS_HEIGHT / game.cellSize);
-    game.visibleCols = Math.ceil(CANVAS_WIDTH / game.cellSize);
     const canvas = document.getElementById("lifeCanvas");
     canvas.style.backgroundSize = game.cellSize + "px";
     renderGrid();
@@ -140,9 +136,10 @@ function updateGrid() {
     }
     logMessage("invoked updateGrid");
     let nextGrid = createGrid(false);
-    for (let i=0; i<game.grid.length; i++) {
-        for (let j=0; j<game.grid[i].length; j++) {
+    for (let i=0; i<game.rows; i++) {
+        for (let j=0; j<game.cols; j++) {
             const liveNeighbors = gridNeighborCount(i, j, true);
+            
             if (liveNeighbors === 2) {
                 nextGrid[i][j] = game.grid[i][j];
             }

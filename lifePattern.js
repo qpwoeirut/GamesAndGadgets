@@ -22,7 +22,7 @@ function createFollower(followerType) {
     deleteAnyFollowers();
     const follower = document.createElement("div");
     follower.id = "follower";
-    follower.classList = followerType;
+    follower.classList = patternStrings.get(followerType);
     follower.setAttribute("data-type", followerType);
     follower.style.backgroundSize = (game.cellSize * 64) + "px";
     document.getElementById("pageContainer").appendChild(follower);
@@ -45,21 +45,22 @@ function writeFollowerPattern(row, col) {
         return false;
     }
     
-    const followerType = follower.getAttribute("data-type");
-    if (followerType === "glider") {
+    const followerType = parseInt(follower.getAttribute("data-type"));
+    console.log("invoked writeFollowerPattern with row=" + row + ", col=" + col + ", and followerType string is " + patternStrings.get(followerType));
+    if (followerType === GLIDER) {
         setPattern(row, col, gliderPattern);
+    }
+    else if (followerType === "") {
+
     }
 
     return true;
 }
 
 function setPattern(row, col, pattern) {
-    console.log(row);
-    console.log(col);
-    console.log(pattern);
     for (let r=0; r<pattern.length; r++) {
         for (let c=0; c<pattern[r].length; c++) {
-            game.grid[row + r][col + c] = pattern[r][c];
+            game.grid[row + r][col + c] = pattern[r][c] === 1;
         }
     }
 }
