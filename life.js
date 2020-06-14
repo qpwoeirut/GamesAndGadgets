@@ -4,8 +4,8 @@ const ON = 1;
 let DEFAULT_CELL_SIZE = 10;
 const CANVAS_HEIGHT = 500;
 const CANVAS_WIDTH = 500;
-const MAX_WIDTH = 1800;
-const MAX_HEIGHT = 1000;
+const MAX_WIDTH = 2400;
+const MAX_HEIGHT = 1800;
 
 let BYPASS_CELL_SIZE_CHECK = false;
 let BYPASS_GRID_WIDTH_CHECK = false;
