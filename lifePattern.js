@@ -69,6 +69,8 @@ function createFollower(followerType) {
     follower.classList = patternStrings.get(followerType);
     follower.setAttribute("data-type", followerType);
     follower.style.backgroundSize = (game.cellSize * 64) + "px";
+    follower.style.width = (game.cellSize * 40) + "px";
+    follower.style.height = (game.cellSize * 16) + "px";
     const backgroundSvg = createFollowerSVG(patternArrays.get(followerType));
     const svgAsBase64 = btoa(backgroundSvg);
     follower.style.backgroundImage = "url('data:image/svg+xml;base64," + svgAsBase64 + "')"
