@@ -159,3 +159,10 @@ function updateGrid() {
     }
     game.grid = nextGrid;
 }
+
+function setCanvasSize(newWidth, newHeight) {
+    logMessage("invoked setCanvasSize");
+    const canvas = document.getElementById("lifeCanvas");
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+}
