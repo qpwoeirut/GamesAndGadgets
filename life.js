@@ -9,7 +9,7 @@ function newGame(game) {
     logMessage("invoked newGame with game");
 
     game.cellSize = game.cellSize || DEFAULT_CELL_SIZE;
-    game.buffer = 256;
+    game.buffer = 64;
     game.rows = CANVAS_HEIGHT + game.buffer + game.buffer;
     game.cols = CANVAS_WIDTH + game.buffer + game.buffer;
     game.grid = createGrid(false);
