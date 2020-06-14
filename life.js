@@ -214,6 +214,9 @@ function updateGrid() {
 }
 
 function updateActive(row, col) {
+    if (!inBounds(row, col)) {
+        return;
+    }
     if (game.grid[row][col] || gridNeighborCount(row, col, true) > 0) {
         game.active.add(packCell(row, col));
     }
