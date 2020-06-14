@@ -11,6 +11,8 @@
     <script src="logger.js"></script>
     <script src="grid.js"></script>
     <script src="life.js"></script>
+    <script src="lifePattern.js"></script>
+    <script src="lifePatternDefs.js"></script>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="life.css">
@@ -41,10 +43,13 @@
             <canvas id="lifeCanvas">
 
             </canvas>
+            <div class="clickableContainer">
+                <button id="createGlider" class="clickable" onclick="createFollower('glider');">Glider</button>
+            </div>
         </div>
     </div>
 
-    <br><br><br><br><br>
+    <!-- <br><br><br><br><br>
     <div id="footerContainer">
         <div class="container">
             <h3>Credits</h3>
@@ -57,7 +62,7 @@
                 <br><br>
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 <script>
     $("#navbarContainer").load("navbar.html");
@@ -65,6 +70,9 @@
     VERBOSITY = 10;
     var game = new Object();
     newGame(game);
+
+    window.onclick = handleClick;
+    document.getElementById("pageContainer").onmousemove = handleMouseMove;
 </script>
 
 </html>
