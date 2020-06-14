@@ -100,7 +100,11 @@ function updateSettings() {
         updateGrid();
         renderGrid();
     }, 1000/game.speed);
-    createFollower(parseInt(document.getElementById("follower").getAttribute("data-type")));
+    const follower = document.getElementById("follower");
+    if (follower) {
+        createFollower(parseInt(follower.getAttribute("data-type")));
+    }
+    
     return true;
 }
 
