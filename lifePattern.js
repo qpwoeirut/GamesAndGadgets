@@ -54,9 +54,12 @@ function writeFollowerPattern(row, col) {
 }
 
 function setPattern(row, col, pattern) {
+    console.log(row);
+    console.log(col);
+    console.log(pattern);
     for (let r=0; r<pattern.length; r++) {
         for (let c=0; c<pattern[r].length; c++) {
-            grid[row + r + game.bufferSize][col + c + game.bufferSize] = pattern[r][c];
+            game.grid[row + r][col + c] = pattern[r][c];
         }
     }
 }

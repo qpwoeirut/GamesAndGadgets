@@ -34,7 +34,10 @@ function handleClick(event) {
         return;
     }
 
-    game.grid[row][col] = !game.grid[row][col];
+    if (!writeFollowerPattern(row, col)) {
+        game.grid[row][col] = !game.grid[row][col];
+    }
+    
     renderGrid();
 }
 
