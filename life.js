@@ -129,14 +129,14 @@ function updateCanvasSize() {
     let newWidth = parseInt(document.getElementById("canvasWidthInput").value);
     const newHeight = parseInt(document.getElementById("canvasHeightInput").value);
     console.log(windowWidth, newWidth);
-    document.getElementById("canvasWidthDisplay").textContent = newWidth;
-    document.getElementById("canvasHeightDisplay").textContent = newHeight;
     if (newWidth + 100 > windowWidth && BYPASS_GRID_WIDTH_CHECK !== true) {
         alert("If the width of the grid is larger than the width of the window, there might be visual glitches.\n" +
               "To disable grid width checks, type BYPASS_GRID_WIDTH_CHECK = true; into the console");
         newWidth = windowWidth - 100;
         document.getElementById("canvasWidthInput").value = newWidth;
     }
+    document.getElementById("canvasWidthDisplay").textContent = newWidth;
+    document.getElementById("canvasHeightDisplay").textContent = newHeight;
     const canvas = document.getElementById("lifeCanvas");
     canvas.width = newWidth;
     canvas.height = newHeight;
