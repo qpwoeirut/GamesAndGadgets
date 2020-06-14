@@ -29,3 +29,9 @@ div#follower {
 div#follower.glider {
     background-image: url("lifeGlider.svg");
 }
+
+
+div#patternClickableContainer h2{
+    width: 100%;
+    text-align: center;
+}

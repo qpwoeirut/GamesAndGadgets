@@ -43,8 +43,16 @@
             <canvas id="lifeCanvas">
 
             </canvas>
-            <div class="clickableContainer">
-                <button id="createGlider" class="clickable" onclick="createFollower(GLIDER);">Glider</button>
+            <div id="patternClickableContainer">
+                <div id="stillPatternContainer" class="clickableContainer patternContainer center">
+                    <h2>Still Patterns</h2>
+                </div>
+                <div id="oscillatingPatternContainer" class="clickableContainer patternContainer center">
+                    <h2>Oscillating Patterns</h2>
+                </div>
+                <div id="spaceshipPatternContainer" class="clickableContainer patternContainer center">
+                    <h2>Spaceship (Moving) Patterns</h2>
+                </div>
             </div>
         </div>
     </div>
@@ -73,6 +81,7 @@
 
     window.onclick = handleClick;
     document.getElementById("pageContainer").onmousemove = handleMouseMove;
+    generatePatternButtons();
 </script>
 
 </html>

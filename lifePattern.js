@@ -1,6 +1,49 @@
 let mousePosX = 0;
 let mousePosY = 0;
 
+
+// this is really inefficient but all the strings are short 
+function capitalizeWithSpaces(s) {
+    logMessage("invoked capitalizeWithSpaces with s=" + s);
+    let result = "";
+    let capNext = true;
+    for (let i=0; i<s.length; i++) {
+        if (s[i] === '-') {
+            capNext = true;
+            result += ' ';
+        }
+        else if (capNext === true) {
+            capNext = false;
+            result += s[i].toUpperCase();
+        }
+        else {
+            result += s[i];
+        }
+    }
+
+    return result;
+}
+
+
+function generatePatternButtons() {
+    generatePatternTypeButtons("stillPatternContainer", stillPatterns);
+    generatePatternTypeButtons("oscillatingPatternContainer", oscillatingPatterns);
+    generatePatternTypeButtons("spaceshipPatternContainer", spaceshipPatterns);
+}
+
+
+function generatePatternTypeButtons(containerId, patternList) {
+    const container = document.getElementById(containerId);
+    for (const pat of patternList) {
+        const button = document.createElement("button");
+        button.classList = "clickable";
+        button.textContent = capitalizeWithSpaces(patternStrings.get(pat));
+        button.onclick = function(e) {createFollower(pat)};
+        container.appendChild(button);
+    }
+}
+
+
 function handleMouseMove(event) {
     mousePosX = event.clientX;
     mousePosY = event.clientY;
@@ -47,12 +90,8 @@ function writeFollowerPattern(row, col) {
     
     const followerType = parseInt(follower.getAttribute("data-type"));
     console.log("invoked writeFollowerPattern with row=" + row + ", col=" + col + ", and followerType string is " + patternStrings.get(followerType));
-    if (followerType === GLIDER) {
-        setPattern(row, col, gliderPattern);
-    }
-    else if (followerType === "") {
 
-    }
+    setPattern(row, col, patternArrays.get(followerType));
 
     return true;
 }
