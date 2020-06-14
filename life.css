@@ -12,8 +12,14 @@ canvas#lifeCanvas {
     background-image: url("lifeGrid.svg");
 }
 
-div#inputContainer * {
+div#inputContainer input, div#inputContainer label, div#inputContainer span {
     font-size: large;
+}
+
+div#inputContainer > div.settings-container {
+    display: inline-block;
+    margin: 2em 1em;
+    min-width: 16em;
 }
 
 

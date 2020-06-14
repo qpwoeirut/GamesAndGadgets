@@ -3,9 +3,12 @@ const ON = 1;
 
 let DEFAULT_CELL_SIZE = 10;
 const CANVAS_HEIGHT = 500;
-const CANVAS_WIDTH = 1200;
+const CANVAS_WIDTH = 500;
+const MAX_WIDTH = 1800;
+const MAX_HEIGHT = 1000;
 
 let BYPASS_CELL_SIZE_CHECK = false;
+let BYPASS_GRID_WIDTH_CHECK = false;
 const MAX_CELL_SIZE = 40;
 
 function newGame(game) {
@@ -13,8 +16,8 @@ function newGame(game) {
 
     game.cellSize = game.cellSize || DEFAULT_CELL_SIZE;
     game.buffer = 64;
-    game.rows = CANVAS_HEIGHT + game.buffer + game.buffer;
-    game.cols = CANVAS_WIDTH + game.buffer + game.buffer;
+    game.rows = MAX_HEIGHT + game.buffer + game.buffer;
+    game.cols = MAX_WIDTH + game.buffer + game.buffer;
     game.grid = createGrid(false);
     game.state = OFF;
 
@@ -118,6 +121,27 @@ function updateCellSize() {
     document.getElementById("cellSizeDisplay").textContent = game.cellSize;
 }
 
+// https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
+function updateCanvasSize() {
+    logMessage("invoked updateCanvasSize");
+    const windowWidth  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+    let newWidth = parseInt(document.getElementById("canvasWidthInput").value);
+    const newHeight = parseInt(document.getElementById("canvasHeightInput").value);
+    console.log(windowWidth, newWidth);
+    document.getElementById("canvasWidthDisplay").textContent = newWidth;
+    document.getElementById("canvasHeightDisplay").textContent = newHeight;
+    if (newWidth + 100 > windowWidth && BYPASS_GRID_WIDTH_CHECK !== true) {
+        alert("If the width of the grid is larger than the width of the window, there might be visual glitches.\n" +
+              "To disable grid width checks, type BYPASS_GRID_WIDTH_CHECK = true; into the console");
+        newWidth = windowWidth - 100;
+        document.getElementById("canvasWidthInput").value = newWidth;
+    }
+    const canvas = document.getElementById("lifeCanvas");
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+}
+
 function clearGrid() {
     stopGame();
     game.grid = createGrid(false);
@@ -161,11 +185,4 @@ function updateGrid() {
         }
     }
     game.grid = nextGrid;
-}
-
-function setCanvasSize(newWidth, newHeight) {
-    logMessage("invoked setCanvasSize");
-    const canvas = document.getElementById("lifeCanvas");
-    canvas.width = newWidth;
-    canvas.height = newHeight;
 }

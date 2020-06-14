@@ -25,7 +25,7 @@
         <div id="gameContainer">
             <br>
             <div id="inputContainer" class="center">
-                <div class="center">
+                <div class="settings-container">
                     <label class="input-label" for="genSpeedInput" title="Generations Per Second">Gens / Sec</label>
                     <input id="genSpeedInput" name="genSpeedInput" oninput="updateGenerationSpeed()" type="range" min="1" max="200" value="10">
                     <span id="genSpeedDisplay">10</span>
@@ -34,16 +34,26 @@
                     <input id="cellSizeInput" name="cellSizeInput" oninput="updateCellSize()" type="range" min="1" max="40" value="10">
                     <span id="cellSizeDisplay">10</span>
                 </div>
+                <div class="settings-container">
+                    <label class="input-label" for="canvasWidthInput" title="Canvas Width">Canvas Width</label>
+                    <input id="canvasWidthInput" name="canvasWidthInput" oninput="updateCanvasSize()" type="range" min="50" max="1800" value="500">
+                    <span id="canvasWidthDisplay">500</span>
+                    <br><br>
+                    <label class="input-label" for="canvasHeightInput" title="Canvas Height">Canvas Height</label>
+                    <input id="canvasHeightInput" name="canvasHeightInput" oninput="updateCanvasSize()" type="range" min="50" max="1000" value="500">
+                    <span id="canvasHeightDisplay">500</span>
+                </div>
                 <br>
-                <div class="center">
+                <div class="clickable-container">
                     <button id="runButton" class="clickable" onclick="handleRunClick();">Start</button>
                     <button class="clickable" onclick="clearGrid()">Clear Grid</button>
                 </div>
             </div>
-            <br>
-            <canvas id="lifeCanvas">
+            <div class="center">
+                <canvas id="lifeCanvas">
 
-            </canvas>
+                </canvas>
+            </div>
             <div>
                 <br>
                 <p id="patternInfo" class="center">Current Pattern: <span id="currentPattern">Cell</span></p>
@@ -84,6 +94,7 @@
                 Also, thanks to John Conway for making an interesting game that I could recreate in about a day or so.
                 Rest in peace.
                 <br><br>
+                SO https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
             </div>
         </div>
     </div> -->
