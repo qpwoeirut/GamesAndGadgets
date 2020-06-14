@@ -88,8 +88,8 @@ function updateGenerationSpeed() {
         alert("Speed Input is invalid");
         return;
     }
-    if (genSpeedInput > 200) {
-        alert("Speed Input must be at most 200. (Values over 200 probably won't change anything anyway).");
+    if (genSpeedInput > 100) {
+        alert("Speed Input must be at most 100. (Values over 100 probably won't change anything anyway).");
         return;
     }
 
