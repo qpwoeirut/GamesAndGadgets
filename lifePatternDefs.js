@@ -51,83 +51,6 @@ const patternStrings = new Map([
     [HWSS, "heavy-weight-spaceship"]
 ]);
 
-const patternArrays = new Map([
-    [BLOCK, [
-        [1, 1],
-        [1, 1]
-    ]],
-    [BEEHIVE, [
-        [0, 1, 1, 0],
-        [1, 0, 0, 1],
-        [0, 1, 1, 0]
-    ]],
-    [LOAF, [
-        [0, 1, 1, 0],
-        [1, 0, 0, 1],
-        [0, 1, 0, 1],
-        [0, 0, 1, 0]
-    ]],
-    [BOAT, [
-        [1, 1, 0],
-        [1, 0, 1],
-        [0, 1, 0]
-    ]],
-    [TUB, [
-        [0, 1, 0],
-        [1, 0, 1],
-        [0, 1, 0]
-    ]],
-    [BLINKER, [
-        [0, 1, 0],
-        [0, 1, 0],
-        [0, 1, 0]
-    ]],
-    [TOAD, [
-        [0, 0, 0, 0],
-        [0, 1, 1, 1],
-        [1, 1, 1, 0],
-        [0, 0, 0, 0]
-    ]],
-    [BEACON, [
-        [1, 1, 0, 0],
-        [1, 1, 0, 0],
-        [0, 0, 1, 1],
-        [0, 0, 1, 1]
-    ]],
-    [PULSAR, [
-        [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-        [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-    ]],
-    [PENTA_DECATHALON, [
-        [0, 0, 0, 1, 1, 1, 0, 0, 0],
-        [0, 0, 0, 1, 0, 1, 0, 0, 0],
-        [0, 0, 0, 1, 1, 1, 0, 0, 0],
-        [0, 0, 0, 1, 1, 1, 0, 0, 0],
-        [0, 0, 0, 1, 1, 1, 0, 0, 0],
-        [0, 0, 0, 1, 1, 1, 0, 0, 0],
-        [0, 0, 0, 1, 0, 1, 0, 0, 0],
-        [0, 0, 0, 1, 1, 1, 0, 0, 0],
-    ]],
-    [GLIDER, [
-        [1, 1, 1],
-        [0, 0, 1],
-        [0, 1, 0]
-    ]],
-    [LWSS, []],
-    [MWSS, []],
-    [HWSS, []]
-]);
 const blockPattern = [
     [1, 1],
     [1, 1]
@@ -201,3 +124,41 @@ const gliderPattern = [
     [0, 0, 1],
     [0, 1, 0]
 ]
+const LWSSPattern = [
+    [0, 1, 1, 0, 0],
+    [1, 1, 1, 1, 0],
+    [1, 1, 0, 1, 1],
+    [0, 0, 1, 1, 0],
+    [0, 0, 0, 0, 0] // empty row since ship uses this row as it moves
+]
+const MWSSPattern = [
+    [0, 1, 1, 1, 0, 0],
+    [1, 1, 1, 1, 1, 0],
+    [1, 1, 1, 0, 1, 1],
+    [0, 0, 0, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0] // empty row since ship uses this row as it moves
+]
+const HWSSPattern = [
+    [0, 1, 1, 1, 1, 0, 0],
+    [1, 1, 1, 1, 1, 1, 0],
+    [1, 1, 1, 1, 0, 1, 1],
+    [0, 0, 0, 0, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0] // empty row since ship uses this row as it moves
+]
+
+const patternArrays = new Map([
+    [BLOCK, blockPattern],
+    [BEEHIVE, beehivePattern],
+    [LOAF, loafPattern],
+    [BOAT, boatPattern],
+    [TUB, tubPattern],
+    [BLINKER, blinkerPattern],
+    [TOAD, toadPattern],
+    [BEACON, beaconPattern],
+    [PULSAR, pulsarPattern],
+    [PENTA_DECATHALON, pentaDecathalonPattern],
+    [GLIDER, gliderPattern],
+    [LWSS, LWSSPattern],
+    [MWSS, MWSSPattern],
+    [HWSS, HWSSPattern]
+]);
