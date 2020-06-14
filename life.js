@@ -96,6 +96,7 @@ function updateSettings() {
         updateGrid();
         renderGrid();
     }, 1000/game.speed);
+    createFollower(parseInt(document.getElementById("follower").getAttribute("data-type")));
     return true;
 }
 
