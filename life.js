@@ -6,7 +6,7 @@ const CANVAS_HEIGHT = 500;
 const CANVAS_WIDTH = 1200;
 
 let BYPASS_CELL_SIZE_CHECK = false;
-const MAX_CELL_SIZE = 20;
+const MAX_CELL_SIZE = 40;
 
 function newGame(game) {
     logMessage("invoked newGame with game");
@@ -55,11 +55,12 @@ function handleRunClick() {
 function startGame() {
     logMessage("invoked startGame");
 
-    if (updateSettings() === true) {
-        const runButton = document.getElementById("runButton");
-        runButton.textContent = "Stop";
-        game.state = ON;
-    }
+    updateGenerationSpeed();
+    updateCellSize();
+
+    const runButton = document.getElementById("runButton");
+    runButton.textContent = "Stop";
+    game.state = ON;
 }
 
 function stopGame() {
@@ -71,53 +72,55 @@ function stopGame() {
     clearInterval(game.runner);
 }
 
-function updateSettings() {
-    const speedInput = parseInt(document.getElementById("speedInput").value);
-    if (isNaN(speedInput) || speedInput < 1) {
+function updateGenerationSpeed() {
+    const genSpeedInput = parseInt(document.getElementById("genSpeedInput").value);
+    if (isNaN(genSpeedInput) || genSpeedInput < 1) {
         alert("Speed Input is invalid");
-        return false;
+        return;
     }
-    if (speedInput > 200) {
+    if (genSpeedInput > 200) {
         alert("Speed Input must be at most 200. (Values over 200 probably won't change anything anyway).");
-        return false;
+        return;
     }
 
-    const cellSizeInput = parseInt(document.getElementById("cellSizeInput").value);
-    if (isNaN(cellSizeInput) || cellSizeInput < 1) {
-        alert("Cell Size Input is invalid");
-        return false;
-    }
-    if (cellSizeInput > MAX_CELL_SIZE && BYPASS_CELL_SIZE_CHECK !== true) {
-        alert("Cell Size Input must be at most " + MAX_CELL_SIZE + ".\n" + 
-              "To disable cell size checks, type BYPASS_CELL_SIZE_CHECKS = true; into the console");
-        return false;
-    }
-    game.speed = speedInput;
-    setCellSize(cellSizeInput);
-    
+    game.speed = genSpeedInput;
+
     clearInterval(game.runner);
     game.runner = setInterval(function() {
         updateGrid();
         renderGrid();
     }, 1000/game.speed);
+
+    document.getElementById("genSpeedDisplay").textContent = game.speed;
+}
+
+function updateCellSize() {
+    const cellSizeInput = parseInt(document.getElementById("cellSizeInput").value);
+    if (isNaN(cellSizeInput) || cellSizeInput < 1) {
+        alert("Cell Size Input is invalid");
+        return;
+    }
+    if (cellSizeInput > MAX_CELL_SIZE && BYPASS_CELL_SIZE_CHECK !== true) {
+        alert("Cell Size Input must be at most " + MAX_CELL_SIZE + ".\n" + 
+              "To disable cell size checks, type BYPASS_CELL_SIZE_CHECKS = true; into the console");
+        return;
+    }
+    game.cellSize = cellSizeInput;
+    const canvas = document.getElementById("lifeCanvas");
+    canvas.style.backgroundSize = game.cellSize + "px";
+    renderGrid();
+    
     const follower = document.getElementById("follower");
     if (follower) {
         createFollower(parseInt(follower.getAttribute("data-type")));
     }
-    
-    return true;
+
+    document.getElementById("cellSizeDisplay").textContent = game.cellSize;
 }
 
 function clearGrid() {
     stopGame();
     game.grid = createGrid(false);
-    renderGrid();
-}
-
-function setCellSize(size) {
-    game.cellSize = size;
-    const canvas = document.getElementById("lifeCanvas");
-    canvas.style.backgroundSize = game.cellSize + "px";
     renderGrid();
 }
 

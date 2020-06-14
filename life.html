@@ -26,17 +26,18 @@
             <br>
             <div id="inputContainer" class="center">
                 <div class="center">
-                    <label for="speedInput">Cycles per Second</label>
-                    <input id="speedInput" name="speedInput" type="number" min="1" max="200" value="10">
+                    <label class="input-label" for="genSpeedInput" title="Generations Per Second">Gens / Sec</label>
+                    <input id="genSpeedInput" name="genSpeedInput" oninput="updateGenerationSpeed()" type="range" min="1" max="200" value="10">
+                    <span id="genSpeedDisplay">10</span>
                     <br><br>
-                    <label for="cellSizeInput">Cell Size</label>
-                    <input id="cellSizeInput" name="cellSizeInput" type="number" min="1" max="20" value="10">
+                    <label class="input-label" for="cellSizeInput" title="Size of each cell, in px">Cell Size</label>
+                    <input id="cellSizeInput" name="cellSizeInput" oninput="updateCellSize()" type="range" min="1" max="40" value="10">
+                    <span id="cellSizeDisplay">10</span>
                 </div>
                 <br>
                 <div class="center">
-                    <button class="clickable" onclick="clearGrid()">Clear Grid</button>
                     <button id="runButton" class="clickable" onclick="handleRunClick();">Start</button>
-                    <button id="updateButton" class="clickable" onclick="updateSettings();">Update Settings</button>
+                    <button class="clickable" onclick="clearGrid()">Clear Grid</button>
                 </div>
             </div>
             <br>

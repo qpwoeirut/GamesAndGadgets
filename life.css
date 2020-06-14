@@ -33,3 +33,7 @@ div#patternClickableContainer h2{
 p#patternInfo {
     font-size: x-large;
 }
+
+div#settingsContainer {
+    display: inline-block;
+}
