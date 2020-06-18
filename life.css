@@ -43,3 +43,7 @@ p#patternInfo {
 div#settingsContainer {
     display: inline-block;
 }
+
+button.pattern-title.collapsible-control {
+    font-size: 1.2em;
+}

@@ -24,13 +24,14 @@ button.collapsible-control:hover {
 }
 
 .collapsible.collapsible-show {
-    max-height: 20em;
+    max-height: 18em;
+    overflow: auto;
 }
 
 button.collapsible-control:before {
     content: '\02795';
     /* Unicode for plus sign (+) */
-    font-size: 0.8em;
+    font-size: 80%;
     color: black;
     margin-right: 1em;
 }
