@@ -7,17 +7,6 @@ function handleClickAway(event) {
 }
 
 
-function addCollapsibleListeners() {
-    const controls = document.getElementsByClassName("collapsible-control");
-    for (const control of controls) {
-        control.addEventListener("click", function (e) {
-            this.classList.toggle("collapsible-open");
-            this.nextElementSibling.classList.toggle("collapsible-show");
-        });
-    }
-}
-
-
 function openHowToPlay() {
     document.getElementById("howToPlayContainer").classList.add("active");
 
