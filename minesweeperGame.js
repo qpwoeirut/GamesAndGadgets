@@ -284,9 +284,11 @@ function winGame() {
     }
     cleanupGame();
     logMessage("You won!", LOG_LEVEL);
-    setTimeout(function () {
-        alert("You won!");
-    }, 400);
+    if (document.getElementById("alertOnWin").checked) {
+        setTimeout(function () {
+            alert("You won! This popup can be disabled in Settings > Popup Alerts.");
+        }, 400);
+    }
 }
 
 
@@ -309,9 +311,11 @@ function loseGame(mineRow, mineCol) {
     cleanupGame();
     document.getElementById(toId(mineRow, mineCol)).classList.add("clicked");
     logMessage("You lost!", LOG_LEVEL);
-    setTimeout(function () {
-        alert("You lost!");
-    }, 400);
+    if (document.getElementById("alertOnLoss").checked) {
+        setTimeout(function () {
+            alert("You lost! This popup can be disabled in Settings > Popup Alerts.");
+        }, 400);
+    }
 }
 
 

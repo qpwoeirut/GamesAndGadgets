@@ -203,8 +203,8 @@
         </div>
 
         <div id="settingsContainer" class="popup-container popup">
-            <h3>Controls</h3>
-            <div class="container">
+            <button class="collapsible-control">Controls</button>
+            <div class="container collapsible">
                 <label for="useMiddleClick">Use Middle Click to Chord (Open Adjacent Cells)</label>
                 <input id="useMiddleClick" name="useMiddleClick" type="checkbox" checked>
                 <br><br>
@@ -212,14 +212,23 @@
                 <input id="useDoubleClick" name="useDoubleClick" type="checkbox" checked>
             </div>
             <br>
-            <h3>Auto-Solver</h3>
-            <div class="container">
+            <button class="collapsible-control">Auto-Solver</button>
+            <div class="container collapsible">
                 <label for="solverPause">Milliseconds Between Solver Moves</label>
                 <input id="solverPause" name="solverPause" type="number" required value="50">
             </div>
             <br>
-            <h3>Difficulty</h3>
-            <div class="container">
+            <button class="collapsible-control">Popup Alerts</button>
+            <div class="container collapsible">
+                <label for="alertOnWin">Create Popup Alert On Win</label>
+                <input id="alertOnWin" name="alertOnWin" type="checkbox" checked>
+                <br><br>
+                <label for="alertOnLoss">Create Popup Alert On Loss</label>
+                <input id="alertOnLoss" name="alertOnLoss" type="checkbox" checked>
+            </div>
+            <br>
+            <button class="collapsible-control">Difficulty</button>
+            <div class="container collapsible">
                 <button class="clickable" onclick="prefillDifficulty('EASY');">Easy</button>
                 <button class="clickable" onclick="prefillDifficulty('INTERMEDIATE');">Intermediate</button>
                 <button class="clickable" onclick="prefillDifficulty('EXPERT');">Expert</button>
