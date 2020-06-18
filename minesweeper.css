@@ -27,6 +27,18 @@ div#gameContainer {
     /* Modified from https://fontstruct.com/fontstructions/show/1462474/7segments-1 */
 }
 
+/* START LEFT TOOLBAR */
+div#leftToolbar {
+    position: fixed;
+    left: 0px;
+}
+
+div#leftToolbar>button.clickable {
+    margin-left: 0px;
+    margin-bottom: 1.5em;
+    border-left-width: 0px;
+}
+/* END LEFT TOOLBAR */
 
 /* START SCOREBOARD */
 div#scoreContainer {
@@ -39,7 +51,8 @@ div#scoreContainer {
 div.scoreboard {
     display: inline-block;
     vertical-align: middle;
-    width: max-content; /* For Firefox */
+    width: max-content;
+    /* For Firefox */
     width: fit-content;
     padding: 0.12em 0px 0.12em 0.12em;
     margin: 8px;
@@ -89,10 +102,12 @@ div.popup.active {
     bottom: 0;
     left: 0;
 
-    height: min-content; /* For Firefox */
+    height: min-content;
+    /* For Firefox */
     height: fit-content;
     max-height: 75%;
-    width: max-content; /* For Firefox */
+    width: max-content;
+    /* For Firefox */
     width: fit-content;
     max-width: 80%;
 
@@ -139,7 +154,8 @@ div.popup-container button.collapsible-control:hover {
 
 div.popup-container .collapsible {
     max-height: 0;
-    height: max-content; /* For Firefox */
+    height: max-content;
+    /* For Firefox */
     height: fit-content;
     overflow: hidden;
     transition: max-height 0.4s linear;
@@ -279,14 +295,3 @@ div.game-cell.value8 {
 
 /* END NUMBER COLORS */
 /* END MINESWEEPER GAME */
-
-div#leftToolbar {
-    position: fixed;
-    left: 0px;
-}
-
-div#leftToolbar > button.clickable {
-    margin-left: 0px;
-    margin-bottom: 1.5em;
-    border-left-width: 0px;
-}
