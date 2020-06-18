@@ -27,10 +27,15 @@
         <h1 class="textCenter">Minesweeper</h1>
         <p class="center">Make sure you check out Settings to see what you can change!</p>
         <br>
-        <div class="clickable-container container">
+        <div id="leftToolbar">
             <button id="howToButton" class="clickable" onclick="openHowToPlay();">How To Play</button>
+            <br>
             <button id="settingButton" class="clickable" onclick="openSettings();">Settings</button>
+            <br>
             <button id="newGameButton" class="clickable" onclick="startGame(game);">New Game</button>
+            <br>
+        </div>
+        <div class="clickable-container container">
             <button id="settingButton" class="clickable" onclick="solve(false);">Auto Solve</button>
             <button id="hintButton" class="clickable" onclick="solve(true);">Hint</button>
         </div>
