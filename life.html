@@ -9,12 +9,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="logger.js"></script>
+    <script src="collapsible.js"></script>
     <script src="grid.js"></script>
     <script src="life.js"></script>
     <script src="lifePattern.js"></script>
     <script src="lifePatternDefs.js"></script>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
+    <link rel="stylesheet" href="collapsible.css">
     <link rel="stylesheet" href="life.css">
 </head>
 
@@ -61,21 +63,25 @@
                     <button class="clickable" onclick="deleteAnyFollowers();">Reset Pattern</button>
                 </div>
                 <br>
-                <div id="patternClickableContainer">
-                    <div id="stillPatternContainer" class="clickable-container patternContainer center">
-                        <h2>Still Patterns</h2>
+            <div id="patternClickableContainer">
+                    <button class="pattern-title collapsible-control">Still Patterns</button>
+                    <div id="stillPatternContainer" class="collapsible patternContainer center">
+
                     </div>
                     <br>
-                    <div id="oscillatingPatternContainer" class="clickable-container patternContainer center">
-                        <h2>Oscillating Patterns</h2>
+                    <button class="pattern-title collapsible-control">Oscillating Patterns</button>
+                    <div id="oscillatingPatternContainer" class="collapsible patternContainer center">
+
                     </div>
                     <br>
-                    <div id="spaceshipPatternContainer" class="clickable-container patternContainer center">
-                        <h2>Spaceship (Moving) Patterns</h2>
+                    <button class="pattern-title collapsible-control">Spaceship (Moving) Patterns</button>
+                    <div id="spaceshipPatternContainer" class="collapsible patternContainer center">
+
                     </div>
                     <br>
-                    <div id="miscPatternContainer" class="clickable-container patternContainer center">
-                        <h2>Miscellaneous Patterns</h2>
+                    <button class="pattern-title collapsible-control">Miscellaneous Patterns</button>
+                    <div id="miscPatternContainer" class="collapsible patternContainer center">
+
                     </div>
                     <br><br>
                 </div>
@@ -109,6 +115,7 @@
     window.onclick = handleClick;
     document.getElementById("pageContainer").onmousemove = trackMouse;
     generatePatternButtons();
+    addCollapsibleListeners();
 </script>
 
 </html>
