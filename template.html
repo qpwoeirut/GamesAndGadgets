@@ -3,12 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>Template</title>
 
     <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="logger.js"></script>
+    <script src="collapsible.js"></script>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
+    <link rel="stylesheet" href="collapsible.css">
 </head>
 
 <body>
@@ -18,7 +21,8 @@
 </body>
 <script>
     $("#navbarContainer").load("navbar.html");
-    console.log("Hello World!");
+    
+    addCollapsibleListeners();
 </script>
 
 </html>
