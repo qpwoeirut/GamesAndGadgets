@@ -19,14 +19,6 @@ body {
     overflow: auto;
 }
 
-.displayInlineBlock {
-    display: inline-block !important;
-}
-
-.hidden {
-    display: none !important;
-}
-
 .container {
     margin-left: 2em;
     margin-right: 2em;
