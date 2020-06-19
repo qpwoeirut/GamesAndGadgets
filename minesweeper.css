@@ -1,9 +1,5 @@
 /* Colors from https://upload.wikimedia.org/wikipedia/commons/1/1e/Minesweeper_Game_Most_Common_Setup.png */
 
-body {
-    background-color: #c0c0c0;
-}
-
 div#gameContainer {
     /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
     -webkit-touch-callout: none;

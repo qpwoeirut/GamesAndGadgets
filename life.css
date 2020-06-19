@@ -1,7 +1,3 @@
-body {
-    background-color: #c0c0c0;
-}
-
 canvas#lifeCanvas {
     border-color: black;
     border-style: solid;
