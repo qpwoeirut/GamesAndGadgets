@@ -1,5 +1,3 @@
-div#gameContainer {
-    background-color: black;
-    width: 100px;
-    height: 100px;
+canvas#clickerCanvas {
+    border: black solid 1px;
 }

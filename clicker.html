@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="logger.js"></script>
     <script src="collapsible.js"></script>
+    <script src="clicker.js"></script>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="collapsible.css">
@@ -20,13 +21,19 @@
 
     <h1 id="pageTitle">A Semi-Mindless Clicker Game</h1>
     <div id="gameContainer" class="center">
-
+        <canvas id="clickerCanvas" width="400" height="400"></canvas>
     </div>
 </body>
 <script>
     $("#navbarContainer").load("navbar.html");
-    
+
+    VERBOSITY = 10;
     addCollapsibleListeners();
+
+    var game = new Object();
+    startGame(game);
+
+    document.getElementById("clickerCanvas").onclick = handleClickerClick;
 </script>
 
 </html>
