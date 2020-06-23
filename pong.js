@@ -52,7 +52,7 @@ function moveObjects() {
         game.ballVelocityX = -game.ballVelocityX;
         const paddleCenter = game.paddleY + game.paddleSize;
         game.ballVelocityY += (game.ballY - paddleCenter) / (game.paddleSize * 2) + (Math.random() / 1000);
-        game.ballSpeed += Math.min(0.5, game.difficulty / game.ballSpeed);
+        game.ballSpeed += Math.min(game.ballSpeed / 2, game.difficulty / game.ballSpeed);
     }
     if (game.ballX + game.ballSize >= 800) {
         game.ballX = 800 - game.ballSize;
