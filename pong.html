@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pong</title>
+
+    <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="logger.js"></script>
+    <script src="collapsible.js"></script>
+    <script src="pong.js"></script>
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="clickable.css">
+    <link rel="stylesheet" href="collapsible.css">
+    <link rel="stylesheet" href="pong.css">
+</head>
+
+<body>
+    <div id="navbarContainer"></div>
+    <h1 id="pageTitle">Pong</h1>
+
+    <div class="clickable-container">
+        <button id="playButton" class="clickable" onclick="playButtonClick();">New Game</button>
+    </div>
+    <div id="scoreContainer" class="center">
+        <p>Score: <span id="score">0</span></p>
+    </div>
+    <div id="gameContainer" class="center">
+        <canvas id="pongCanvas" width="800" height="400"></canvas>
+    </div>
+</body>
+<script>
+    $("#navbarContainer").load("navbar.html");
+    
+    addCollapsibleListeners();
+
+    var game = initializeGame();
+
+    VERBOSITY = 7;
+
+    window.onkeydown = startPaddleMove;
+    window.onkeyup = stopPaddleMove;
+</script>
+
+</html>

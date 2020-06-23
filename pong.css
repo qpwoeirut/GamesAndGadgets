@@ -1,0 +1,9 @@
+canvas#pongCanvas {
+    border: black solid 10px;
+    border-left: none;
+    background-color: #666666;
+}
+
+div#scoreContainer {
+    font-size: x-large;
+}
