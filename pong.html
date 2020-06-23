@@ -21,7 +21,7 @@
     <h1 id="pageTitle">Pong</h1>
 
     <div class="clickable-container">
-        <button id="playButton" class="clickable" onclick="playButtonClick();">New Game</button>
+        <button id="playPauseButton" class="clickable" onclick="playPauseGame();">New Game</button>
     </div>
     <div id="scoreContainer" class="center">
         <p>Score: <span id="score">0</span></p>
@@ -52,8 +52,10 @@
 
     VERBOSITY = 7;
 
-    window.onkeydown = startPaddleMove;
-    window.onkeyup = stopPaddleMove;
+    // window.onkeydown = startPaddleMove;
+    // window.onkeyup = stopPaddleMove;
+    window.onkeypress = handlePauseKey;
+    document.getElementById("pongCanvas").onmousemove = movePaddleMouse;
 </script>
 
 </html>

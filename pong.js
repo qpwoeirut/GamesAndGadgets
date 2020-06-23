@@ -37,7 +37,6 @@ function startGame(game) {
 }
 
 function moveObjects() {
-    logMessage("invoked moveObjects");
     game.paddleY += game.paddleDir * game.paddleSpeed;
     game.paddleY = Math.max(game.paddleY, 0);
     game.paddleY = Math.min(game.paddleY, 400 - game.paddleSize);
@@ -91,31 +90,17 @@ function updateScore(score) {
 }
 
 function loseGame() {
+    logMessage("invoked loseGame");
     game.state = OFF;
-    const buttonElem = document.getElementById("playButton");
+    const buttonElem = document.getElementById("playPauseButton");
     buttonElem.textContent = "New Game";
     clearInterval(game.renderer);
     renderGame();
 
     setTimeout(function() {
+        logMessage("You lost!", 5);
         alert("You lost!");
     }, 100);
-}
-
-function playButtonClick() {
-    const buttonElem = document.getElementById("playButton");
-    if (game.state === OFF) {
-        buttonElem.textContent = "Pause Game";
-        startGame(game);
-    }
-    else if (game.state === ON) {
-        buttonElem.textContent = "Continue Game";
-        game.state = PAUSED;
-    }
-    else if (game.state === PAUSED) {
-        buttonElem.textContent = "Pause Game";
-        game.state = ON;
-    }
 }
 
 function startPaddleMove(event) {
@@ -134,6 +119,31 @@ function stopPaddleMove(event) {
     if (event.key === "ArrowDown" || event.key === "s") {
         game.paddleDir = 0;
     }
+}
+
+function handlePauseKey(event) {
+    if (event.key !== " ") return;
+    playPauseGame();
+}
+
+function playPauseGame() {
+    const buttonElem = document.getElementById("playPauseButton")
+    if (game.state === OFF) {
+        buttonElem.textContent = "Pause Game";
+        startGame(game);
+    }
+    else if (game.state === ON) {
+        buttonElem.textContent = "Continue Game";
+        game.state = PAUSED;
+    }
+    else if (game.state === PAUSED) {
+        buttonElem.textContent = "Pause Game";
+        game.state = ON;
+    }
+}
+
+function movePaddleMouse(event) {
+    game.paddleY = event.offsetY - game.paddleSize / 2;
 }
 
 function updatePaddleSpeed() {
