@@ -34,27 +34,34 @@ function getRandomInt(min, max) {
 
 // Play the game
 function loop() {
+    // Display different things when not playing depending on when in the game it is
+    // Press P to Start before the game has been started
     if (environment.play === false && environment.timesPaused >= 1) {
         context.fillStyle = 'white';
         context.fillRect((grid*23)/2, (grid*21)/2, grid-6, grid*4);
         context.fillRect((grid*27)/2, (grid*21)/2, grid-6, grid*4);
     }
+    // Pause symbol while the game is in play
     else if (environment.play === false && environment.timesPaused === 0) {
         context.fillStyle = 'white';
         context.font = "25px Arial";
         context.fillText("Press P to Start", (grid*15)/2, (grid*25)/2)
     }
+    // X when the player looses
     else if (environment.play === false && environment.timesPaused === -1) {
         context.fillStyle = 'white';
         context.font = "80px Arial";
         context.fillText("X", (grid*23)/2, (grid*28)/2)
+        context.font = "25px Arial";
+        context.fillText("Press P to Reset", (grid*15)/2, (grid*33)/2)
     }
+    // Game body
     else if (environment.play === true) {
         requestAnimationFrame(loop);
     
         // Control frame rate
         if (environment.hasPaused === false) {
-            // Change the speed of the snake
+            // Change the speed of the snake (the smaller the number the faster the snake is)
             if (environment.difficulty === 0) {
                 countLimit = 10;
             }
@@ -65,6 +72,7 @@ function loop() {
                 countLimit = 4;
             }
         }
+        // Adjust frame rate to control for pausing and unpausing
         else if (environment.hasPaused === true) {
             if (environment.difficulty === 0) {
                 countLimit = 5;
@@ -76,12 +84,13 @@ function loop() {
                 countLimit = 2;
             }
         }
+        // Loop the game at the set frame rate
         if (count++ < countLimit) {
             return;
         }
         count = 0;
 
-        // Delay turning
+        // Delay turning to prevent the player from running into themselves after doing a 180
         if (snake.turning === true) {
             snake.turnTimer--;
         }
@@ -148,6 +157,7 @@ function loop() {
 // Snake movement controls (arrow keys)
 document.addEventListener('keydown', function(e) {
     e.preventDefault()
+    // Arrow keys - movement
     if (e.which === 37 && snake.speedX === 0 && snake.turning === false) {
         snake.turning = true;
         snake.speedX = -grid;
@@ -168,20 +178,22 @@ document.addEventListener('keydown', function(e) {
         snake.speedY = grid;
         snake.speedX = 0;
         }
-    // Pause the game
+    // P - pause control
     else if (e.which === 80 && environment.play === true) {
+        // Control what message desplays while the game is not playing (depending on the number of times paused)
         if (environment.timesPaused === -1) {
             environment.timesPaused = 1;
         }
         else {
             environment.timesPaused++;
         }
+        // Pause the game
         environment.play = false;
     }
     else if (e.which === 80 && environment.play === false) {
         environment.play = true;
         requestAnimationFrame(loop);
-        // Change the speed of the snake (the lower the number the faster the speed)
+        // Change the speed of the snake when the game unpauses (the lower the number the faster the speed)
         environment.hasPaused = true;
         if (environment.difficulty === 0) {
             countLimit = 5;
@@ -195,6 +207,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+// Loop the game (if the game is not paused)
 if (environment.play === true) {
     requestAnimationFrame(loop);
 }
