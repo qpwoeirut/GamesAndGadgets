@@ -48,6 +48,8 @@ function loop() {
         context.fillStyle = 'white';
         context.font = "80px Arial";
         context.fillText("X", (grid*23)/2, (grid*28)/2)
+        context.font = "25px Arial";
+        context.fillText("Press P to Reset", (grid*15)/2, (grid*33)/2)
     }
     else if (environment.play === true) {
         requestAnimationFrame(loop);
