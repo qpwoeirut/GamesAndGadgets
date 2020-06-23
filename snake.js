@@ -23,6 +23,7 @@ var environment = {
     score: 0,
     play: false,
     hasPaused: false,
+    timesPaused: 0,
     difficulty: 1
 };
 
@@ -33,7 +34,22 @@ function getRandomInt(min, max) {
 
 // Play the game
 function loop() {
-    if (environment.play === true) {
+    if (environment.play === false && environment.timesPaused >= 1) {
+        context.fillStyle = 'white';
+        context.fillRect((grid*23)/2, (grid*21)/2, grid-6, grid*4);
+        context.fillRect((grid*27)/2, (grid*21)/2, grid-6, grid*4);
+    }
+    else if (environment.play === false && environment.timesPaused === 0) {
+        context.fillStyle = 'white';
+        context.font = "25px Arial";
+        context.fillText("Press P to Start", (grid*15)/2, (grid*25)/2)
+    }
+    else if (environment.play === false && environment.timesPaused === -1) {
+        context.fillStyle = 'white';
+        context.font = "80px Arial";
+        context.fillText("X", (grid*23)/2, (grid*28)/2)
+    }
+    else if (environment.play === true) {
         requestAnimationFrame(loop);
     
         // Control frame rate
@@ -119,6 +135,7 @@ function loop() {
                     apple.y = getRandomInt(0, 25) * grid; 
                     // Stop playing the game
                     environment.play = false;
+                    environment.timesPaused = -1;
                     context.fillStyle = 'red';
                     context.fillRect(cell.x, cell.y, grid-1, grid-1);  
                 }
@@ -131,7 +148,6 @@ function loop() {
 // Snake movement controls (arrow keys)
 document.addEventListener('keydown', function(e) {
     e.preventDefault()
-    
     if (e.which === 37 && snake.speedX === 0 && snake.turning === false) {
         snake.turning = true;
         snake.speedX = -grid;
@@ -151,9 +167,15 @@ document.addEventListener('keydown', function(e) {
         snake.turning = true;
         snake.speedY = grid;
         snake.speedX = 0;
-    }
+        }
     // Pause the game
     else if (e.which === 80 && environment.play === true) {
+        if (environment.timesPaused === -1) {
+            environment.timesPaused = 1;
+        }
+        else {
+            environment.timesPaused++;
+        }
         environment.play = false;
     }
     else if (e.which === 80 && environment.play === false) {
