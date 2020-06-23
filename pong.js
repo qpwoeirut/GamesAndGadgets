@@ -2,10 +2,6 @@ const OFF = 0;
 const ON = 1;
 const PAUSED = 2;
 
-const EASY = 3;
-const MEDIUM = 5;
-const HARD = 10;
-
 function initializeGame() {
     var game = new Object();
     game.state = OFF;
@@ -15,8 +11,10 @@ function initializeGame() {
 
 function startGame(game) {
     game.state = ON;
-    game.difficulty = MEDIUM;
     game.score = 0;
+
+    game.paddleSpeed = parseInt(document.getElementById("paddleSpeedInput").value) || 5;
+    game.ballAcceleration = parseInt(document.getElementById("ballAccelInput").value) || 5;
 
     game.ballSpeed = 3;
     game.ballSize = 10;
@@ -25,7 +23,6 @@ function startGame(game) {
     game.ballX = 400 - (game.ballSize / 2);
     game.ballY = 200 - (game.ballSize / 2);
 
-    game.paddleSpeed = 5;
     game.paddleSize = 100;
     game.paddleDir = 0;
     game.paddleY = 200 - (game.paddleSize / 2);
@@ -52,7 +49,7 @@ function moveObjects() {
         game.ballVelocityX = -game.ballVelocityX;
         const paddleCenter = game.paddleY + game.paddleSize;
         game.ballVelocityY += (game.ballY - paddleCenter) / (game.paddleSize * 2) + (Math.random() / 1000);
-        game.ballSpeed += Math.min(game.ballSpeed / 2, game.difficulty / game.ballSpeed);
+        game.ballSpeed += Math.min(1, game.ballAcceleration / game.ballSpeed);
     }
     if (game.ballX + game.ballSize >= 800) {
         game.ballX = 800 - game.ballSize;
@@ -135,4 +132,11 @@ function stopPaddleMove(event) {
     if (event.key === "ArrowDown" || event.key === "s") {
         game.paddleDir = 0;
     }
+}
+
+function updatePaddleSpeed() {
+    game.paddleSpeed = parseInt(document.getElementById("paddleSpeedInput").value) || 5;
+}
+function updateBallAccel() {
+    game.ballAcceleration = parseInt(document.getElementById("ballAccelInput").value) || 5;
 }

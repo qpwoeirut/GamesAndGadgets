@@ -28,6 +28,19 @@
     </div>
     <div id="gameContainer" class="center">
         <canvas id="pongCanvas" width="800" height="400"></canvas>
+
+        <div id="settingsContainer" class="container">
+            <div id="paddleSpeedContainer" class="inline-container">
+                <label for="paddleSpeedInput">Paddle Speed</label>
+                <br>
+                <input id="paddleSpeedInput" name="paddleSpeedInput" oninput="updatePaddleSpeed()" type="range" min="1" max="20" value="5">
+            </div>
+            <div id="ballAccelContainer" class="inline-container">
+                <label for="ballAccelInput">Ball Acceleration</label>
+                <br>
+                <input id="ballAccelInput" name="ballAccelInput" oninput="updateBallAccel()" type="range" min="1" max="100" value="5">
+            </div>
+        </div>
     </div>
 </body>
 <script>

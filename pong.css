@@ -7,3 +7,19 @@ canvas#pongCanvas {
 div#scoreContainer {
     font-size: x-large;
 }
+
+div#settingsContainer {
+    overflow-x: auto;
+}
+
+div.inline-container {
+    text-align: center;
+    font-size: x-large;
+    display: inline-block;
+
+    margin: 1em 4em;
+}
+
+div#ballAccelContainer {
+    float: right;
+}
