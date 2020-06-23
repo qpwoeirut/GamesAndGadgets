@@ -32,6 +32,8 @@ function startGame(game) {
         moveObjects();
         renderGame();
     }, 10);
+
+    updateScore(game.score);
 }
 
 function moveObjects() {
@@ -44,7 +46,7 @@ function moveObjects() {
     game.ballY += game.ballVelocityY * game.ballSpeed;
 
     if (50 - game.ballSpeed <= game.ballX && game.ballX <= 50 && game.paddleY <= game.ballY + game.ballSize && game.ballY <= game.paddleY + game.paddleSize) {
-        incrementScore();
+        updateScore(++game.score);
         game.ballX = 50;
         game.ballVelocityX = -game.ballVelocityX;
         const paddleCenter = game.paddleY + game.paddleSize;
@@ -84,8 +86,8 @@ function renderGame() {
     context.fillRect(50, game.paddleY, -10, game.paddleSize);
 }
 
-function incrementScore() {
-    document.getElementById("score").textContent = ++game.score;
+function updateScore(score) {
+    document.getElementById("score").textContent = score;
 }
 
 function loseGame() {
