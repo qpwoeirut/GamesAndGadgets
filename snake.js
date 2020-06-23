@@ -101,6 +101,15 @@ function loop() {
 
         // Display score and canvas
         document.getElementById("snakeScore").innerHTML = environment.score;
+        if (environment.difficulty === 0) {
+            document.getElementById("snakeDifficulty").innerHTML = "Easy";
+        }
+        else if (environment.difficulty === 1) {
+            document.getElementById("snakeDifficulty").innerHTML = "Normal";
+        }
+        else if (environment.difficulty === 2) {
+            document.getElementById("snakeDifficulty").innerHTML = "Hard";
+        }
         context.clearRect(0,0,canvas.width,canvas.height);
 
         // Move the snake
