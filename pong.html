@@ -9,10 +9,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="logger.js"></script>
     <script src="collapsible.js"></script>
+    <script src="popup.js"></script>
     <script src="pong.js"></script>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="collapsible.css">
+    <link rel="stylesheet" href="popup.css">
     <link rel="stylesheet" href="pong.css">
 </head>
 
@@ -22,25 +24,41 @@
 
     <div class="clickable-container">
         <button id="playPauseButton" class="clickable" onclick="playPauseGame();">New Game</button>
-        <button id="settingsButton" class="clickable" onclick="openSettings();">Settings</button>
+        <button id="settingsButton" class="clickable" onclick="openId('settingsContainer');">Settings</button>
     </div>
     <div id="scoreContainer" class="center">
         <p>Score: <span id="score">0</span></p>
     </div>
     <div id="gameContainer" class="center">
         <canvas id="pongCanvas" width="800" height="400"></canvas>
-
-        <div id="settingsContainer" class="container">
-            <div id="ballAccelContainer" class="inline-container center">
-                <label for="ballAccelInput">Ball Acceleration</label>
-                <br>
-                <input id="ballAccelInput" name="ballAccelInput" oninput="updateBallAccel()" type="range" min="1" max="100" value="5">
-            </div>
-        </div>
     </div>
 
     <div id="settingsContainer" class="popup-container popup">
-
+        <button id="easyDifficultyButton" class="clickable">Easy</button>
+        <button id="mediumDifficultyButton" class="clickable">Medium</button>
+        <button id="hardDifficultyButton" class="clickable">Hard</button>
+        <br><br><br>
+        <div class="center">
+            <div id="ballSpeedContainer" class="inline-container center">
+                <label for="ballSpeedInput">Initial Ball Speed: </label>
+                <br>
+                <input id="ballSpeedInput" name="ballSpeedInput" type="range" min="1" max="30" value="5">
+            </div>
+            <div id="ballAccelContainer" class="inline-container center">
+                <label for="ballAccelInput">Ball Acceleration</label>
+                <br>
+                <input id="ballAccelInput" name="ballAccelInput" type="range" min="1" max="100" value="5">
+            </div>
+        </div>
+        <br><br>
+        <div class="clickable-container">
+            <div class="inline-container">
+                <button class="clickable">Save and Restart Game</button>
+            </div>
+            <div class="inline-container">
+                <button class="clickable">Cancel</button>
+            </div>
+        </div>
     </div>
 </body>
 <script>

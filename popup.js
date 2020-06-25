@@ -7,12 +7,13 @@ function closePopups(event) {
 }
 
 function openId(elemId) {
+    logMessage("invoked openId with elemId=" + elemId);
     document.getElementById(elemId).classList.add("active");
 
 }
 
 function closeId(elemId) {
+    logMessage("invoked closeId with elemId=" + elemId);
     document.getElementById(elemId).classList.remove("active");
 }
-
 
