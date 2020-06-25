@@ -48,8 +48,8 @@ function moveObjects() {
         updateScore(++game.score);
         game.ballX = 50;
         game.ballVelocityX = -game.ballVelocityX;
-        const paddleCenter = game.paddleY + game.paddleSize;
-        game.ballVelocityY += (game.ballY - paddleCenter) / (game.paddleSize * 2) + (Math.random() / 1000);
+        const paddleCenter = game.paddleY + (game.paddleSize / 2);
+        game.ballVelocityY += (game.ballY + (game.ballSize / 2) - paddleCenter) / (game.paddleSize) + ((Math.random() - 0.5) / 1000);
         game.ballSpeed += Math.min(1, game.ballAcceleration / game.ballSpeed);
     }
     if (game.ballX + game.ballSize >= 800) {
