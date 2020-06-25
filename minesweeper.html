@@ -12,6 +12,7 @@
     <script src="setUtils.js"></script>
     <script src="deque.js"></script>
     <script src="collapsible.js"></script>
+    <script src="popup.js"></script>
     <script src="grid.js"></script>
     <script src="minesweeperUtil.js"></script>
     <script src="minesweeperPopups.js"></script>
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="collapsible.css">
+    <link rel="stylesheet" href="popup.css">
     <link rel="stylesheet" href="minesweeper.css">
 </head>
 
@@ -30,7 +32,7 @@
         <p class="center">Make sure you check out Settings to see what you can change!</p>
         <br>
         <div id="leftToolbar">
-            <button id="howToButton" class="clickable" onclick="openHowToPlay();">How To Play</button>
+            <button id="howToButton" class="clickable" onclick="openId('howToPlayContainer');">How To Play</button>
             <br>
             <button id="settingButton" class="clickable" onclick="openSettings();">Settings</button>
             <br>
@@ -201,7 +203,7 @@
                 Last updated June 2020
             </div>
             <br><br>
-            <button class="clickable" type="submit" onclick="closeHowToPlay();">Close</button>
+            <button class="clickable" type="submit" onclick="closeId('howToPlayContainer');">Close</button>
         </div>
 
         <div id="settingsContainer" class="popup-container popup">
@@ -262,7 +264,7 @@
 
     addCollapsibleListeners();
     window.onkeypress = handleKeyPress;
-    window.onclick = handleClickAway;
+    window.onclick = closePopups;
 </script>
 
 </html>

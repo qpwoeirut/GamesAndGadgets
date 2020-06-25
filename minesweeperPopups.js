@@ -1,22 +1,3 @@
-function handleClickAway(event) {
-    if (event.target.closest(".popup") === null && event.target.classList.contains("clickable") === false) {
-        for (const popup of document.getElementsByClassName("popup")) {
-            popup.classList.remove("active");
-        }
-    }
-}
-
-
-function openHowToPlay() {
-    document.getElementById("howToPlayContainer").classList.add("active");
-
-}
-
-function closeHowToPlay() {
-    document.getElementById("howToPlayContainer").classList.remove("active");
-}
-
-
 function prefillDifficulty(level) {
     logMessage("invoked prefillDifficulty with level=" + level);
 
@@ -45,7 +26,7 @@ function prefillDifficulty(level) {
 
 
 function openSettings() {
-    document.getElementById("settingsContainer").classList.add("active");
+    openId("settingsContainer");
     const solverPauseElem = document.getElementById("solverPause")
     solverPauseElem.value = game.solver.pauseMSec;
     solverPauseElem.min = 0;
@@ -155,6 +136,6 @@ function closeSettings(saveData) {
     game.nextRows = rowInput;
     game.nextCols = colInput;
     game.nextMineCount = mineInput;
-    document.getElementById("settingsContainer").classList.remove("active");
+    closeId("settingsContainer");
     logMessage("finished closeSettings with game.nextRows=" + game.nextRows + ", game.nextCols=" + game.nextCols + ", game.nextMineCount=" + game.nextMineCount);
 }
