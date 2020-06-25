@@ -2,6 +2,16 @@ const OFF = 0;
 const ON = 1;
 const PAUSED = 2;
 
+const EASY = 0;
+const MEDIUM = 1;
+const HARD = 2;
+
+const HEIGHT = 400;
+const WIDTH = 800;
+
+const DEFAULT_INIT_SPEED = 3;
+const DEFAULT_ACCEL = 5;
+
 function initializeGame() {
     var game = new Object();
     game.state = OFF;
@@ -10,21 +20,25 @@ function initializeGame() {
 
 
 function startGame(game) {
+    const canvas = document.getElementById("pongCanvas");
+    canvas.height = HEIGHT;
+    canvas.width = WIDTH;
+
     game.state = ON;
     game.score = 0;
 
-    game.ballAcceleration = parseInt(document.getElementById("ballAccelInput").value) || 5;
+    game.ballSpeed = parseInt(document.getElementById("ballSpeedInput").value) || DEFAULT_INIT_SPEED;
+    game.ballAcceleration = parseInt(document.getElementById("ballAccelInput").value) || DEFAULT_ACCEL;
 
-    game.ballSpeed = 3;
     game.ballSize = 10;
     game.ballVelocityX = -1;
     game.ballVelocityY = 0;
-    game.ballX = 400 - (game.ballSize / 2);
-    game.ballY = 200 - (game.ballSize / 2);
+    game.ballX = (WIDTH / 2) - (game.ballSize / 2);
+    game.ballY = (HEIGHT / 2) - (game.ballSize / 2);
 
     game.paddleSize = 100;
     game.paddleDir = 0;
-    game.paddleY = 200 - (game.paddleSize / 2);
+    game.paddleY = (HEIGHT / 2) - (game.paddleSize / 2);
 
     game.renderer = setInterval(function() {
         if (game.state === PAUSED) return;
@@ -37,7 +51,7 @@ function startGame(game) {
 
 function moveObjects() {
     game.paddleY = Math.max(game.paddleY, 0);
-    game.paddleY = Math.min(game.paddleY, 400 - game.paddleSize);
+    game.paddleY = Math.min(game.paddleY, HEIGHT - game.paddleSize);
 
     game.ballX += game.ballVelocityX * game.ballSpeed;
     game.ballY += game.ballVelocityY * game.ballSpeed;
@@ -50,16 +64,16 @@ function moveObjects() {
         game.ballVelocityY += (game.ballY + (game.ballSize / 2) - paddleCenter) / (game.paddleSize) + ((Math.random() - 0.5) / 1000);
         game.ballSpeed += Math.min(1, game.ballAcceleration / game.ballSpeed);
     }
-    if (game.ballX + game.ballSize >= 800) {
-        game.ballX = 800 - game.ballSize;
+    if (game.ballX + game.ballSize >= WIDTH) {
+        game.ballX = WIDTH - game.ballSize;
         game.ballVelocityX = -game.ballVelocityX;
     }
     if (game.ballY <= 0) {
         game.ballY = 0;
         game.ballVelocityY = -game.ballVelocityY;
     }
-    if (game.ballY + game.ballSize >= 400) {
-        game.ballY = 400 - game.ballSize;
+    if (game.ballY + game.ballSize >= HEIGHT) {
+        game.ballY = HEIGHT - game.ballSize;
         game.ballVelocityY = -game.ballVelocityY;
     }
 
@@ -122,10 +136,39 @@ function playPauseGame() {
     }
 }
 
-function movePaddleMouse(event) {
-    game.paddleY = event.offsetY - game.paddleSize / 2;
+function setDifficulty(difficulty) {
+    logMessage("invoked setDifficulty with difficulty=" + difficulty);
+    const ballSpeedInput = document.getElementById("ballSpeedInput");
+    const ballAccelInput = document.getElementById("ballAccelInput");
+    if (difficulty === EASY) {
+        ballSpeedInput.value = 2;
+        ballAccelInput.value = 5;
+    }
+    else if (difficulty === MEDIUM) {
+        ballSpeedInput.value = 5;
+        ballAccelInput.value = 10;
+    }
+    else if (difficulty === HARD) {
+        ballSpeedInput.value = 10;
+        ballAccelInput.value = 50;
+    }
+    else {
+        console.error("Unrecognized difficulty " + difficulty);
+    }
 }
 
-function updateBallAccel() {
-    game.ballAcceleration = parseInt(document.getElementById("ballAccelInput").value) || 5;
+function closeSettings(saveChanges) {
+    closeId("settingsContainer");
+
+    const ballSpeedInput = document.getElementById("ballSpeedInput");
+    const ballAccelInput = document.getElementById("ballAccelInput");
+    if (saveChanges === false) {
+        ballSpeedInput.value = game.ballSpeed || DEFAULT_INIT_SPEED;
+        ballAccelInput.value = game.ballAcceleration || DEFAULT_ACCEL;
+        return;
+    }
+}
+
+function movePaddleMouse(event) {
+    game.paddleY = event.offsetY - game.paddleSize / 2;
 }

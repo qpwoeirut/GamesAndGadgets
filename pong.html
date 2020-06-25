@@ -34,15 +34,15 @@
     </div>
 
     <div id="settingsContainer" class="popup-container popup">
-        <button id="easyDifficultyButton" class="clickable">Easy</button>
-        <button id="mediumDifficultyButton" class="clickable">Medium</button>
-        <button id="hardDifficultyButton" class="clickable">Hard</button>
+        <button id="easyDifficultyButton" class="clickable" onclick="setDifficulty(EASY);">Easy</button>
+        <button id="mediumDifficultyButton" class="clickable" onclick="setDifficulty(MEDIUM);">Medium</button>
+        <button id="hardDifficultyButton" class="clickable" onclick="setDifficulty(HARD);">Hard</button>
         <br><br><br>
         <div class="center">
             <div id="ballSpeedContainer" class="inline-container center">
                 <label for="ballSpeedInput">Initial Ball Speed: </label>
                 <br>
-                <input id="ballSpeedInput" name="ballSpeedInput" type="range" min="1" max="30" value="5">
+                <input id="ballSpeedInput" name="ballSpeedInput" type="range" min="1" max="15" value="3">
             </div>
             <div id="ballAccelContainer" class="inline-container center">
                 <label for="ballAccelInput">Ball Acceleration</label>
@@ -53,10 +53,10 @@
         <br><br>
         <div class="clickable-container">
             <div class="inline-container">
-                <button class="clickable">Save and Restart Game</button>
+                <button class="clickable" onclick="closeSettings(true); startGame(game)">Save and Restart Game</button>
             </div>
             <div class="inline-container">
-                <button class="clickable">Cancel</button>
+                <button class="clickable" onclick="closeSettings(false)">Cancel</button>
             </div>
         </div>
     </div>
