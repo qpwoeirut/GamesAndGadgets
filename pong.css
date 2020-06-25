@@ -13,13 +13,6 @@ div#settingsContainer {
 }
 
 div.inline-container {
-    text-align: center;
     font-size: x-large;
-    display: inline-block;
-
-    margin: 1em 4em;
-}
-
-div#ballAccelContainer {
-    float: right;
+    margin-top: 1em;
 }

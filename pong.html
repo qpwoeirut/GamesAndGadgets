@@ -22,6 +22,7 @@
 
     <div class="clickable-container">
         <button id="playPauseButton" class="clickable" onclick="playPauseGame();">New Game</button>
+        <button id="settingsButton" class="clickable" onclick="openSettings();">Settings</button>
     </div>
     <div id="scoreContainer" class="center">
         <p>Score: <span id="score">0</span></p>
@@ -30,17 +31,16 @@
         <canvas id="pongCanvas" width="800" height="400"></canvas>
 
         <div id="settingsContainer" class="container">
-            <div id="paddleSpeedContainer" class="inline-container">
-                <label for="paddleSpeedInput">Paddle Speed</label>
-                <br>
-                <input id="paddleSpeedInput" name="paddleSpeedInput" oninput="updatePaddleSpeed()" type="range" min="1" max="20" value="5">
-            </div>
-            <div id="ballAccelContainer" class="inline-container">
+            <div id="ballAccelContainer" class="inline-container center">
                 <label for="ballAccelInput">Ball Acceleration</label>
                 <br>
                 <input id="ballAccelInput" name="ballAccelInput" oninput="updateBallAccel()" type="range" min="1" max="100" value="5">
             </div>
         </div>
+    </div>
+
+    <div id="settingsContainer" class="popup-container popup">
+        
     </div>
 </body>
 <script>
@@ -52,10 +52,10 @@
 
     VERBOSITY = 7;
 
-    // window.onkeydown = startPaddleMove;
-    // window.onkeyup = stopPaddleMove;
     window.onkeypress = handlePauseKey;
     document.getElementById("pongCanvas").onmousemove = movePaddleMouse;
+
+    window.onclick = handleClickAway;
 </script>
 
 </html>

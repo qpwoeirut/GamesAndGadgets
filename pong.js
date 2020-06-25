@@ -13,7 +13,6 @@ function startGame(game) {
     game.state = ON;
     game.score = 0;
 
-    game.paddleSpeed = parseInt(document.getElementById("paddleSpeedInput").value) || 5;
     game.ballAcceleration = parseInt(document.getElementById("ballAccelInput").value) || 5;
 
     game.ballSpeed = 3;
@@ -37,7 +36,6 @@ function startGame(game) {
 }
 
 function moveObjects() {
-    game.paddleY += game.paddleDir * game.paddleSpeed;
     game.paddleY = Math.max(game.paddleY, 0);
     game.paddleY = Math.min(game.paddleY, 400 - game.paddleSize);
 
@@ -103,24 +101,6 @@ function loseGame() {
     }, 100);
 }
 
-function startPaddleMove(event) {
-    if (event.key === "ArrowUp" || event.key === "w") {
-        game.paddleDir = -1;
-    }
-    if (event.key === "ArrowDown" || event.key === "s") {
-        game.paddleDir = 1;
-    }
-}
-
-function stopPaddleMove(event) {
-    if (event.key === "ArrowUp" || event.key === "w") {
-        game.paddleDir = 0;
-    }
-    if (event.key === "ArrowDown" || event.key === "s") {
-        game.paddleDir = 0;
-    }
-}
-
 function handlePauseKey(event) {
     if (event.key !== " ") return;
     playPauseGame();
@@ -146,9 +126,6 @@ function movePaddleMouse(event) {
     game.paddleY = event.offsetY - game.paddleSize / 2;
 }
 
-function updatePaddleSpeed() {
-    game.paddleSpeed = parseInt(document.getElementById("paddleSpeedInput").value) || 5;
-}
 function updateBallAccel() {
     game.ballAcceleration = parseInt(document.getElementById("ballAccelInput").value) || 5;
 }
