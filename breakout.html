@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Breakout</title>
+        <style>
+            #gameContainer {
+                display: flex;
+                align-items: center;
+            }
+
+            canvas {
+                background: black;
+            }
+            </style>
+            <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <link rel="stylesheet" href="general.css">
+    </head>
+    <body onload="loop()">
+        <div id="navbarContainer"></div>
+        <h1 id="pageTitle">Breakout</h1>
+
+        <div id="gameContainer" class="center">
+            <canvas width="480" height="320" style="border:5px solid gray" id="Breakout"></canvas>
+        </div>
+    </body>
+
+    <script src="breakout.js"></script>
+    <script>
+        $("#navbarContainer").load("navbar.html");
+    </script>
+
+</html>
