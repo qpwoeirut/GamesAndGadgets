@@ -8,6 +8,7 @@ var ball = {
     h: 8,
     dx: 1,
     dy: -1,
+    center: 0
 };
 
 var paddle = {
@@ -16,6 +17,7 @@ var paddle = {
     w: 100,
     h: 6,
     dx: 2.5,
+    center: 0
 };
 
 
@@ -60,6 +62,12 @@ function loop() {
     } 
     else if (ball.y + ball.dy > canvas.height - ball.w) {
         if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
+            // Find the center of the ball and the paddle
+            paddle.center = paddle.x + (paddle.w / 2)
+            ball.center = ball.x + (ball.w / 2)
+
+            // Assign a random speed to vary the angle
+            ball.dy = (paddle.center - ball.center) / 4
             ball.dy = -ball.dy;
         }
         else {
