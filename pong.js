@@ -33,7 +33,7 @@ function startGame(game) {
     game.ballSize = 10;
     game.ballVelocityX = -1;
     game.ballVelocityY = 0;
-    game.ballX = (WIDTH / 2) - (game.ballSize / 2);
+    game.ballX = (WIDTH * 4 / 5) - (game.ballSize / 2);
     game.ballY = (HEIGHT / 2) - (game.ballSize / 2);
 
     game.paddleSize = 100;
