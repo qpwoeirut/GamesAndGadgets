@@ -20,7 +20,6 @@ var paddle = {
     center: 0
 };
 
-
 var brickSetup = {
     row: 5,
     column: 8,
@@ -30,6 +29,12 @@ var brickSetup = {
     top: 25,
     left: 0
 };
+
+var play = {
+    score: 0,
+    lives: 3,
+    speedUp: 1
+}
 
 var bricks = [];
 for(var c=0; c<brickSetup.column; c++) {
@@ -66,11 +71,22 @@ function loop() {
     else if (ball.y + ball.dy > canvas.height - ball.w) {
         if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
             // Change the ball speed depending on where on the paddle it hits
-            ball.dy = (paddle.center / ball.center) * 1;
+            ball.dy = (paddle.center / ball.center) * play.speedUp;
             ball.dy = -ball.dy;
         }
         else {
-            // ADD A LOSE CONDITION |ADD A LOSE CONDITION |ADD A LOSE CONDITION |ADD A LOSE CONDITION |ADD A LOSE CONDITION |ADD A LOSE CONDITION |ADD A LOSE CONDITION |ADD A LOSE CONDITION |ADD A LOSE CONDITION |ADD A LOSE CONDITION |ADD A LOSE CONDITION |
+            if (play.lives > 0) {
+                ball.x = canvas.width / 2;
+                ball.y = canvas.height - 30;
+                ball.dy = -1;
+                ball.dx = 1;
+                play.lives -= 1;
+            }
+            else {
+                alert("You are out of lives!");
+                document.location.reload();
+                play.lives = 3;
+            }
         }
     }
     // Left or right walls
@@ -103,7 +119,13 @@ function loop() {
 
     // Call the function to detect brick and ball collision
     collisionDetection();
+
+
+    // Draw the score and lives on the screen
+    document.getElementById("breakoutScore").innerHTML = play.score;
+    document.getElementById("breakoutLives").innerHTML = play.lives;
 }
+
 
 // Map and draw bricks
 function drawBricks() {
@@ -119,7 +141,21 @@ function drawBricks() {
                 // Draw the bricks
                 context.beginPath();
                 context.rect(brickX, brickY, brickSetup.w, brickSetup.h);
-                context.fillStyle = "white";
+                if (brickY < brickSetup.h * 2) {
+                    context.fillStyle = "red"
+                }
+                else if (brickY < brickSetup.h * 3) {
+                    context.fillStyle = "orange"
+                }
+                else if (brickY < brickSetup.h * 4) {
+                    context.fillStyle = "yellow"
+                }
+                else if (brickY < brickSetup.h * 5) {
+                    context.fillStyle = "green"
+                }
+                else if (brickY < brickSetup.h * 6) {
+                    context.fillStyle = "blue"
+                }
                 context.fill();
                 context.closePath();
             }
@@ -132,10 +168,36 @@ function collisionDetection() {
     for (var c = 0; c < brickSetup.column; c++) {
         for (var r = 0; r < brickSetup.row; r++) {
             var b = bricks[c][r];
+            var brickY = (r * (brickSetup.h + brickSetup.padding)) + brickSetup.top;
             if (b.living === 1) {
                 if (ball.x > b.x && ball.x < b.x + brickSetup.w && ball.y > b.y && ball.y < b.y + brickSetup.h) {
                     ball.dy = -ball.dy;
                     b.living = 0;
+                    // Add to the score when a brick is broken
+                    if (brickY < brickSetup.h * 2) {
+                        play.score += 5;
+                        play.speedUp += 0.03
+                    }
+                    else if (brickY < brickSetup.h * 3) {
+                        play.score += 4;
+                        play.speedUp += 0.02;
+                    }
+                    else if (brickY < brickSetup.h * 4) {
+                        play.score += 3;
+                        play.speedUp += 0.01;
+                    }
+                    else if (brickY < brickSetup.h * 5) {
+                        play.score += 2;
+                        play.speedUp += 0.008;
+                    }
+                    else if (brickY < brickSetup.h * 6) {
+                        play.score += 1;
+                        play.speedUp += 0.005;
+                    }
+                    if (play.score >= 120) {
+                        alert("You win!");
+                        document.location.reload();
+                    }
                 }
             }
         }
