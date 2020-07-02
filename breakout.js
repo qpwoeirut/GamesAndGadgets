@@ -55,6 +55,9 @@ function loop() {
     // Update the ball's position by adding speed to it
     ball.x += ball.dx;
     ball.y += ball.dy;
+    // Define the center of the ball and paddle
+    ball.center = ball.x + (ball.w / 2);
+    paddle.center = paddle.x + (paddle.w / 2);
     // Ball collision with walls
     // Top or bottom
     if (ball.y + ball.dy < (ball.w / 2)) {
@@ -62,12 +65,8 @@ function loop() {
     } 
     else if (ball.y + ball.dy > canvas.height - ball.w) {
         if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
-            // Find the center of the ball and the paddle
-            paddle.center = paddle.x + (paddle.w / 2)
-            ball.center = ball.x + (ball.w / 2)
-
-            // Assign a random speed to vary the angle
-            ball.dy = (paddle.center - ball.center) / 4
+            // Change the ball speed depending on where on the paddle it hits
+            ball.dy = (paddle.center / ball.center) * 1;
             ball.dy = -ball.dy;
         }
         else {
