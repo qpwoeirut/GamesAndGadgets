@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Template</title>
+
+    <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="logger.js"></script>
+    <script src="collapsible.js"></script>
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="clickable.css">
+    <link rel="stylesheet" href="collapsible.css">
+</head>
+
+<body>
+    <div id="navbarContainer"></div>
+    <h1 id="pageTitle">Template Title</h1>
+    <p>Template Text</p>
+</body>
+<script>
+    $("#navbarContainer").load("navbar.html");
+    
+    addCollapsibleListeners();
+</script>
+
+</html>
