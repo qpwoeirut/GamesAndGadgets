@@ -3,24 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Template</title>
+    <title>Hangman</title>
 
     <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="logger.js"></script>
     <script src="collapsible.js"></script>
+    <script src="hangman.js"></script>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="collapsible.css">
+    <link rel='stylesheet' href="hangman.css">
 </head>
 
 <body>
     <div id="navbarContainer"></div>
-    <h1 id="pageTitle">Template Title</h1>
-    <p>Template Text</p>
+    <h1 id="pageTitle">Hangman</h1>
+
+    <div class="clickable-container">
+        <button class="clickable" onclick="startGame(game);">New Game</button>
+    </div>
+    <div id="canvasContainer" class="center">
+        <canvas id="hangmanCanvas" width="500" height="500"></canvas>
+    </div>
+    <div id="wordContainer">
+
+    </div>
 </body>
 <script>
     $("#navbarContainer").load("navbar.html");
+
+    var game = new Object();
+    startGame(game);
     
     addCollapsibleListeners();
 </script>
