@@ -33,6 +33,10 @@ div#footerContainer h3 {
     text-align: center;
 }
 
+.hidden {
+    display: none;
+}
+
 @media only screen and (max-width: 600px) {
     .smallWindowHide {
         display: none !important;

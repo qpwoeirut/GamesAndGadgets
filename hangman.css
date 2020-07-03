@@ -14,7 +14,7 @@ button.letter {
     padding: 0.2em;
     margin: 0.5em;
     box-sizing: border-box;
-    background-color: #c0c0c0;
+    background-color: #bababa;
 
     border-style: solid;
     border-width: 3px;
@@ -23,8 +23,8 @@ button.letter {
     font-size: medium;
 }
 
-button.letter.disabled {
-    border: none;
+button.letter.pressed {
+    border-color: #bababa;
     outline: none;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -34,7 +34,7 @@ button.letter.disabled {
     user-select: none;
 }
 
-button.letter:not(.disabled):active{
+button.letter:not(.pressed):active{
     border-style: solid;
     border-width: 3px;
     border-color: #7a7a7a #ffffff #ffffff #7a7a7a;
@@ -42,4 +42,21 @@ button.letter:not(.disabled):active{
 
 div#wordContainer {
     font-family: 'Courier New', Courier, monospace;
+}
+
+div#wordlistCheckContainer {
+    min-height: 13em;
+    width: 24em;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 1em;
+}
+
+div#wordlistCheckContainer input, p {
+    font-size: large;
+}
+
+div#wordlistCheckContainer p {
+    margin-bottom: 0;
 }

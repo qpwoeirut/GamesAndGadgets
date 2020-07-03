@@ -10,6 +10,8 @@
     <script src="logger.js"></script>
     <script src="collapsible.js"></script>
     <script src="hangman.js"></script>
+    <script src="hangmanGuesser.js"></script>
+    <script src="hangmanSetter.js"></script>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="collapsible.css">
@@ -21,18 +23,39 @@
     <h1 id="pageTitle">Hangman</h1>
 
     <div class="clickable-container">
-        <button class="clickable" onclick="startGame(game);">New Game</button>
+        <button id="playAsGuesserButton" class="clickable pressed" onclick="changeMode(GUESSER)">Play as Guesser</button>
+        <button id="playAsSetterButton" class="clickable" onclick="changeMode(SETTER)">Play as Setter</button>
     </div>
-    <div id="canvasContainer" class="center">
-        <canvas id="hangmanCanvas" width="500" height="500"></canvas>
-    </div>
-    <br><br>
-    <div id="letterContainer" class="center">
 
+    <div id="guesserContainer">
+        <div class="clickable-container">
+            <button class="clickable" onclick="startGameAsGuesser(game)">New Game</button>
+        </div>
+        <div id="canvasContainer" class="center">
+            <canvas id="hangmanCanvas" width="500" height="500"></canvas>
+        </div>
+        <br><br>
+        <div id="letterContainer" class="center">
+    
+        </div>
+        <br><br>
+        <div id="wordContainer" class="center">
+    
+        </div>
     </div>
-    <br><br>
-    <div id="wordContainer" class="center">
-
+    <div id="setterContainer" class="hidden">
+        <div id="wordlistCheckContainer" class="center">
+            <h2 class="center">Check if I know a word here:</h2>
+            <br>
+            <div class="center">
+                <input id="wordlistCheck">
+            </div>
+            <br>
+            <div class="center">
+                <button class="clickable" onclick="checkWord()">Check</button>
+            </div>
+            <p id="checkResult"></p>
+        </div>
     </div>
     <br><br><br>
     <div class="center">
@@ -45,12 +68,14 @@
 <script>
     $("#navbarContainer").load("navbar.html");
 
+    VERBOSITY = 1000;
     loadWords();
 
     var game = new Object();
-    startGame(game);
+    startGameAsGuesser(game);
 
     addCollapsibleListeners();
+    changeMode(1);
 </script>
 
 </html>

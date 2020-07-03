@@ -12,7 +12,7 @@ button.clickable {
     padding: 5px;
     margin: 5px 16px;
     box-sizing: border-box;
-    background-color: #c0c0c0;
+    background-color: #bababa;
 
     border-style: solid;
     border-width: 3px;
@@ -22,7 +22,16 @@ button.clickable {
 }
 
 button.clickable:active{
-    border-style: solid;
-    border-width: 3px;
     border-color: #7a7a7a #ffffff #ffffff #7a7a7a;
+}
+
+button.clickable.pressed {
+    border-color: #bababa;
+    outline: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
