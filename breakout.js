@@ -1,25 +1,35 @@
 var canvas = document.getElementById('Breakout');
 var context = canvas.getContext('2d');
 
+var ballXRange = document.getElementById("ballXRange");
+var ballYRange = document.getElementById("ballYRange");
+var ballRandomRange = document.getElementById("ballRandomRange");
+var paddleXRange= document.getElementById("paddleXRange");
+
+var sliders = {
+    ballX: 3,
+    ballY: -3,
+    ballRandom: 3,
+    paddleX: 4.5
+}
+
 var ball = {
     x: canvas.width / 2,
     y: canvas.height - 30,
     w: 8,
     h: 8,
-    dx: 1,
-    dy: -1,
+    dx: sliders.ballX,
+    dy: sliders.ballY,
     center: 0
 };
-
 var paddle = {
     x: (canvas.width - 100) / 2,
     y: (canvas.height - 6),
     w: 100,
     h: 6,
-    dx: 2.5,
+    dx: sliders.paddleX,
     center: 0
 };
-
 var brickSetup = {
     row: 5,
     column: 8,
@@ -29,13 +39,12 @@ var brickSetup = {
     top: 25,
     left: 0
 };
-
-var play = {
+var environment = {
     score: 0,
-    lives: 3,
-    speedUp: 1
+    lives: 30000000,
+    speedUp: sliders.ballRandom,
+    play: false,
 }
-
 var bricks = [];
 for(var c=0; c<brickSetup.column; c++) {
     bricks[c] = [];
@@ -48,83 +57,101 @@ var rightPressed = false;
 var leftPressed = false;
 
 function loop() {
-    // Loop the game to create an animation and clear the canvas to prevent drawing
-    requestAnimationFrame(loop);
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    if (environment.play === true) {
+        // Loop the game to create an animation
+        requestAnimationFrame(loop);
+        // Display score, lives, difficulty, and canvas
+        document.getElementById("breakoutScore").innerHTML = environment.score;
+        document.getElementById("breakoutLives").innerHTML = environment.lives;
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
-    
-    // Draw the ball
-    context.fillStyle = "white";
-    context.fillRect(ball.x, ball.y, ball.w, ball.h);
+        console.debug(paddle.dx);
+        
+        // Draw the ball
+        context.fillStyle = "white";
+        context.fillRect(ball.x, ball.y, ball.w, ball.h);
 
-    // Update the ball's position by adding speed to it
-    ball.x += ball.dx;
-    ball.y += ball.dy;
-    // Define the center of the ball and paddle
-    ball.center = ball.x + (ball.w / 2);
-    paddle.center = paddle.x + (paddle.w / 2);
-    // Ball collision with walls
-    // Top or bottom
-    if (ball.y + ball.dy < (ball.w / 2)) {
-        ball.dy = -ball.dy;
-    } 
-    else if (ball.y + ball.dy > canvas.height - ball.w) {
-        if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
-            // Change the ball speed depending on where on the paddle it hits
-            ball.dy = (paddle.center / ball.center) * play.speedUp;
+        // Update the ball's position by adding speed to it
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+        // Define the center of the ball and paddle
+        ball.center = ball.x + (ball.w / 2);
+        paddle.center = paddle.x + (paddle.w / 2);
+        // Ball collision with walls
+        // Top or bottom
+        if (ball.y + ball.dy < (ball.w / 2)) {
             ball.dy = -ball.dy;
-        }
-        else {
-            if (play.lives > 0) {
-                ball.x = canvas.width / 2;
-                ball.y = canvas.height - 30;
-                ball.dy = -1;
-                ball.dx = 1;
-                play.lives -= 1;
+        } 
+        else if (ball.y + ball.dy > canvas.height - ball.w) {
+            if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
+                // Change the ball speed depending on where on the paddle it hits
+                ball.dy = (paddle.center / ball.center) * environment.speedUp;
+                ball.dy = -ball.dy;
             }
             else {
-                alert("You are out of lives!");
-                document.location.reload();
-                play.lives = 3;
+                if (environment.lives > 0) {
+                    ball.x = canvas.width / 2;
+                    ball.y = canvas.height - 30;
+                    ball.dy = sliders.ballY;
+                    ball.dx = sliders.ballX;
+                    environment.lives -= 1;
+                }
+                else {
+                    alert("You are out of lives!");
+                    document.location.reload();
+                    environment.lives = 3;
+                }
             }
         }
-    }
-    // Left or right walls
-    else if (ball.x + ball.dx > canvas.width - (ball.w / 2) || ball.x + ball.dx < 0) {
-        ball.dx = -ball.dx;
-    }
-
-
-    // Draw the paddle
-    context.fillStyle = "white";
-    context.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
-
-    // Update the paddle's posision when the user presses a key and prevent the player from leaving the canvas
-    if (rightPressed) {
-        paddle.x += paddle.dx;
-        if (paddle.x + paddle.w > canvas.width){
-            paddle.x = canvas.width - paddle.w;
+        // Left or right walls
+        else if (ball.x + ball.dx > canvas.width - (ball.w / 2) || ball.x + ball.dx < 0) {
+            ball.dx = -ball.dx;
         }
-    }
-    else if (leftPressed) {
-        paddle.x -= paddle.dx;
-        if (paddle.x < 0){
-            paddle.x = 0;
+
+
+        // Draw the paddle
+        context.fillStyle = "white";
+        context.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
+
+        // Update the paddle's posision when the user presses a key and prevent the player from leaving the canvas
+        if (rightPressed) {
+            paddle.x += paddle.dx;
+            if (paddle.x + paddle.w > canvas.width){
+                paddle.x = canvas.width - paddle.w;
+            }
         }
+        else if (leftPressed) {
+            paddle.x -= paddle.dx;
+            if (paddle.x < 0){
+                paddle.x = 0;
+            }
+        }
+
+
+        // Call the function to draw the bricks every frame
+        drawBricks();
+
+        // Call the function to detect brick and ball collision
+        collisionDetection();
     }
-
-
-    // Call the function to draw the bricks every frame
-    drawBricks();
-
-    // Call the function to detect brick and ball collision
-    collisionDetection();
-
-
-    // Draw the score and lives on the screen
-    document.getElementById("breakoutScore").innerHTML = play.score;
-    document.getElementById("breakoutLives").innerHTML = play.lives;
 }
+
+
+ballXRange.addEventListener("change", function() { 
+    ball.dx = ballXRange.value;  
+
+})
+ballYRange.addEventListener("change", function() { 
+    ball.dy = ballYRange.value;
+})
+ballRandomRange.addEventListener("change", function() { 
+    environment.speedUp = ballRandomRange.value;  
+
+})
+paddleXRange.addEventListener("change", function() { 
+    paddle.dx = paddleXRange.value;  
+
+})
 
 
 // Map and draw bricks
@@ -175,26 +202,26 @@ function collisionDetection() {
                     b.living = 0;
                     // Add to the score when a brick is broken
                     if (brickY < brickSetup.h * 2) {
-                        play.score += 5;
-                        play.speedUp += 0.03
+                        environment.score += 5;
+                        environment.speedUp += 0.09
                     }
                     else if (brickY < brickSetup.h * 3) {
-                        play.score += 4;
-                        play.speedUp += 0.02;
+                        environment.score += 4;
+                        environment.speedUp += 0.06;
                     }
                     else if (brickY < brickSetup.h * 4) {
-                        play.score += 3;
-                        play.speedUp += 0.01;
+                        environment.score += 3;
+                        environment.speedUp += 0.03;
                     }
                     else if (brickY < brickSetup.h * 5) {
-                        play.score += 2;
-                        play.speedUp += 0.008;
+                        environment.score += 2;
+                        environment.speedUp += 0.024;
                     }
                     else if (brickY < brickSetup.h * 6) {
-                        play.score += 1;
-                        play.speedUp += 0.005;
+                        environment.score += 1;
+                        environment.speedUp += 0.015;
                     }
-                    if (play.score >= 120) {
+                    if (environment.score >= 120) {
                         alert("You win!");
                         document.location.reload();
                     }
@@ -217,6 +244,17 @@ function keyDownHandler(e) {
     else if (e.key === "ArrowLeft") {
         leftPressed = true;
     }
+
+
+    // Handle the user pausing and unpausing the game
+    else if (e.which === 80 && environment.play === true) {
+        // Pause the game
+        environment.play = false;
+    }
+    else if (e.which === 80 && environment.play === false) {
+        environment.play = true;
+        requestAnimationFrame(loop);
+    }
 }
 
 // Handle the user releasing a key
@@ -231,4 +269,6 @@ function keyUpHandler(e) {
     }
 }
 
-requestAnimationFrame(loop);
+if (environment.play === true) {
+    requestAnimationFrame(loop);
+}

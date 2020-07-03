@@ -21,16 +21,61 @@
         <h1 id="pageTitle">Breakout</h1>
 
         <div id="scoreContainer" class="center">
-            <p style="font-size: 20px;">Score: <span id="breakoutScore"></span></p>
-            <p style="font-size: 20px;">Lives: <span id="breakoutLives"></span></p>
+            <p style="font-size: 20px;">Score: <span id="breakoutScore">0</span></p>
+            <p style="font-size: 20px;">Lives: <span id="breakoutLives">3</span></p>
         </div>
 
         <div id="gameContainer" class="center">
             <canvas width="480" height="320" style="border:5px solid gray" id="Breakout"></canvas>
         </div>
+
+        <div class="center">
+            <p></p>
+            <button onclick="openHowToPlay()" style="width: 110px; height: 45px; background-color: black; color: white;">How to Play</button>
+            <button onclick="openSettings()" style="width: 110px; height: 45px; background-color: black; color: white;">Settings</button>
+        </div>
+        <br>
+        <div id="howToPlayContainer" class="center">
+            <div id="howToPlayMessage" style="width: 400px; display: none;">
+                The game begins on a black screen. 
+                Press 'p' when you are ready to start. During the game, 'p' can be used to freely pause and resume the game. 
+                Use the left and right arrow keys to move the white paddle at the bottom of the screen.
+                When the ball hits a brick, the brick will be destroyed. Your goal is to destroy all the bricks with 3 lives.
+            </div>
+            <p></p>
+            <div id="howToPlayClose" class="center" style="display: none;">
+                <button id="howToPlayClose" onclick="closeHowToPlay()" style="width: 110px; height: 45px; background-color: black; color: white;">Close</button>
+            </div>
+        </div>
+
+        <div id="settingsContainer" class="center">
+            <div id="settingsMessage" style="width: 400px; display: none;">
+                Paddle Speed - The speed at which the paddle moves side to side:
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="10" value="4.5" class="slider" id="paddleXRange">
+                </div>
+                Ball Y Speed - The verticle speed of the ball:
+                <div class="slidecontainer">
+                    <input type="range" min="-7" max="-1" value="-3" class="slider" id="ballYRange">
+                </div>
+                Ball X Speed - The horizontal speed of the ball:
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="7" value="3" class="slider" id="ballXRange">
+                </div>
+                Ball Deflection Speed - The ammount that the ball's speed chages when it hits the paddle:
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="7" value="3" class="slider" id="ballRandomRange">
+                </div>
+                <p></p>
+            </div>
+            <div id="settingsClose" class="center" style="display: none;">
+                <button id="settingsClose" onclick="closeSettings()" style="width: 110px; height: 45px; background-color: black; color: white;">Close</button>
+            </div>
+        </div>
     </body>
 
     <script src="breakout.js"></script>
+    <script src="breakoutPopups.js"></script>
     <script>
         $("#navbarContainer").load("navbar.html");
     </script>
