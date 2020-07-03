@@ -26,16 +26,24 @@
     <div id="canvasContainer" class="center">
         <canvas id="hangmanCanvas" width="500" height="500"></canvas>
     </div>
-    <div id="wordContainer">
+    <br><br>
+    <div id="letterContainer" class="center">
 
     </div>
+    <br><br>
+    <div id="wordContainer" class="center">
+
+    </div>
+    <br><br>
 </body>
 <script>
     $("#navbarContainer").load("navbar.html");
 
+    loadWords();
+
     var game = new Object();
     startGame(game);
-    
+
     addCollapsibleListeners();
 </script>
 

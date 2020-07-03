@@ -1,3 +1,45 @@
 canvas#hangmanCanvas {
     background-color: #ffffff;
 }
+
+div#wordContainer > span {
+    font-size: x-large;
+    margin: 0.2em;
+}
+
+button.letter {
+    min-height: 2em;
+    min-width: 2em;
+
+    padding: 0.2em;
+    margin: 0.5em;
+    box-sizing: border-box;
+    background-color: #c0c0c0;
+
+    border-style: solid;
+    border-width: 3px;
+    border-color: #ffffff #7a7a7a #7a7a7a #ffffff;
+
+    font-size: medium;
+}
+
+button.letter.disabled {
+    border: none;
+    outline: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+button.letter:not(.disabled):active{
+    border-style: solid;
+    border-width: 3px;
+    border-color: #7a7a7a #ffffff #ffffff #7a7a7a;
+}
+
+div#wordContainer {
+    font-family: 'Courier New', Courier, monospace;
+}
