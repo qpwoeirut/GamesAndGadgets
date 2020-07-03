@@ -6,11 +6,11 @@ function loadWords() {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (request.readyState === 4) {
-            words = request.responseText.split("\n").filter(word => word.length >= 4 && remove.has(word) === false);
+            words = request.responseText.split("\n").filter(word => word.length >= 4);
         }
     }
     // wordlist based on https://www.ef.edu/english-resources/english-vocabulary/top-3000-words/
-    request.open("GET", "https://www.qpwoeirut.com/hangmanWords.txt", true);
+    request.open("GET", "hangmanWords.txt", true);
     request.send(null);
 }
 function startGame(game, ctr=50) {
