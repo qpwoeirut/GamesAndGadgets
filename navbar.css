@@ -16,7 +16,7 @@ div#navbuttonList, div.navbutton-container, button.navbutton {
 }
 
 .navbutton {
-    min-width: 5em;
+    min-width: 4em;
     width: fit-content;
 
     color: white;
@@ -38,14 +38,14 @@ div#navbuttonList, div.navbutton-container, button.navbutton {
 /* END GENERAL NAVBAR */
 
 /* START LARGE WINDOW NAVBAR */
-@media only screen and (min-width: 60em) {
+@media only screen and (min-width: 70em) {
     #navbar {
         max-height: 4em;
     }
 
     .navbutton {
-        margin-left: 1.5em;
-        margin-right: 1.5em;
+        margin-left: 1em;
+        margin-right: 1em;
 
         font-size: 1.2em;
         text-align: center;
@@ -58,7 +58,7 @@ div#navbuttonList, div.navbutton-container, button.navbutton {
 /* END LARGE WINDOW NAVBAR */
 
 /* START SMALL WINDOW NAVBAR */
-@media only screen and (max-width: 60em) {
+@media only screen and (max-width: 70em) {
     #navbar {
         height: max-content;  /* For Firefox */
         height: fit-content;
