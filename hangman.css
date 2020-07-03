@@ -4,7 +4,7 @@ canvas#hangmanCanvas {
 
 div#wordContainer > span {
     font-size: x-large;
-    margin: 0.2em;
+    margin: 0.1em;
 }
 
 button.letter {
