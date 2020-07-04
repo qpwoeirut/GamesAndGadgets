@@ -41,7 +41,7 @@ var brickSetup = {
 };
 var environment = {
     score: 0,
-    lives: 30000000,
+    lives: 3,
     speedUp: sliders.ballRandom,
     play: false,
 }
@@ -85,7 +85,12 @@ function loop() {
         else if (ball.y + ball.dy > canvas.height - ball.w) {
             if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
                 // Change the ball speed depending on where on the paddle it hits
-                ball.dy = (paddle.center / ball.center) * environment.speedUp;
+                if (ball.center < paddle.center) {
+                    ball.dy = (paddle.center / ball.center) * environment.speedUp;
+                }
+                else {
+                    ball.dy = (ball.center / paddle.center) * environment.speedUp;
+                }
                 ball.dy = -ball.dy;
             }
             else {
