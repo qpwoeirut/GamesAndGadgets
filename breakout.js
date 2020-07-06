@@ -64,8 +64,6 @@ function loop() {
         document.getElementById("breakoutScore").innerHTML = environment.score;
         document.getElementById("breakoutLives").innerHTML = environment.lives;
         context.clearRect(0, 0, canvas.width, canvas.height);
-
-        console.debug(paddle.dx);
         
         // Draw the ball
         context.fillStyle = "white";
@@ -95,10 +93,10 @@ function loop() {
             }
             else {
                 if (environment.lives > 0) {
-                    ball.x = canvas.width / 2;
+                    ball.x = paddle.center;
                     ball.y = canvas.height - 30;
                     ball.dy = sliders.ballY;
-                    ball.dx = sliders.ballX;
+                    ball.dx = ball.dx * -1;
                     environment.lives -= 1;
                 }
                 else {
