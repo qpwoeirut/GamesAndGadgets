@@ -268,7 +268,7 @@ function collisionDetection() {
                         environment.speedUp += 0.015;
                     }
                     if (environment.score >= 120) {
-                        alert("You win!");
+                        alert("You win! \nLives remaining: " + environment.lives);
                         document.location.reload();
                     }
                 }
