@@ -4,6 +4,51 @@ const ON = 1;
 const GUESSER = 0;
 const SETTER = 1;
 
+function startGame(game) {
+    logMessage("invoked startGame with game, game.mode=" + game.mode);
+    game.mode = game.mode || GUESSER;
+    genLetterButtons();
+    if (game.mode === GUESSER) {
+        startGameAsGuesser(game);
+    }
+    else if (game.mode === SETTER) {
+        document.getElementById("wordLength").value = "";
+        openId("wordLengthPopup");
+    }
+    else {
+        console.error("Unrecognized mode " + game.mode);
+        return;
+    }
+
+    game.guesses = new Set();
+    game.incorrect = new Set();
+
+    const canvas = document.getElementById("hangmanCanvas");
+    game.lineSize = canvas.width / 50;
+    game.topLeftX = canvas.width / 4;
+    game.topRightX = canvas.width * 3 / 4;
+    game.baseSize = canvas.width / 5;
+    game.bottomLeftX = game.topLeftX - game.baseSize + (game.lineSize / 2);
+    game.bottomRightX = game.topLeftX + game.baseSize - (game.lineSize / 2);
+    game.topY = canvas.height / 10;
+    game.bottomY = canvas.height * 9 / 10;
+    
+    game.diagSize = canvas.width / 5;
+
+    game.headY = game.topY + (game.lineSize * 5);
+    game.headRadius = canvas.width / 12;
+
+    game.topBodyY = game.headY + game.headRadius + game.headRadius;
+    game.bottomBodyY = game.topBodyY + canvas.height * 3 / 10;
+    game.middleBodyY = (game.topBodyY + game.bottomBodyY) / 2;
+
+    game.armWidth = canvas.width / 6;
+    game.legWidth = canvas.width / 8;
+    game.legY = game.bottomBodyY + canvas.height / 8;
+    
+    renderHangmanCanvas(game.incorrect.size);
+}
+
 let words = [];
 let wordSet = new Set();
 function loadWords() {
@@ -23,22 +68,243 @@ function changeMode(mode) {
     logMessage("invoked changeMode with mode=" + mode);
     const guesserButton = document.getElementById("playAsGuesserButton");
     const setterButton = document.getElementById("playAsSetterButton");
-    const guesserContainer = document.getElementById("guesserContainer");
     const setterContainer = document.getElementById("setterContainer");
-    
+
     if (mode === GUESSER) {
+        game.mode = GUESSER;
         guesserButton.classList.add("pressed");
         setterButton.classList.remove("pressed");
-        guesserContainer.classList.remove("hidden");
         setterContainer.classList.add("hidden");
     }
     else if (mode === SETTER) {
+        game.mode = SETTER;
         guesserButton.classList.remove("pressed");
         setterButton.classList.add("pressed");
-        guesserContainer.classList.add("hidden");
         setterContainer.classList.remove("hidden");
     }
     else {
         console.error("Unrecognized mode " + mode);
+        return;
+    }
+    startGame(game);
+}
+
+function showGameStatus() {
+    const wordElem = document.getElementById("wordContainer");
+    while (wordElem.firstChild) {
+        wordElem.removeChild(wordElem.lastChild);
+    }
+    for (const char of game.word) {
+        const charSpan = document.createElement("span");
+        if (game.guesses.has(char)) {
+            charSpan.textContent = char;
+        }
+        else {
+            charSpan.textContent = "_";
+        }
+
+        wordElem.appendChild(charSpan);
+    }
+}
+
+function islower(string) {
+    return string.search(/[^a-z]/) === -1;
+}
+
+function checkWord() {
+    const wordElem = document.getElementById("wordlistCheck");
+    wordElem.value = wordElem.value.trim();
+    const word = wordElem.value;
+    const resultElem = document.getElementById("checkResult");
+    resultElem.textContent = "Hmmm..."
+
+    let response = "Hey... I recognize that word!";
+    if (word.length < 4) {
+        response = "Sorry, I only know words with at least 4 characters!";
+    }
+    else if (islower(word) === false) {
+        response = "Sorry, I only recognize lowercase letters, with no spaces or dashes!";
+    }
+    else if (wordSet.has(word) === false) {
+        response = "Sorry, I don't know that word!";
+    }
+
+    setTimeout(function() {
+        resultElem.textContent = response;
+    }, 500);
+}
+
+
+const drawPartFunctions = [
+    function(ctx) {
+        ctx.arc(game.topRightX, game.headY + game.headRadius, game.headRadius, 0, 2 * Math.PI);
+    },
+    function(ctx) {
+        ctx.moveTo(game.topRightX, game.topBodyY);
+        ctx.lineTo(game.topRightX, game.bottomBodyY);
+    },
+    function(ctx) {
+        ctx.moveTo(game.topRightX, game.middleBodyY);
+        ctx.lineTo(game.topRightX - game.armWidth, game.topBodyY);
+    },
+    function(ctx) {
+        ctx.moveTo(game.topRightX, game.middleBodyY);
+        ctx.lineTo(game.topRightX + game.armWidth, game.topBodyY);
+    },
+    function(ctx) {
+        ctx.moveTo(game.topRightX, game.bottomBodyY);
+        ctx.lineTo(game.topRightX - game.legWidth, game.legY);
+    },
+    function(ctx) {
+        ctx.moveTo(game.topRightX, game.bottomBodyY);
+        ctx.lineTo(game.topRightX + game.legWidth, game.legY);
+    },
+];
+
+function renderHangmanCanvas(misses) {
+    const canvas = document.getElementById("hangmanCanvas");
+    const context = canvas.getContext("2d");
+
+    context.clearRect(0, 0, canvas.height, canvas.width);
+
+    context.fillStyle = "black";
+    context.lineWidth = game.lineSize;
+
+    drawPlatform(context);
+
+    for (let i=0; i<misses; i++) {
+        context.beginPath();
+        drawPartFunctions[i](context);
+        context.stroke();
+
+        if (i === 5) {
+            loseGame();
+            break;
+        }
+    }
+}
+
+function drawPlatform(context) {
+    logMessage("invoked drawPlatform");
+
+    // bottom
+    context.beginPath();
+    context.moveTo(game.bottomLeftX, game.bottomY);
+    context.lineTo(game.bottomRightX, game.bottomY);
+    context.stroke();
+
+    // vertical left part
+    context.beginPath();
+    context.moveTo(game.topLeftX, game.topY);
+    context.lineTo(game.topLeftX, game.bottomY);
+    context.stroke();
+
+    // top part
+    context.beginPath();
+    context.moveTo(game.topLeftX - (game.lineSize / 2), game.topY);
+    context.lineTo(game.topRightX + (game.lineSize / 2), game.topY);
+    context.stroke();
+
+    // diagonal part
+    context.beginPath();
+    context.moveTo(game.topLeftX, game.topY + game.diagSize);
+    context.lineTo(game.topLeftX + game.diagSize, game.topY);
+    context.stroke();
+
+    // vertical thing at the top
+    context.beginPath();
+    context.moveTo(game.topRightX, game.topY);
+    context.lineTo(game.topRightX, game.headY);
+    context.stroke();
+}
+
+function choose(choices) {
+    const index = Math.floor(Math.random() * choices.length);
+    return choices[index];
+}
+
+function genLetterButtons() {
+    const firstHalf = "abcdefghijklm";
+    const secondHalf = "nopqrstuvwxyz";
+    const letterContainer = document.getElementById("letterContainer");
+
+    while (letterContainer.lastChild) {
+        letterContainer.removeChild(letterContainer.lastChild);
+    }
+
+    const firstHalfContainer = document.createElement("div");
+    const secondHalfContainer = document.createElement("div");
+
+    for (const letter of firstHalf) {
+        const letterButton = document.createElement("button");
+        letterButton.id = "letter-" + letter;
+        letterButton.textContent = letter;
+        letterButton.classList = "letter";
+        if (game.mode === GUESSER) {
+            letterButton.onclick = function(e) {makeGuess(e.target.textContent)};
+        }
+        else {
+            letterButton.disabled = true;
+        }
+        firstHalfContainer.appendChild(letterButton);
+    }
+    for (const letter of secondHalf) {
+        const letterButton = document.createElement("button");
+        letterButton.id = "letter-" + letter;
+        letterButton.textContent = letter;
+        letterButton.classList = "letter";
+        if (game.mode === GUESSER) {
+            letterButton.onclick = function(e) {makeGuess(e.target.textContent)};
+        }
+        else {
+            letterButton.disabled = true;
+        }
+        secondHalfContainer.appendChild(letterButton);
+    }
+
+    letterContainer.appendChild(firstHalfContainer);
+    letterContainer.appendChild(secondHalfContainer);
+}
+
+function endGame() {
+    game.state = OFF;
+
+    for (const elem of document.getElementsByClassName("letter")) {
+        elem.classList.add("pressed");
+    }
+}
+
+function winGame() {
+    endGame();
+    setTimeout(function() {
+        alert("You won!");
+    }, 100);
+}
+
+function loseGame() {
+    endGame();
+    setTimeout(function() {
+        alert("You lost! The word was " + game.word);
+    }, 100);
+}
+
+function makeGuess(guess) {
+    if (game.state === OFF) return;
+    document.getElementById("letter-" + guess).classList.add("pressed");
+    game.guesses.add(guess);
+    if (game.remaining.delete(guess) === false) {
+        game.incorrect.add(guess);
+        renderHangmanCanvas(game.incorrect.size);
+    }
+    showGameStatus();
+
+    if (game.remaining.size === 0) {
+        if (game.mode === GUESSER) {
+            winGame();
+        }
+        else {
+            loseGame();
+        }
+        
     }
 }

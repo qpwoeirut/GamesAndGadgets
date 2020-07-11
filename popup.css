@@ -40,6 +40,10 @@ div.popup.active {
     border-radius: 10px;
 }
 
+div.popup.small-popup.active {
+    padding: 1em;
+}
+
 div.popup label,
 div.popup input {
     font-size: large;
