@@ -154,7 +154,7 @@ function loop() {
         context.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
 
         // Update the paddle's posision when the user presses a key and prevent the player from leaving the canvas
-        if (rightPressed) {
+        if (rightPressed === true) {
             paddle.x += paddle.dx;
             if (launchPressed === false) {
                 ball.x = paddle.center;
@@ -163,7 +163,7 @@ function loop() {
                 paddle.x = canvas.width - paddle.w;
             }
         }
-        else if (leftPressed) {
+        else if (leftPressed === true) {
             paddle.x -= paddle.dx;
             if (launchPressed === false) {
                 ball.x = paddle.center;
@@ -184,18 +184,18 @@ function loop() {
 
 
 ballXRange.addEventListener("change", function() { 
-    ball.dx = ballXRange.value;  
+    ball.dx = ballXRange.value / 1;  
 
 })
 ballYRange.addEventListener("change", function() { 
-    ball.dy = ballYRange.value;
+    ball.dy = ballYRange.value / 1;
 })
 ballRandomRange.addEventListener("change", function() { 
-    environment.speedUp = ballRandomRange.value;  
+    environment.speedUp = ballRandomRange.value / 1;  
 
 })
 paddleXRange.addEventListener("change", function() { 
-    paddle.dx = paddleXRange.value;  
+    paddle.dx = paddleXRange.value / 1;  
 
 })
 
