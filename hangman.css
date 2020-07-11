@@ -40,6 +40,10 @@ button.letter:not(.pressed):active{
     border-color: #7a7a7a #ffffff #ffffff #7a7a7a;
 }
 
+button.letter:disabled {
+    color: black;
+}
+
 div#wordContainer {
     font-family: 'Courier New', Courier, monospace;
 }
@@ -52,6 +56,8 @@ div#wordlistCheckContainer {
     border-color: black;
     padding: 1em;
 }
+
+
 
 div#wordlistCheckContainer input, p {
     font-size: large;

@@ -9,12 +9,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="logger.js"></script>
     <script src="collapsible.js"></script>
+    <script src="popup.js"></script>
     <script src="hangman.js"></script>
     <script src="hangmanGuesser.js"></script>
     <script src="hangmanSetter.js"></script>
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="collapsible.css">
+    <link rel="stylesheet" href="popup.css">
     <link rel='stylesheet' href="hangman.css">
 </head>
 
@@ -27,35 +29,51 @@
         <button id="playAsSetterButton" class="clickable" onclick="changeMode(SETTER)">Play as Setter</button>
     </div>
 
-    <div id="guesserContainer">
-        <div class="clickable-container">
-            <button class="clickable" onclick="startGameAsGuesser(game)">New Game</button>
-        </div>
-        <div id="canvasContainer" class="center">
-            <canvas id="hangmanCanvas" width="500" height="500"></canvas>
-        </div>
-        <br><br>
-        <div id="letterContainer" class="center">
-    
-        </div>
-        <br><br>
-        <div id="wordContainer" class="center">
-    
+    <div class="clickable-container">
+        <button class="clickable" onclick="startGame(game)">New Game</button>
+    </div>
+    <div id="canvasContainer" class="center">
+        <canvas id="hangmanCanvas" width="400" height="400"></canvas>
+    </div>
+    <br><br>
+
+    <div id="letterContainer" class="center">
+
+    </div>
+
+    <br><br>
+    <div id="wordContainer" class="center">
+
+    </div>
+
+    <br><br><br>
+    <div id="wordLengthPopup" class="popup-container popup small-popup center">
+        <label for="wordLength">How long is your word?</label>
+        <input id="wordLength" name="wordLength" type="number" min="4" max="20">
+        <br><br><br>
+        <div class="clickable-container center">
+            <button class="clickable" onclick="startGameAsSetter(game)">Start Game</button>
         </div>
     </div>
-    <div id="setterContainer" class="hidden">
-        <div id="wordlistCheckContainer" class="center">
-            <h2 class="center">Check if I know a word here:</h2>
-            <br>
-            <div class="center">
-                <input id="wordlistCheck">
-            </div>
-            <br>
-            <div class="center">
-                <button class="clickable" onclick="checkWord()">Check</button>
-            </div>
-            <p id="checkResult"></p>
+    <div id="setterContainer" class="center">
+        <h2 id="message" class="text-center"></h2>
+        <div id="responseButtons" class="clickable-container center hidden">
+            <button class="clickable" onclick="handleGuessResponse(true)">Yes</button>
+            <button class="clickable" onclick="handleGuessResponse(false)">No</button>
         </div>
+    </div>
+    <br><br>
+    <div id="wordlistCheckContainer" class="center">
+        <h2 class="center">Check if I know a word here:</h2>
+        <br>
+        <div class="center">
+            <input id="wordlistCheck">
+        </div>
+        <br>
+        <div class="center">
+            <button class="clickable" onclick="checkWord()">Check</button>
+        </div>
+        <p id="checkResult"></p>
     </div>
     <br><br><br>
     <div class="center">
@@ -72,7 +90,7 @@
     loadWords();
 
     var game = new Object();
-    startGameAsGuesser(game);
+    startGame(game);
 
     addCollapsibleListeners();
     changeMode(1);
