@@ -15,7 +15,7 @@ var sliders = {
 
 var ball = {
     x: canvas.width / 2,
-    y: canvas.height - 30,
+    y: canvas.height - 18,
     w: 8,
     h: 8,
     dx: sliders.ballX,
@@ -44,6 +44,8 @@ var environment = {
     lives: 3,
     speedUp: sliders.ballRandom,
     play: false,
+    timesPaused: 0,
+    timer: 0
 }
 var bricks = [];
 for(var c=0; c<brickSetup.column; c++) {
@@ -55,8 +57,23 @@ for(var c=0; c<brickSetup.column; c++) {
 
 var rightPressed = false;
 var leftPressed = false;
+var launchPressed = false;
 
 function loop() {
+    // Display different things when not playing depending on when in the game it is
+    // Press P to Start before the game has been started
+    if (environment.play === false && environment.timesPaused >= 1) {
+        context.fillStyle = 'white';
+        context.font = "60px Arial";
+        context.fillText("| |", 218, 180)
+    }
+    // Pause symbol while the game is in play
+    else if (environment.play === false && environment.timesPaused === 0) {
+        context.fillStyle = 'white';
+        context.font = "25px Arial";
+        context.fillText("Press P to Start", 150, 160)
+    }
+
     if (environment.play === true) {
         // Loop the game to create an animation
         requestAnimationFrame(loop);
@@ -69,9 +86,26 @@ function loop() {
         context.fillStyle = "white";
         context.fillRect(ball.x, ball.y, ball.w, ball.h);
 
+        // Launch tooltip
+        environment.timer++;
+        if (environment.timer >= 400) {
+            if (launchPressed === true) {
+                context.fillStyle = 'black';
+            }
+            else {
+                context.fillStyle = 'white';
+            }
+            context.font = "15px Arial";
+            context.fillText("Press space to launch the ball", 140, 18)
+            if (launchPressed === true) {
+                environment.timer = 0;
+            }
+        }
         // Update the ball's position by adding speed to it
-        ball.x += ball.dx;
-        ball.y += ball.dy;
+        if (launchPressed === true) {
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+        }
         // Define the center of the ball and paddle
         ball.center = ball.x + (ball.w / 2);
         paddle.center = paddle.x + (paddle.w / 2);
@@ -80,6 +114,7 @@ function loop() {
         if (ball.y + ball.dy < (ball.w / 2)) {
             ball.dy = -ball.dy;
         } 
+        // Paddle
         else if (ball.y + ball.dy > canvas.height - ball.w) {
             if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
                 // Change the ball speed depending on where on the paddle it hits
@@ -92,15 +127,18 @@ function loop() {
                 ball.dy = -ball.dy;
             }
             else {
+                launchPressed = false;
                 if (environment.lives > 0) {
                     ball.x = paddle.center;
-                    ball.y = canvas.height - 30;
-                    ball.dy = sliders.ballY;
-                    ball.dx = ball.dx * -1;
+                    ball.y = canvas.height - 18;
                     environment.lives -= 1;
+                    if (launchPressed === true) {
+                        ball.dy = sliders.ballY;
+                        ball.dx = ball.dx * -1;
+                    }
                 }
                 else {
-                    alert("You are out of lives!");
+                    alert("You are out of lives! \nScore: " + environment.score);
                     document.location.reload();
                     environment.lives = 3;
                 }
@@ -111,7 +149,6 @@ function loop() {
             ball.dx = -ball.dx;
         }
 
-
         // Draw the paddle
         context.fillStyle = "white";
         context.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
@@ -119,12 +156,18 @@ function loop() {
         // Update the paddle's posision when the user presses a key and prevent the player from leaving the canvas
         if (rightPressed) {
             paddle.x += paddle.dx;
+            if (launchPressed === false) {
+                ball.x = paddle.center;
+            }
             if (paddle.x + paddle.w > canvas.width){
                 paddle.x = canvas.width - paddle.w;
             }
         }
         else if (leftPressed) {
             paddle.x -= paddle.dx;
+            if (launchPressed === false) {
+                ball.x = paddle.center;
+            }
             if (paddle.x < 0){
                 paddle.x = 0;
             }
@@ -253,10 +296,16 @@ function keyDownHandler(e) {
     else if (e.which === 80 && environment.play === true) {
         // Pause the game
         environment.play = false;
+        environment.timesPaused++;
     }
     else if (e.which === 80 && environment.play === false) {
         environment.play = true;
         requestAnimationFrame(loop);
+    }
+
+    // Handle the user launching the ball with space
+    else if (e.key === " ") {
+        launchPressed = true;
     }
 }
 
