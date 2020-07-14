@@ -36,6 +36,32 @@
         <canvas id="hangmanCanvas" width="400" height="400"></canvas>
     </div>
     <br><br>
+    <div id="setterContainer" class="center">
+        <h2 id="message" class="text-center"></h2>
+        <div id="responseButtons" class="clickable-container center hidden">
+            <button class="clickable" onclick="handleGuessResponse(true)">Yes</button>
+            <button class="clickable" onclick="handleGuessResponse(false)">No</button>
+        </div>
+        <div id="doneButton" class="clickable-container center hidden">
+            <button class="clickable" onclick="finishGuessResponse(true)">Done</button>
+        </div>
+
+        <div id="winPopup" class="popup-container popup no-click-away">
+            <h2>Congrats, you beat me! Out of curiosity, what was your word?</h2>
+            <br>
+            <div class="center">
+                <label for="winningWord">Word: </label>
+                <input id="winningWord" name="winningWord" oninput="reactToWord()">
+            </div>
+            <br>
+            <p id="winningWordResponse" class="center"></p>
+            <br>
+            <div class="clickable-container center">
+                <button class="clickable" onclick="exitWinPopup()">Continue</button>
+            </div>
+        </div>
+        <br><br>
+    </div>
 
     <div id="letterContainer" class="center">
 
@@ -48,21 +74,13 @@
 
     <br><br><br>
     <div id="wordLengthPopup" class="popup-container popup small-popup center">
-        <label for="wordLength">How long is your word?</label>
+        <label for="wordLength">How many characters does your word have?</label>
         <input id="wordLength" name="wordLength" type="number" min="4" max="20">
         <br><br><br>
         <div class="clickable-container center">
             <button class="clickable" onclick="startGameAsSetter(game)">Start Game</button>
         </div>
     </div>
-    <div id="setterContainer" class="center">
-        <h2 id="message" class="text-center"></h2>
-        <div id="responseButtons" class="clickable-container center hidden">
-            <button class="clickable" onclick="handleGuessResponse(true)">Yes</button>
-            <button class="clickable" onclick="handleGuessResponse(false)">No</button>
-        </div>
-    </div>
-    <br><br>
     <div id="wordlistCheckContainer" class="center">
         <h2 class="center">Check if I know a word here:</h2>
         <br>
@@ -92,8 +110,9 @@
     var game = new Object();
     startGame(game);
 
-    addCollapsibleListeners();
-    changeMode(1);
+    // addCollapsibleListeners();
+
+    window.onclick = closePopups;
 </script>
 
 </html>

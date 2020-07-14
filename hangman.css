@@ -66,3 +66,8 @@ div#wordlistCheckContainer input, p {
 div#wordlistCheckContainer p {
     margin-bottom: 0;
 }
+
+div#wordContainer > span.transformable {
+    background-color: #dadada;
+    cursor: pointer;
+}

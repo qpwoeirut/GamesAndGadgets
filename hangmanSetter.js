@@ -17,15 +17,10 @@ function startGameAsSetter(game) {
 
     closeId('wordLengthPopup');
 
-    genLetterButtons();
-    for (const letterButton of document.querySelectorAll("button.letter")) {
-        letterButton.disabled = true;
-    }
-
     game.word = '_'.repeat(wordLength);
     showGameStatus();
 
-    setTimeout(sendGuess, 1000);
+    setTimeout(sendGuess, 500);
 }
 
 function numToChar(num) {
@@ -34,25 +29,157 @@ function numToChar(num) {
             return letterOrder[i];
         }
     }
+    return "!";
 }
 
 function sendGuess() {
-    const guessNum = Math.random() * 100;
-    game.currentGuess = numToChar(guessNum);
+    do {
+        const guessNum = Math.random() * 100;
+        game.currentGuess = numToChar(guessNum);
+    }
+    while (game.guesses.has(game.currentGuess));
+    if (game.currentGuess === "!") {
+        alert("Error! Can't figure out what to guess next!");
+        console.error("Can't figure out what to guess next!");
+        return;
+    }
+    game.guesses.add(game.currentGuess);
+    document.getElementById("letter-" + game.currentGuess).classList.add("pressed");
 
     const message = document.getElementById("message");
-    message.textContent = "I guess '" + game.currentGuess + "'\nAm I right?";
+    message.textContent = "I guess '" + game.currentGuess + "'. Am I right?";
 
     const responseButtons = document.getElementById("responseButtons");
     responseButtons.classList.remove("hidden");
 }
 
 function handleGuessResponse(response) {
+    if (game.state === OFF) return;
+
     const message = document.getElementById("message");
     message.textContent = "";
 
     const responseButtons = document.getElementById("responseButtons");
     responseButtons.classList.add("hidden");
 
-    
+    if (response === true) {
+        message.textContent = "Click on the positions that " + game.currentGuess + " is in";
+        const doneButton = document.getElementById("doneButton");
+        doneButton.classList.remove("hidden");
+
+        const charSpans = document.querySelectorAll("div#wordContainer > span")
+        for (const charSpan of charSpans) {
+            if (charSpan.textContent === "_") {
+                charSpan.classList.add("transformable");
+                charSpan.onclick = function(e) {
+                    const spanElem = e.currentTarget;
+                    if (spanElem.textContent === "_") {
+                        spanElem.textContent = game.currentGuess;
+                    }
+                    else {
+                        spanElem.textContent = "_";
+                    }
+                }
+            }
+        }
+    }
+    else {
+        game.incorrect.add(game.currentGuess);
+        if (renderHangmanCanvas(game.incorrect.size) === true) {
+            game.state = OFF;
+            document.getElementById("responseButtons").classList.add("hidden");
+            openId("winPopup");
+        }
+        finishGuessResponse(false);
+    }
+}
+
+function finishGuessResponse(reset) {
+    if (game.state === OFF) return;
+    game.word = document.getElementById("wordContainer").textContent;
+
+    showGameStatus();
+
+    if (reset) {
+        const message = document.getElementById("message");
+        message.textContent = "";
+
+        const doneButton = document.getElementById("doneButton");
+        doneButton.classList.add("hidden");
+
+        if (game.word.search("_") === -1) {
+            game.state = OFF;
+            document.getElementById("responseButtons").classList.add("hidden");
+            setTimeout(function() {
+                alert("Looks like I guessed the word! Thanks for playing with me.");
+            }, 100);
+            
+            return;
+        }
+    }
+
+    sendGuess();
+}
+
+function findFirstSharedChar(word) {
+    for (const char of word) {
+        if (game.incorrect.has(char)) {
+            return char;
+        }
+    }
+
+    return "";
+}
+
+function wordPatternMatches(word) {
+    for (let i=0; i<word.length; ++i) {
+        if (game.word[i] === "_") {
+            if (game.guesses.has(word[i])) {
+                return false;
+            }
+            continue;
+        }
+        if (game.word[i] !== word[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function reactToWord() {
+    const word = document.getElementById("winningWord").value;
+    const resp = document.getElementById("winningWordResponse");
+    const firstSharedChar = findFirstSharedChar(word);
+    if (word === "") {
+        resp.textContent = "Wait! What was your word?";
+    }
+    else if (!islower(word)) {
+        resp.textContent = "Would you mind telling me with only lowercase letters?"
+    }
+    else if (word.length !== game.word.length) {
+        resp.textContent = "Hey... That word's not the length you said it was!";
+    }
+    else if (firstSharedChar !== "") {
+        resp.textContent = "You said " + firstSharedChar + " wasn't in the word!";
+    }
+    else if (wordPatternMatches(word) === false) {
+        resp.textContent = "That doesn't match what you told me!";
+    }
+    else if (wordSet.has(word) === false) {
+        resp.textContent = "What? I don't even know that word!";
+    }
+    else {
+        resp.textContent = "Okay, fine. You won. Good job.";
+    }
+}
+
+function exitWinPopup() {
+    console.log(document.getElementById("winningWord").value);
+    if (document.getElementById("winningWord").value === "") {
+        const resp = document.getElementById("winningWordResponse");
+        resp.textContent = "Wait! What was your word?";
+    }
+    else {
+        closeId("winPopup");
+    }
 }

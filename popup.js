@@ -1,6 +1,6 @@
 function closePopups(event) {
     if (event.target.closest(".popup") === null && event.target.classList.contains("clickable") === false) {
-        for (const popup of document.getElementsByClassName("popup")) {
+        for (const popup of document.querySelectorAll(".popup:not(.no-click-away)")) {
             popup.classList.remove("active");
         }
     }

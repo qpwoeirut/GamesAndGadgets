@@ -6,7 +6,7 @@ function startGameAsGuesser(game, ctr=50) {
         }, ctr);
         return;
     }
-    game.state = ON;
+    
     game.word = choose(words);
     game.remaining = new Set(game.word);
     showGameStatus();
@@ -18,7 +18,9 @@ function makeGuess(guess) {
     game.guesses.add(guess);
     if (game.remaining.delete(guess) === false) {
         game.incorrect.add(guess);
-        renderHangmanCanvas(game.incorrect.size);
+        if (renderHangmanCanvas(game.incorrect.size)) {
+            loseGame();
+        }
     }
     showGameStatus();
 

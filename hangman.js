@@ -6,20 +6,8 @@ const SETTER = 1;
 
 function startGame(game) {
     logMessage("invoked startGame with game, game.mode=" + game.mode);
-    game.mode = game.mode || GUESSER;
-    genLetterButtons();
-    if (game.mode === GUESSER) {
-        startGameAsGuesser(game);
-    }
-    else if (game.mode === SETTER) {
-        document.getElementById("wordLength").value = "";
-        openId("wordLengthPopup");
-    }
-    else {
-        console.error("Unrecognized mode " + game.mode);
-        return;
-    }
 
+    game.state = ON;
     game.guesses = new Set();
     game.incorrect = new Set();
 
@@ -47,6 +35,20 @@ function startGame(game) {
     game.legY = game.bottomBodyY + canvas.height / 8;
     
     renderHangmanCanvas(game.incorrect.size);
+
+    game.mode = game.mode || GUESSER;
+    genLetterButtons();
+    if (game.mode === GUESSER) {
+        startGameAsGuesser(game);
+    }
+    else if (game.mode === SETTER) {
+        document.getElementById("wordLength").value = "";
+        openId("wordLengthPopup");
+    }
+    else {
+        console.error("Unrecognized mode " + game.mode);
+        return;
+    }
 }
 
 let words = [];
@@ -90,19 +92,20 @@ function changeMode(mode) {
 }
 
 function showGameStatus() {
+    logMessage("invoked showGameStatus");
     const wordElem = document.getElementById("wordContainer");
     while (wordElem.firstChild) {
         wordElem.removeChild(wordElem.lastChild);
     }
-    for (const char of game.word) {
+    for (let i=0; i<game.word.length; i++) {
         const charSpan = document.createElement("span");
-        if (game.guesses.has(char)) {
-            charSpan.textContent = char;
+        if (game.guesses.has(game.word[i])) {
+            charSpan.textContent = game.word[i];
         }
         else {
             charSpan.textContent = "_";
         }
-
+        charSpan.setAttribute("data-idx", i);
         wordElem.appendChild(charSpan);
     }
 }
@@ -178,10 +181,10 @@ function renderHangmanCanvas(misses) {
         context.stroke();
 
         if (i === 5) {
-            loseGame();
-            break;
+            return true;
         }
     }
+    return false;
 }
 
 function drawPlatform(context) {
