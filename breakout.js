@@ -116,13 +116,19 @@ function loop() {
         } 
         // Paddle
         else if (ball.y + ball.dy > canvas.height - ball.w) {
-            if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
+            if (ball.x > paddle.x - ball.w && ball.x < paddle.x + paddle.w) {
                 // Change the ball speed depending on where on the paddle it hits
                 if (ball.center < paddle.center) {
                     ball.dy = (paddle.center / ball.center) * environment.speedUp;
+                    if (ball.dy > 6) {
+                        ball.dy = 5.5
+                    }
                 }
                 else {
                     ball.dy = (ball.center / paddle.center) * environment.speedUp;
+                    if (ball.dy > 6) {
+                        ball.dy = 5.5
+                    }
                 }
                 ball.dy = -ball.dy;
             }
@@ -199,6 +205,13 @@ paddleXRange.addEventListener("change", function() {
 
 })
 
+// Reset button for settings sliders
+function resetSettings() {
+    control: document.getElementById("ballXRange").value = "3";
+    control: document.getElementById("ballYRange").value = "-3";
+    control: document.getElementById("ballRandomRange").value = "3";
+    control: document.getElementById("paddleXRange").value = "4.5";
+}
 
 // Map and draw bricks
 function drawBricks() {
