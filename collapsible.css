@@ -15,10 +15,10 @@ button.collapsible-control:hover {
 }
 
 .collapsible {
-    max-height: 0;
     height: max-content;
     /* For Firefox */
     height: fit-content;
+    max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s linear;
     background-color: #c3c3c3;

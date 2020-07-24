@@ -23,6 +23,7 @@
     <h1 id="pageTitle">Pong</h1>
 
     <div class="clickable-container">
+        <button class="clickable" onclick="openId('howToPlayContainer');">How To Play</button>
         <button id="playPauseButton" class="clickable" onclick="playPauseGame();">New Game</button>
         <button id="settingsButton" class="clickable" onclick="openId('settingsContainer');">Settings</button>
     </div>
@@ -31,6 +32,18 @@
     </div>
     <div id="gameContainer" class="center">
         <canvas id="pongCanvas" width="800" height="400"></canvas>
+    </div>
+
+    <div id="howToPlayContainer" class="popup-container popup">
+        This is the classic Pong game, but with some custom collision logic I made up.
+        <br><br>
+        In Pong, you use your mouse to control the paddle and try to keep the "ball" in play.
+        The ball will bounce off your paddle in interesting ways - try to use this to your advantage.
+        <br><br>
+        The initial ball speed and how fast it accelerates can be changed in settings.
+        There are also difficulty presets.
+        <br><br>
+        <button class="clickable" onclick="closeId('howToPlayContainer')">Close</button>
     </div>
 
     <div id="settingsContainer" class="popup-container popup">
@@ -42,7 +55,7 @@
             <div id="ballSpeedContainer" class="inline-container center">
                 <label for="ballSpeedInput">Initial Ball Speed: </label>
                 <br>
-                <input id="ballSpeedInput" name="ballSpeedInput" type="range" min="1" max="15" value="3">
+                <input id="ballSpeedInput" name="ballSpeedInput" type="range" min="1" max="15" value="2">
             </div>
             <div id="ballAccelContainer" class="inline-container center">
                 <label for="ballAccelInput">Ball Acceleration</label>
