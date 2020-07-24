@@ -68,10 +68,14 @@ function loadWords() {
 
 function changeMode(mode) {
     logMessage("invoked changeMode with mode=" + mode);
+
+    document.getElementById("message").textContent = "";
+    document.getElementById("responseButtons").classList.add("hidden");
+    document.getElementById("doneButton").classList.add("hidden");
+    
     const guesserButton = document.getElementById("playAsGuesserButton");
     const setterButton = document.getElementById("playAsSetterButton");
     const setterContainer = document.getElementById("setterContainer");
-
     if (mode === GUESSER) {
         game.mode = GUESSER;
         guesserButton.classList.add("pressed");
