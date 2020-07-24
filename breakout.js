@@ -41,7 +41,7 @@ var brickSetup = {
 };
 var environment = {
     score: 0,
-    lives: 3,
+    lives: 2,
     speedUp: sliders.ballRandom,
     play: false,
     timesPaused: 0,
@@ -116,7 +116,7 @@ function loop() {
         } 
         // Paddle
         else if (ball.y + ball.dy > canvas.height - ball.w) {
-            if (ball.x > paddle.x - ball.w && ball.x < paddle.x + paddle.w) {
+            if (ball.x > paddle.x - ball.w && ball.x < paddle.x + paddle.w + ball.w) {
                 // Change the ball speed depending on where on the paddle it hits
                 if (ball.center < paddle.center) {
                     ball.dy = (paddle.center / ball.center) * environment.speedUp;
@@ -146,7 +146,7 @@ function loop() {
                 else {
                     alert("You are out of lives! \nScore: " + environment.score);
                     document.location.reload();
-                    environment.lives = 3;
+                    environment.lives = 2;
                 }
             }
         }
