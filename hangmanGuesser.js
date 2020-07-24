@@ -13,8 +13,9 @@ function startGameAsGuesser(game, ctr=50) {
 }
 
 function makeGuess(guess) {
-    if (game.state === OFF) return;
-    document.getElementById("letter-" + guess).classList.add("pressed");
+    const button = document.getElementById("letter-" + guess);
+    if (game.state === OFF || button.classList.contains("pressed")) return;
+    button.classList.add("pressed");
     game.guesses.add(guess);
     if (game.remaining.delete(guess) === false) {
         game.incorrect.add(guess);
