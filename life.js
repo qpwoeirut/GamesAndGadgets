@@ -9,7 +9,7 @@ const MAX_HEIGHT = 1800;
 
 let BYPASS_CELL_SIZE_CHECK = false;
 let BYPASS_GRID_WIDTH_CHECK = false;
-const MAX_CELL_SIZE = 40;
+const MAX_CELL_SIZE = 50;
 
 const PACK_MULTIPLIER = 100000;
 

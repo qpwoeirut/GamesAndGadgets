@@ -23,19 +23,6 @@ div#gameContainer {
     /* Modified from https://fontstruct.com/fontstructions/show/1462474/7segments-1 */
 }
 
-/* START LEFT TOOLBAR */
-div#leftToolbar {
-    position: fixed;
-    left: 0px;
-}
-
-div#leftToolbar>button.clickable {
-    margin-left: 0px;
-    margin-bottom: 1.5em;
-    border-left-width: 0px;
-}
-/* END LEFT TOOLBAR */
-
 /* START SCOREBOARD */
 div#scoreContainer {
     border-style: solid;

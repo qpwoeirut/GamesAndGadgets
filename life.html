@@ -10,6 +10,7 @@
 
     <script src="logger.js"></script>
     <script src="collapsible.js"></script>
+    <script src="popup.js"></script>
     <script src="grid.js"></script>
     <script src="life.js"></script>
     <script src="lifePattern.js"></script>
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="general.css">
     <link rel="stylesheet" href="clickable.css">
     <link rel="stylesheet" href="collapsible.css">
+    <link rel="stylesheet" href="popup.css">
     <link rel="stylesheet" href="life.css">
 </head>
 
@@ -24,6 +26,17 @@
     <div id="navbarContainer"></div>
     <div id="pageContainer" class="center">
         <h1 id="pageTitle">John Conway's Game of Life</h1>
+        <br>
+        <div id="leftToolbar">
+            <button id="howToButton" class="clickable" onclick="openId('howToPlayContainer');">How To Play</button>
+            <br>
+            <button id="runButton" class="clickable" onclick="handleRunClick();">Start</button>
+            <br>
+            <button class="clickable" onclick="clearGrid()">Clear Grid</button>
+            <br>
+            <button class="clickable" onclick="openId('creditsContainer')">Credits</button>
+            <br>
+        </div>
         <div id="gameContainer">
             <br>
             <div id="inputContainer" class="center">
@@ -32,8 +45,8 @@
                     <input id="genSpeedInput" name="genSpeedInput" oninput="updateGenerationSpeed()" type="range" min="1" max="100" value="10">
                     <span id="genSpeedDisplay">10</span>
                     <br><br>
-                    <label class="input-label" for="cellSizeInput" title="Size of each cell, in px">Cell Size</label>
-                    <input id="cellSizeInput" name="cellSizeInput" oninput="updateCellSize()" type="range" min="1" max="40" value="10">
+                    <label class="input-label" for="cellSizeInput" title="Size of each cell, in px">Zoom</label>
+                    <input id="cellSizeInput" name="cellSizeInput" oninput="updateCellSize()" type="range" min="1" max="50" value="10">
                     <span id="cellSizeDisplay">10</span>
                 </div>
                 <div class="settings-container">
@@ -46,10 +59,6 @@
                     <span id="canvasHeightDisplay">500</span>
                 </div>
                 <br>
-                <div class="clickable-container">
-                    <button id="runButton" class="clickable" onclick="handleRunClick();">Start</button>
-                    <button class="clickable" onclick="clearGrid()">Clear Grid</button>
-                </div>
             </div>
             <div class="center">
                 <canvas id="lifeCanvas">
@@ -63,24 +72,24 @@
                     <button class="clickable" onclick="deleteAnyFollowers();">Reset Pattern</button>
                 </div>
                 <br>
-            <div id="patternClickableContainer">
+                <div id="patternClickableContainer">
                     <button class="pattern-title collapsible-control">Still Patterns</button>
-                    <div id="stillPatternContainer" class="collapsible patternContainer center">
+                    <div id="stillPatternContainer" class="container collapsible patternContainer center">
 
                     </div>
                     <br>
                     <button class="pattern-title collapsible-control">Oscillating Patterns</button>
-                    <div id="oscillatingPatternContainer" class="collapsible patternContainer center">
+                    <div id="oscillatingPatternContainer" class="container collapsible patternContainer center">
 
                     </div>
                     <br>
                     <button class="pattern-title collapsible-control">Spaceship (Moving) Patterns</button>
-                    <div id="spaceshipPatternContainer" class="collapsible patternContainer center">
+                    <div id="spaceshipPatternContainer" class="container collapsible patternContainer center">
 
                     </div>
                     <br>
                     <button class="pattern-title collapsible-control">Miscellaneous Patterns</button>
-                    <div id="miscPatternContainer" class="collapsible patternContainer center">
+                    <div id="miscPatternContainer" class="container collapsible patternContainer center">
 
                     </div>
                     <br><br>
@@ -89,21 +98,43 @@
         </div>
     </div>
 
-    <!-- <br><br><br><br><br>
-    <div id="footerContainer">
-        <div class="container">
-            <h3>Credits</h3>
-            <div class="container">
-                All of my information came from the Wikipedia Page for <a
-                    href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>.
-                <br>
-                Also, thanks to John Conway for making an interesting game that I could recreate in about a day or so.
-                Rest in peace.
-                <br><br>
-                SO https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-            </div>
-        </div>
-    </div> -->
+    <div id="howToPlayContainer" class="popup-container popup">
+        Conway's Game of Life is a "zero-player game".
+        What that means is all you need to do is set an initial state, and then the computer does the rest for you.
+        Conway's Game of Life is on an infinite grid, where each cell is either alive or dead.
+        It goes through "generations", where the grid is updated according to some simple rules.
+        The player can set the original grid to have some live and dead cells, and then see what happens.
+        <br><br>
+        Lots of interesting patterns have been discovered in Conway's Game of Life.
+        Many of the simple ones have presets at the bottom of the page, so you can fill in the entire pattern all at once.
+        <br><br>
+        The rules of Conway's Game of Life are pretty simple.
+        The grid is infinite (although of course on here the grid's not really infinite) and the number of neighbors determines whether a cell will be alive in the next generation or not.
+        Each cell has 8 neighbors.
+        A live cell with fewer than two live neighbours dies due to underpopulation.
+        A live cell with two or three live neighbours lives on to the next generation.
+        A live cell with more than three live neighbours dies due to overpopulation.
+        A dead cell with exactly three live neighbours becomes a live cell through reproduction.
+        <br><br>
+        <button class="clickable" onclick="closeId('howToPlayContainer')">Close</button>
+    </div>
+
+    <div id="creditsContainer" class="popup-container popup">
+        This page was created by Stanley Zhong.
+        <br><br>
+        All of my information came from the Wikipedia Page for <a
+            href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>.
+        Also, thanks to John Conway for making an interesting game that I could recreate in about a day or so.
+        Rest in peace.
+        <br><br>
+        I also used a StackOverflow <a href="https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window">article</a> to get the size of the browser window.
+        <br>
+        The information for StackOverflow licensing is <a
+            href="https://stackoverflow.com/help/licensing">here</a>. Everything is under some version of a
+        Creative Commons License.
+        <br><br>
+        <button class="clickable" onclick="closeId('creditsContainer')">Close</button>
+    </div>
 </body>
 <script>
     $("#navbarContainer").load("navbar.html");

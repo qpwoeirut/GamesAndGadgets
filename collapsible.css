@@ -21,10 +21,11 @@ button.collapsible-control:hover {
     height: fit-content;
     overflow: hidden;
     transition: max-height 0.4s linear;
+    background-color: #c3c3c3;
 }
 
 .collapsible.collapsible-show {
-    max-height: 18em;
+    max-height: 20em;
     overflow: auto;
 }
 
