@@ -41,7 +41,7 @@ function startGame(game) {
     game.paddleY = (HEIGHT / 2) - (game.paddleSize / 2);
 
     game.renderer = setInterval(function() {
-        if (game.state === PAUSED) return;
+        if (game.state !== ON) return;
         moveObjects();
         renderGame();
     }, 10);
