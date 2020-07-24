@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday!</title>
+
+    <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="clickable.css">
+    <style>
+        body {
+            background-color: #e0e0e0;
+        }
+
+        canvas {
+            border: black 1px solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="btn" class="clickable-container">
+        <br><br><br><br><br>
+        <button class="clickable center" onclick="go()">Click This</button>
+    </div>
+    <div id="page" class="hidden">
+
+        <h1 class="text-center">Happy Birthday Mom!</h1>
+        <div class="center">
+            <canvas id="canvas" width="800" height="600"></canvas>
+        </div>
+    </div>
+
+</body>
+<script>
+    let state = 0;
+    const WIDTH = 800;
+    const HEIGHT = 600;
+
+    const BALLOON_CHANCE = 10;
+    const BALLOON_WIDTH = 64;
+    const BALLOON_HEIGHT = 68;
+    const SHIFT = 20;
+    const BALLOON_COLORS = ["blue", "green", "red", "yellow", "orange", "purple", "light blue", "pink"];
+
+    const FIREWORK_CHANCE = 2;
+    const FIREWORK_SIZE = 200;
+    const FIREWORK_COLORS = ["blue", "green", "red", "orange", "pink"];
+
+    let balloons = [];
+    let fireworks = [];
+    setInterval(function () {
+        if (state !== 1) {
+            return
+        }
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        moveBalloons(context);
+    }, 50);
+
+    function go() {
+        state = 1;
+        document.getElementById("btn").classList.add("hidden");
+        document.getElementById("page").classList.remove("hidden");
+    }
+
+    function moveBalloons(context) {
+        if (randint(0, 100) < BALLOON_CHANCE) {
+            balloons.push(new Object(
+                {
+                    x: randint(-BALLOON_WIDTH, WIDTH + BALLOON_WIDTH),
+                    y: randint(HEIGHT + BALLOON_HEIGHT, HEIGHT + BALLOON_HEIGHT * 2),
+                    color: choose(BALLOON_COLORS),
+                    speed: randint(50, 60)
+                }));
+        }
+
+        for (let i = 0; i < balloons.length; i++) {
+            const width = BALLOON_WIDTH + balloons[i].speed / 5;
+            const height = BALLOON_HEIGHT + balloons[i].speed / 5;
+            if (randint(0, 100) < 2) {
+                balloons[i].color = choose(BALLOON_COLORS);
+            }
+            context.fillStyle = balloons[i].color;
+            context.beginPath();
+            for (let shift = 0; shift < SHIFT; shift++) {
+                context.ellipse(balloons[i].x, balloons[i].y + shift, width - (shift * shift / 30), height, 0, 0, 2 * Math.PI);
+            }
+            context.fill();
+
+            let triangleTopY = balloons[i].y + (height + SHIFT) * 4 / 5;
+            let triangleBottomY = balloons[i].y + height + SHIFT + 10;
+            context.beginPath();
+            context.arcTo(balloons[i].x, triangleTopY, balloons[i].x - width / 5, triangleBottomY, 4);
+            context.arcTo(balloons[i].x - width / 5, triangleBottomY, balloons[i].x + width / 5, triangleBottomY, 4);
+            context.arcTo(balloons[i].x + width / 5, triangleBottomY, balloons[i].x, triangleTopY, 4);
+            context.fill();
+
+            balloons[i].y -= balloons[i].speed / 10;
+        }
+        balloons = balloons.filter(balloon => balloon.y >= -200);
+    }
+
+    function randint(a, b) {
+        const range = Math.abs(a - b);
+        return Math.floor(Math.random() * range) + Math.min(a, b);
+    }
+    function choose(choices) {
+        const index = Math.floor(Math.random() * choices.length);
+        return choices[index];
+    }
+</script>
+
+</html>
