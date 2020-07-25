@@ -29,7 +29,9 @@
         <button id="playAsSetterButton" class="clickable" onclick="changeMode(SETTER)">Play as Setter</button>
     </div>
 
-    <div class="clickable-container">
+    <div id="leftToolbar">
+        <button class="clickable" onclick="openId('howToPlayContainer')">How To Play</button>
+        <br>
         <button class="clickable" onclick="startGame(game)">New Game</button>
     </div>
     <div id="canvasContainer" class="center">
@@ -100,6 +102,26 @@
         The list is based on this <a href="https://www.ef.edu/english-resources/english-vocabulary/top-3000-words/">list</a> from <a href="https://www.ef.edu">www.ef.edu</a>.
     </div>
     <br>
+
+    <div id="howToPlayContainer" class="popup-container popup">
+        <p>
+            In Hangman, there are two players - a guesser and a setter.
+            The setter chooses a word, and the guesser has to guess it.
+            At the start, the setter says how long the word is.
+            To guess, the guesser chooses a letter and asks if that letter is in the word.
+            If it is, the setter reveals where in the word the letter is.
+            If it's not, then part of a stick figure is drawn on the board.
+            If an entire stick figure gets drawn, then the guesser loses.
+            <br><br>
+            You can play as both the guesser and the setter.
+            Please keep in mind that right now the computer has an extremely limited vocabulary.
+            Alsp, when playing as setter, the computer's guesses are currently just weighted randomness.
+            So you'll probably win.
+            I'm planning on making an actual strategy for the computer later.
+        </p>
+        <br>
+        <button class="clickable" onclick="closeId('howToPlayContainer')">Close</button>
+    </div>
 </body>
 <script>
     $("#navbarContainer").load("navbar.html");
