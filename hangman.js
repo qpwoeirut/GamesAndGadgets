@@ -53,17 +53,31 @@ function startGame(game) {
 
 let words = [];
 let wordSet = new Set();
+
+let shortWordlist = [];
+let longWordlist = [];
 function loadWords() {
-    let request = new XMLHttpRequest();
-    request.onreadystatechange = function() {
-        if (request.readyState === 4) {
-            words = request.responseText.split("\n").filter(word => word.length >= 4);
+    const shortReq = new XMLHttpRequest();
+    shortReq.onreadystatechange = function() {
+        if (shortReq.readyState === 4) {
+            shortWordlist = shortReq.responseText.split("\n").filter(word => word.length >= 4);
+            words = shortWordlist;
             wordSet = new Set(words);
         }
     }
     // wordlist based on https://www.ef.edu/english-resources/english-vocabulary/top-3000-words/
-    request.open("GET", "hangmanWords.txt", true);
-    request.send(null);
+    shortReq.open("GET", "hangmanWords.txt", true);
+    shortReq.send(null);
+
+    const longReq = new XMLHttpRequest();
+    longReq.onreadystatechange = function() {
+        if (longReq.readyState === 4) {
+            longWordlist = longReq.responseText.split("\n").filter(word => word.length >= 4);
+        }
+    }
+    // wordlist based on https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt
+    longReq.open("GET", "hangmanMoreWords.txt", true);
+    longReq.send(null);
 }
 
 function changeMode(mode) {

@@ -1,10 +1,11 @@
 // frequencies from https://en.wikipedia.org/wiki/Letter_frequency#Relative_frequencies_of_letters_in_other_languages
 const letterFrequencies = [0.074, 0.095, 0.15, 0.153, 0.772, 0.978, 1.492, 1.929, 1.974, 2.015, 2.228, 2.36, 2.406, 2.758, 2.782, 4.025, 4.253, 5.987, 6.094, 6.327, 6.749, 6.966, 7.507, 8.167, 9.056, 12.702];
 const letterOrder = "zqxjkvbpygfwmucldrhsnioate";
+const letters = "abcdefghijklmnopqrstuvwxyz";
 let threshold = [];
 
 for (let i=0; i<26; i++) {
-    threshold.push(letterFrequencies[i]);
+    threshold.push(letterFrequencies[i] * letterFrequencies[i]);
     if (i > 0) threshold[i] += threshold[i-1];
 }
 
@@ -33,16 +34,49 @@ function numToChar(num) {
 }
 
 function sendGuess() {
+    let regexStr = "";
+    for (const char of game.word) {
+        if (char === '_') {
+            regexStr += "[a-z]"
+        }
+        else {
+            regexStr += char
+        }
+    }
+    const regex = new RegExp(regexStr);
+    const matches = words.filter(word => regex.test(word))
+    console.debug(matches);
+
+    let letterCounts = new Array(26).fill(1); // do 1 just in case the word isn't in dict
+    for (const match of matches) {
+        const matchSet = new Set(match);
+        for (let i=0; i<26; i++) {
+            if (matchSet.has(letters[i])) {
+                letterCounts[i]++;
+            }
+        }
+    }
+
+    let sumChance = [];
+    for (let i=0; i<26; i++) {
+        sumChance.push(letterCounts[i] * letterCounts[i]);
+        if (i > 0) {
+            sumChance[i] += sumChance[i-1];
+        }
+    }
+
+    let guess = 0;
     do {
-        const guessNum = Math.random() * 100;
-        game.currentGuess = numToChar(guessNum);
-    }
-    while (game.guesses.has(game.currentGuess));
-    if (game.currentGuess === "!") {
-        alert("Error! Can't figure out what to guess next!");
-        console.error("Can't figure out what to guess next!");
-        return;
-    }
+        const random = Math.floor(Math.random() * sumChance[sumChance.length - 1]);
+        for (guess=0; guess<26; guess++) {
+            if (random <= sumChance[guess]) {
+                break;
+            }
+        }
+    } while (game.guesses.has(letters[guess]) === true);
+
+    game.currentGuess = letters[guess];
+
     game.guesses.add(game.currentGuess);
     document.getElementById("letter-" + game.currentGuess).classList.add("pressed");
 
