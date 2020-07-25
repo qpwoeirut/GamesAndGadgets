@@ -35,19 +35,27 @@ function numToChar(num) {
 
 function sendGuess() {
     let regexStr = "";
+    let regexChar = "[";
+    for (const letter of letters) {
+        if (game.incorrect.has(letter) === false) {
+            regexChar += letter;
+        }
+    }
+    regexChar += "]";
     for (const char of game.word) {
         if (char === '_') {
-            regexStr += "[a-z]"
+            regexStr += regexChar;
         }
         else {
             regexStr += char
         }
     }
     const regex = new RegExp(regexStr);
-    const matches = words.filter(word => regex.test(word))
+    console.debug(regex);
+    const matches = words.filter(word => word.length === game.word.length && regex.test(word));
     console.debug(matches);
 
-    let letterCounts = new Array(26).fill(1); // do 1 just in case the word isn't in dict
+    let letterCounts = new Array(26).fill(matches.length === 0 ? 1 : 0); // do 1 just in case the word isn't in dict
     for (const match of matches) {
         const matchSet = new Set(match);
         for (let i=0; i<26; i++) {
@@ -64,16 +72,25 @@ function sendGuess() {
             sumChance[i] += sumChance[i-1];
         }
     }
+    console.log(game.guesses);
+    let remove = 0;
+    console.log(sumChance);
+    for (let i=0; i<26; i++) {
+        if (game.guesses.has(letters[i])) {
+            remove = sumChance[i] - ((i>0) ? sumChance[i-1] : 0);
+        }
+        sumChance[i] -= remove;
+    }
+    console.log(sumChance);
 
     let guess = 0;
-    do {
-        const random = Math.floor(Math.random() * sumChance[sumChance.length - 1]);
-        for (guess=0; guess<26; guess++) {
-            if (random <= sumChance[guess]) {
-                break;
-            }
+    const random = Math.floor(Math.random() * sumChance[sumChance.length - 1]);
+    for (guess=0; guess<26; guess++) {
+        if (random < sumChance[guess]) {
+            break;
         }
-    } while (game.guesses.has(letters[guess]) === true);
+    }
+    console.debug(letters[guess]);
 
     game.currentGuess = letters[guess];
 
