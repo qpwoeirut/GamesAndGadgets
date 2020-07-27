@@ -16,7 +16,7 @@ div#navbuttonList, div.navbutton-container, button.navbutton {
 }
 
 .navbutton {
-    min-width: 4em;
+    min-width: 3em;
     width: fit-content;
 
     color: white;
@@ -47,7 +47,7 @@ div#navbuttonList, div.navbutton-container, button.navbutton {
         margin-left: 1em;
         margin-right: 1em;
 
-        font-size: 1.2em;
+        font-size: 1.1em;
         text-align: center;
     }
 
@@ -75,7 +75,7 @@ div#navbuttonList, div.navbutton-container, button.navbutton {
     }
     div#navbuttonList.active .navbutton {
         display: block;
-        font-size: 1em;
+        font-size: 0.9em;
         text-align: left;
         padding: 1em;
     }
