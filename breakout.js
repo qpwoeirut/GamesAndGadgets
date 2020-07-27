@@ -134,7 +134,7 @@ function loop() {
             }
             else {
                 launchPressed = false;
-                if (environment.lives >= 0) {
+                if (environment.lives > 1) {
                     ball.x = paddle.center;
                     ball.y = canvas.height - 18;
                     environment.lives -= 1;
