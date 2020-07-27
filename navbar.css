@@ -24,6 +24,8 @@ div#navbuttonList, div.navbutton-container, button.navbutton {
 
     border: none;
     cursor: pointer;
+
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .navbutton:hover {

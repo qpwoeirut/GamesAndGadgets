@@ -1,6 +1,9 @@
 html {
     top: 0;
 }
+p, label, input, button {
+    font-family: verdana,arial,helvetica,sans-serif;
+}
 
 body {
     margin: 0;
@@ -10,8 +13,10 @@ body {
 .text-center {
     text-align: center !important;
 }
+
 .center {
-    width: max-content; /* For Firefox */
+    width: max-content;
+    /* For Firefox */
     width: fit-content;
     margin: auto;
 }
@@ -54,4 +59,5 @@ div#leftToolbar>button.clickable {
     margin-bottom: 1.5em;
     border-left-width: 0px;
 }
+
 /* END LEFT TOOLBAR */
