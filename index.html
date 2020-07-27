@@ -14,6 +14,26 @@
         body {
             background-color: white;
         }
+
+        table {
+            width: 80vw;
+            max-width: 60em;
+        }
+
+        td {
+            width: 33.3%;
+            padding: 1em;
+        }
+
+        td p {
+            text-align: center;
+        }
+
+        img {
+            height: auto;
+            width: auto;
+            max-width: 100%;
+        }
     </style>
 </head>
 
@@ -29,29 +49,46 @@
         </p>
         <br>
         <h3>Our current catalog of games consists of:</h3>
-        <ul>
-            <li>
-                <p><a href="minesweeper.html">Minesweeper</a></p>
-            </li>
-            <li>
-                <p><a href="snake.html">Snake</a></p>
-            </li>
-            <li>
-                <p><a href="life.html">Conway's Game of Life</a></p>
-            </li>
-            <li>
-                <p><a href="pong.html">Pong</a></p>
-            </li>
-            <li>
-                <p><a href="hangman.html">Hangman</a></p>
-            </li>
-            <li>
-                <p><a href="breakout.html">Breakout</a></p>
-            </li>
-            <!-- <li>
-                <p><a href="clicker.html">Semi-Mindless Clicker Game</a> (Unfinished, and left for dead)</p>
-            </li> -->
-        </ul>
+        <table class="center">
+            <tr>
+                <td>
+                    <a href="minesweeper.html">
+                        <img src="minesweeper.png">
+                        <p>Minesweeper</p>
+                    </a>
+                </td>
+                <td>
+                    <a href="snake.html">
+                        <p>Snake</p>
+                    </a>
+                </td>
+                <td>
+                    <a href="life.html">
+                        <img src="life.png">
+                        <p>Conway's Game of Life</p>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="pong.html">
+                        <img src="pong.png">
+                        <p>Pong</p>
+                    </a>
+                </td>
+                <td>
+                    <a href="hangman.html">
+                        <img src="hangman.png">
+                        <p>Hangman</p>
+                    </a>
+                </td>
+                <td>
+                    <a href="breakout.html">
+                        <p>Breakout</p>
+                    </a>
+                </td>
+            </tr>
+        </table>
         <br>
         <h3>In the future, we plan to work on:</h3>
         <ul>
