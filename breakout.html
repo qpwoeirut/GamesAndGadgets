@@ -20,9 +20,14 @@
         <div id="navbarContainer"></div>
         <h1 id="pageTitle">Breakout</h1>
 
+        <div class="center">
+            <p>Make sure to check out Settings to see what you can change!</p>
+        </div>
+
         <div id="scoreContainer" class="center">
-            <p style="font-size: 20px;">Score: <span id="breakoutScore">0</span></p>
-            <p style="font-size: 20px;">Lives: <span id="breakoutLives">3</span></p>
+            <button style="font-size: 20px; height: 45px; border: rgb(200, 200, 200); background-color: rgb(200, 200, 200); color: black;">Score: <span id="breakoutScore">0</span></button> 
+            <button style="font-size: 20px; height: 45px; border: rgb(200, 200, 200); background-color: rgb(200, 200, 200); color: black;">Lives: <span id="breakoutLives">3</span></button>
+            <br>
         </div>
 
         <div id="gameContainer" class="center">
@@ -39,7 +44,7 @@
             <div id="howToPlayMessage" style="width: 400px; display: none;">
                 <p>Press 'p' to start the game. During the game, 'p' can be used to freely pause and resume the game.</p>
                 <p>Press the space bar to launch the ball</p>
-                <p>Use the left and right arrow keys to move the white paddle at the bottom of the screen.</p>
+                <p>Use the left and right arrow keys to move the white paddle at the bottom of the screen, or change the control method in Settings.</p>
                 <p>When the ball hits a brick, the brick will be destroyed. Your goal is to destroy all the bricks with 3 lives.</p>
             </div>
             <p></p>
@@ -50,19 +55,23 @@
 
         <div id="settingsContainer" class="center">
             <div id="settingsMessage" style="width: 400px; display: none;">
-                Paddle Speed - The speed at which the paddle moves side to side:
+                <p>Paddle Control - How the paddle is controlled (arrow keys or mouse):</p>
+                <div>
+                    <button onclick="changeControl()" id="changeControl">Arrow Keys</button>
+                </div>
+                <p>Paddle Speed - The speed at which the paddle moves side to side:</p>
                 <div class="slidecontainer">
                     <input type="range" min="1" max="10" value="4.5" class="slider" id="paddleXRange">
                 </div>
-                Ball Y Speed - The vertical speed of the ball:
+                <p>Ball Y Speed - The vertical speed of the ball:</p>
                 <div class="slidecontainer">
                     <input type="range" min="-7" max="-1" value="-3" class="slider" id="ballYRange">
                 </div>
-                Ball X Speed - The horizontal speed of the ball:
+                <p>Ball X Speed - The horizontal speed of the ball:</p>
                 <div class="slidecontainer">
                     <input type="range" min="1" max="7" value="3" class="slider" id="ballXRange">
                 </div>
-                Ball Deflection Speed - The amount that the ball's speed changes when it hits the paddle:
+                <p>Ball Deflection Speed - The amount that the ball's speed changes when it hits the paddle:</p>
                 <div class="slidecontainer">
                     <input type="range" min="1" max="7" value="3" class="slider" id="ballRandomRange">
                 </div>

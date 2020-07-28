@@ -45,7 +45,8 @@ var environment = {
     speedUp: sliders.ballRandom,
     play: false,
     timesPaused: 0,
-    timer: 0
+    timer: 0,
+    control: 0
 }
 var bricks = [];
 for(var c=0; c<brickSetup.column; c++) {
@@ -178,6 +179,9 @@ function loop() {
                 paddle.x = 0;
             }
         }
+        if (launchPressed === false) {
+            ball.x = paddle.center;
+        }
 
 
         // Call the function to draw the bricks every frame
@@ -211,6 +215,23 @@ function resetSettings() {
     control: document.getElementById("ballYRange").value = "-3";
     control: document.getElementById("ballRandomRange").value = "3";
     control: document.getElementById("paddleXRange").value = "4.5";
+}
+
+function changeControl() {
+    if (environment.control === 0) {
+        environment.control = 1;
+    }
+    else {
+        environment.control = 0;
+    }
+
+    var x = document.getElementById("changeControl");
+    if (x.innerHTML === "Arrow Keys") {
+        x.innerHTML = "Mouse";
+    } 
+    else {
+        x.innerHTML = "Arrow Keys";
+    }
 }
 
 // Map and draw bricks
@@ -290,47 +311,66 @@ function collisionDetection() {
     }
 }
 
+
 // Add action listeners
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+// Handle the user using the mouse
+function mouseMoveHandler(e) {
+    if (environment.control === 1) {
+        var relativeX = e.clientX - canvas.offsetLeft;
+        if (relativeX > 0 && relativeX < canvas.width) {
+            paddle.x = relativeX - paddle.w / 2;
+        }
+    }
+}
+
 // Handle the user pressing down a key
 function keyDownHandler(e) {
-    // d or right arrow pressed
-    if (e.key === "ArrowRight") {
-        rightPressed = true
-    }
-    // a or left arrow pressed
-    else if (e.key === "ArrowLeft") {
-        leftPressed = true;
-    }
-
-
-    // Handle the user pausing and unpausing the game
-    else if (e.which === 80 && environment.play === true) {
-        // Pause the game
-        environment.play = false;
-        environment.timesPaused++;
-    }
-    else if (e.which === 80 && environment.play === false) {
-        environment.play = true;
-        requestAnimationFrame(loop);
+    if (environment.control === 0) {
+        // d or right arrow pressed
+        if (e.key === "ArrowRight") {
+            rightPressed = true
+        }
+        // a or left arrow pressed
+        else if (e.key === "ArrowLeft") {
+            leftPressed = true;
+        }
     }
 
-    // Handle the user launching the ball with space
-    else if (e.key === " ") {
-        launchPressed = true;
+    if (environment.control === 0 || environment.control === 1) {
+        // Handle the user pausing and unpausing the game
+        if (e.which === 80 && environment.play === true) {
+            // Pause the game
+            environment.play = false;
+            environment.timesPaused++;
+        }
+        else if (e.which === 80 && environment.play === false) {
+            environment.play = true;
+            requestAnimationFrame(loop);
+        }
+
+        // Handle the user launching the ball with space
+        else if (e.key === " ") {
+            launchPressed = true;
+        }
     }
 }
 
 // Handle the user releasing a key
 function keyUpHandler(e) {
-    // d or right arrow released
-    if (e.key === "ArrowRight") {
-        rightPressed = false;
-    }
-    // a or left arrow released
-    else if (e.key === "ArrowLeft") {
-        leftPressed = false;
+    if (environment.control === 0) {
+        // d or right arrow released
+        if (e.key === "ArrowRight") {
+            rightPressed = false;
+        }
+        // a or left arrow released
+        else if (e.key === "ArrowLeft") {
+            leftPressed = false;
+        }
     }
 }
 
