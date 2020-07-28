@@ -41,7 +41,7 @@ var brickSetup = {
 };
 var environment = {
     score: 0,
-    lives: 2,
+    lives: 3,
     speedUp: sliders.ballRandom,
     play: false,
     timesPaused: 0,
@@ -134,7 +134,7 @@ function loop() {
             }
             else {
                 launchPressed = false;
-                if (environment.lives > 0) {
+                if (environment.lives > 1) {
                     ball.x = paddle.center;
                     ball.y = canvas.height - 18;
                     environment.lives -= 1;
@@ -146,7 +146,7 @@ function loop() {
                 else {
                     alert("You are out of lives! \nScore: " + environment.score);
                     document.location.reload();
-                    environment.lives = 2;
+                    environment.lives = 3;
                 }
             }
         }
