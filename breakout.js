@@ -343,12 +343,12 @@ function keyDownHandler(e) {
 
     if (environment.control === 0 || environment.control === 1) {
         // Handle the user pausing and unpausing the game
-        if (e.which === 80 && environment.play === true) {
+        if (e.key.toUpperCase() === 'P' && environment.play === true) {
             // Pause the game
             environment.play = false;
             environment.timesPaused++;
         }
-        else if (e.which === 80 && environment.play === false) {
+        else if (e.key.toUpperCase() === 'P' && environment.play === false) {
             environment.play = true;
             requestAnimationFrame(loop);
         }
@@ -356,6 +356,7 @@ function keyDownHandler(e) {
         // Handle the user launching the ball with space
         else if (e.key === " ") {
             launchPressed = true;
+            e.preventDefault();
         }
     }
 }
