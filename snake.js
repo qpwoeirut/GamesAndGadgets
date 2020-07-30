@@ -11,9 +11,10 @@ var snake = {
     speedX: grid,
     speedY: 0,
     cells: [],
-    maxCells: 3,
+    maxCells: 2,
     turning: false,
-    turnTimer: 1
+    turnTimer: 1,
+    canMove: false
 };
 var apple = {
     x: 320,
@@ -24,7 +25,9 @@ var environment = {
     play: false,
     hasPaused: false,
     timesPaused: 0,
-    difficulty: 1
+    difficulty: 1,
+    startTimer: 30,
+    beginDelay: false
 };
 
 // Used to place a new apple
@@ -112,9 +115,34 @@ function loop() {
         }
         context.clearRect(0,0,canvas.width,canvas.height);
 
+        // Delay the startup
+        if (environment.beginDelay === true) {
+            environment.startTimer--;
+        }
+        if (environment.startTimer <= 30 && environment.startTimer > 20) {
+            context.fillStyle = 'white';
+            context.font = "80px Arial";
+            context.fillText("3", (grid*23)/2, (grid*28)/2)
+        }
+        else if (environment.startTimer <= 20 && environment.startTimer > 10) {
+            context.fillStyle = 'white';
+            context.font = "80px Arial";
+            context.fillText("2", (grid*23)/2, (grid*28)/2)
+        }
+        else if (environment.startTimer <= 10 && environment.startTimer >= 0) {
+            context.fillStyle = 'white';
+            context.font = "80px Arial";
+            context.fillText("1", (grid*23)/2, (grid*28)/2)
+            snake.canMove = true;
+            environment.beginDelay = false;
+            environment.startTimer = 100;
+        }
+
         // Move the snake
-        snake.x += snake.speedX;
-        snake.y += snake.speedY;
+        if (snake.canMove === true) {
+            snake.x += snake.speedX;
+            snake.y += snake.speedY;
+        }
 
         snake.cells.unshift({x: snake.x, y: snake.y});
         if (snake.cells.length > snake.maxCells) {
@@ -139,23 +167,28 @@ function loop() {
 
             for (var i = index + 1; i < snake.cells.length; i++) {
                 // Hit tail or walls
-                if ((cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) || (snake.x < 0 || snake.x >= canvas.width) || (snake.y < 0 || snake.y >= canvas.height)) {
-                    // Reset the snake
-                    snake.x = 160;
-                    snake.y = 160;
-                    snake.cells = [];
-                    snake.maxCells = 3;
-                    snake.speedX = grid;
-                    snake.speedY = 0;
-                    environment.score = 0;
-                    // Reset the apple
-                    apple.x = getRandomInt(0, 25) * grid;
-                    apple.y = getRandomInt(0, 25) * grid; 
-                    // Stop playing the game
-                    environment.play = false;
-                    environment.timesPaused = -1;
-                    context.fillStyle = 'red';
-                    context.fillRect(cell.x, cell.y, grid-1, grid-1);  
+                if (snake.canMove === true) {
+                    if ((cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) || (snake.x < 0 || snake.x >= canvas.width) || (snake.y < 0 || snake.y >= canvas.height)) {
+                        // Reset the snake
+                        snake.x = 160;
+                        snake.y = 160;
+                        snake.cells = [];
+                        snake.maxCells = 2;
+                        snake.speedX = grid;
+                        snake.speedY = 0;
+                        environment.score = 0;
+                        snake.canMove = false;
+                        environment.beginDelay = false;
+                        environment.startTimer = 30;
+                        // Reset the apple
+                        apple.x = getRandomInt(0, 25) * grid;
+                        apple.y = getRandomInt(0, 25) * grid; 
+                        // Stop playing the game
+                        environment.play = false;
+                        environment.timesPaused = -1;
+                        context.fillStyle = 'red';
+                        context.fillRect(cell.x, cell.y, grid-1, grid-1);  
+                    }
                 }
             }
         });
@@ -202,6 +235,7 @@ document.addEventListener('keydown', function(e) {
     else if (e.which === 80 && environment.play === false) {
         environment.play = true;
         requestAnimationFrame(loop);
+        environment.beginDelay = true;
         // Change the speed of the snake when the game unpauses (the lower the number the faster the speed)
         environment.hasPaused = true;
         if (environment.difficulty === 0) {
