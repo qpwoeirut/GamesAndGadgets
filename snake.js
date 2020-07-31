@@ -129,10 +129,12 @@ function loop() {
             context.font = "80px Arial";
             context.fillText("2", (grid*23)/2, (grid*28)/2)
         }
-        else if (environment.startTimer <= 10 && environment.startTimer >= 0) {
+        else if (environment.startTimer <= 10 && environment.startTimer > 0) {
             context.fillStyle = 'white';
             context.font = "80px Arial";
             context.fillText("1", (grid*23)/2, (grid*28)/2)
+        }
+        else if (environment.startTimer >= 0) {
             snake.canMove = true;
             environment.beginDelay = false;
             environment.startTimer = 100;
