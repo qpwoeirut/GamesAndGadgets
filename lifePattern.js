@@ -63,7 +63,7 @@ function setFollowerPos() {
 function createFollower(followerType) {
     logMessage("invoked createFollower with followerType=" + followerType);
 
-    deleteAnyFollowers();
+    resetPattern();
     const follower = document.createElement("div");
     follower.id = "follower";
     follower.classList = patternStrings.get(followerType);
@@ -82,8 +82,8 @@ function createFollower(followerType) {
     setFollowerPos();
 }
 
-function deleteAnyFollowers() {
-    logMessage("invoked deleteAnyFollowers");
+function resetPattern() {
+    logMessage("invoked resetPattern");
     const oldFollower = document.getElementById("follower");
     if (oldFollower) {
         oldFollower.parentElement.removeChild(oldFollower);

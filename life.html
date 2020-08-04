@@ -67,7 +67,7 @@
                 <br>
                 <p id="patternInfo" class="center">Current Pattern: <span id="currentPattern">Cell</span></p>
                 <div id="currentPatternContainer" class="clickable-container center">
-                    <button class="clickable" onclick="deleteAnyFollowers();">Reset Pattern</button>
+                    <button class="clickable" onclick="resetPattern();">Reset Pattern</button>
                 </div>
                 <br>
                 <div id="patternClickableContainer">
@@ -149,6 +149,12 @@
     document.getElementById("pageContainer").onmousemove = trackMouse;
     generatePatternButtons();
     addCollapsibleListeners();
+
+    document.onkeydown = function(e) {
+        if (e.key === "Esc" || e.key === "Escape") {
+            resetPattern();
+        }
+    }
 </script>
 
 </html>
