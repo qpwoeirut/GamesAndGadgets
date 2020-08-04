@@ -195,18 +195,15 @@ function loop() {
 
 ballXRange.addEventListener("change", function() { 
     ball.dx = ballXRange.value / 1;  
-
 })
 ballYRange.addEventListener("change", function() { 
     ball.dy = ballYRange.value / 1;
 })
 ballRandomRange.addEventListener("change", function() { 
     environment.speedUp = ballRandomRange.value / 1;  
-
 })
 paddleXRange.addEventListener("change", function() { 
     paddle.dx = paddleXRange.value / 1;  
-
 })
 
 // Reset button for settings sliders
