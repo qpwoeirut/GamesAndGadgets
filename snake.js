@@ -1,6 +1,9 @@
 var canvas = document.getElementById('Snake');
 var context = canvas.getContext('2d');
 
+var snakeSpeedRange = document.getElementById("snakeSpeedRange");
+var snakeLengthRange = document.getElementById("snakeLengthRange");
+
 var grid = 16;
 var count = 0;
 var countLimit = 6;
@@ -39,7 +42,7 @@ function getRandomInt(min, max) {
 function loop() {
     // Display different things when not playing depending on when in the game it is
     // Press P to Start before the game has been started
-    if (environment.play === false && environment.timesPaused >= 1) {
+    if (environment.play === false && environment.timesPaused >= 1 && environment.beginDelay === false) {
         context.fillStyle = 'white';
         context.fillRect((grid*23)/2, (grid*21)/2, grid-6, grid*4);
         context.fillRect((grid*27)/2, (grid*21)/2, grid-6, grid*4);
@@ -74,6 +77,9 @@ function loop() {
             else if (environment.difficulty === 2) {
                 countLimit = 4;
             }
+            else {
+                countLimit = snakeSpeedRange.value / 1;
+            }
         }
         // Adjust frame rate to control for pausing and unpausing
         else if (environment.hasPaused === true) {
@@ -85,6 +91,9 @@ function loop() {
             }
             else if (environment.difficulty === 2) {
                 countLimit = 2;
+            }
+            else {
+                (countLimit = snakeSpeedRange.value / 1) / 2;
             }
         }
         // Loop the game at the set frame rate
@@ -175,7 +184,7 @@ function loop() {
                         snake.x = 160;
                         snake.y = 160;
                         snake.cells = [];
-                        snake.maxCells = 2;
+                        snake.maxCells = snakeLengthRange.value / 1;
                         snake.speedX = grid;
                         snake.speedY = 0;
                         environment.score = 0;
@@ -195,6 +204,22 @@ function loop() {
             }
         });
     }  
+}
+
+
+snakeSpeedRange.addEventListener("change", function() { 
+    countLimit = snakeSpeedRange.value / 1;  
+    environment.difficulty = -1;
+})
+snakeLengthRange.addEventListener("change", function() { 
+    snake.maxCells = snakeLengthRange.value / 1;  
+})
+
+
+// Reset button for settings sliders
+function resetSettings() {
+    control: document.getElementById("snakeSpeedRange").value = "4";
+    control: document.getElementById("snakeLengthRange").value = "2";
 }
 
 
@@ -223,7 +248,7 @@ document.addEventListener('keydown', function(e) {
         snake.speedX = 0;
         }
     // P - pause control
-    else if (e.which === 80 && environment.play === true) {
+    else if (e.which === 80 && environment.play === true && environment.beginDelay === false) {
         // Control what message desplays while the game is not playing (depending on the number of times paused)
         if (environment.timesPaused === -1) {
             environment.timesPaused = 1;
@@ -248,6 +273,9 @@ document.addEventListener('keydown', function(e) {
         }
         else if (environment.difficulty === 2) {
             countLimit = 2;
+        }
+        else {
+            (countLimit = snakeSpeedRange.value / 1) / 2;
         }
     }
 });

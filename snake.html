@@ -51,14 +51,24 @@
 
         <div id="settingsContainer" class="center">
             <div id="settingsMessage" style="width: 400px; display: none;">
-                Difficulty select:
+                <p>Difficulty select:</p>
                 <button style="width: 65px; height: 30px; background-color: black; color: white;" onClick="environment.difficulty = 0;">Easy</button>
                 <button style="width: 65px; height: 30px; background-color: black; color: white;" onClick="environment.difficulty = 1;">Normal</button>
                 <button style="width: 65px; height: 30px; background-color: black; color: white;" onClick="environment.difficulty = 2;">Hard</button>
+                <br>
+                <p>Snake Speed - How fast the snake will move:</p>
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="10" value="4" class="slider" id="snakeSpeedRange">
+                </div>
+                <p>Snake Starting Length - How many units long the snake starts with:</p>
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="10" value="2" class="slider" id="snakeLengthRange">
+                </div>
                 <p></p>
             </div>
             <div id="settingsClose" class="center" style="display: none;">
                 <button id="settingsClose" onclick="closeSettings()" style="width: 110px; height: 45px; background-color: black; color: white;">Close</button>
+                <button id="settingsReset" onclick="resetSettings()" style="width: 110px; height: 45px; background-color: black; color: white;">Reset</button>
             </div>
         </div>
     </body>
