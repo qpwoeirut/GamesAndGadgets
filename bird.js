@@ -55,22 +55,22 @@ function loop() {
             });
         }
 
+        // If the birth hits a pipe
         if (bird.x + bird.width >= pipe[i].x && bird.x <= pipe[i].x + pipeInfo.north.width && (bird.y <= pipe[i].y + pipeInfo.north.height || bird.y + bird.height >= pipe[i].y + pipe.constant) || bird.y + bird.height >= canvas.height) {
             location.reload();
         }
 
+        // If the bird passes the pipes
         if (pipe[i].x === 5){  
             environment.score++;   
         }
     }
 
+    // Draw the bird
     context.drawImage(birdsrc, bird.x, bird.y);
 
+    // Account for gravity on the bird
     bird.y += environment.gravity;
-
-    context.fillStyle = "white";
-    context.font = "20px Arial"
-    context.fillText("Score: " + environment.score, 10, canvas.height - 20);
 
     requestAnimationFrame(loop);
 }
