@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flappy Bird</title>
+        <style>
+        #gameContainer {
+            display: flex;
+            align-items: center;
+        }
+
+        canvas {
+            background: lightskyblue;
+        }
+        </style>
+        <!-- Include JQuery 3.5.1, last updated 6/4/2020 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="general.css">
+    </head>
+    <body onload="loop()">
+        <div id="navbarContainer"></div>
+        <h1 id="pageTitle">Flappy Bird</h1>
+        <br>
+
+        <div id="gameContainer" class="center">
+            <canvas width="480" height="400" style="border:5px solid gray" id="Bird"></canvas>
+        </div>
+        <br>
+        <div class="center">
+            <button onclick="openHowToPlay()" style="width: 110px; height: 45px; background-color: lightskyblue; color: white; border: 3px solid gray;">How to Play</button>
+            <button onclick="openSettings()" style="width: 110px; height: 45px; background-color: lightskyblue; color: white; border: 3px solid gray;">Settings</button>
+        </div>
+    </body>
+    <script src="bird.js"></script>
+    <script src="birdPopups.js"></script>
+    <script>
+        $("#navbarContainer").load("navbar.html");
+    </script>
+</html>
