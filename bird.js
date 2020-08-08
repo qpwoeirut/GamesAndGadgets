@@ -2,61 +2,64 @@ var canvas = document.getElementById('Bird');
 var context = canvas.getContext('2d');
 
 var bird = {
-    reference = new Image(),
-    x = 75,
-    y = 200
+    x: 25,
+    y: 200,
+    w: 25, 
+    h: 25
 };
 var pipeInfo = {
-    north = new Image(),
-    south = new Image(),
-    gap = 85,
-    constant
+    gap: 85,
+    constant: 0,
+    h: 325,
+    w: 50
 };
+
 var environment = {
-    score = 0,
-    gravity = 1.5
+    score: 0,
+    gravity: 0.5
 };
-
-// Image references for more detailed parts of the game
-bird.reference.src = "birdsrc.png";
-pipeInfo.north.src = "pipeNorth.png";
-pipeInfo.south.src = "pipeSouth.png";
-
-document.addEventListener("keydown", moveUp);
-
-// Move the bird up when the up key is pressed
-function moveUp() {
-    bird.y -= 25;
-    fly.play();
-}
 
 var pipe = [];
 
 pipe[0] = {
-    x =  canvas.clientWidth,
-    y = 0
+    x: canvas.width,
+    y: 0
 };
 
+function moveUp(){  
+    bird.y-= 25; 
+} 
+
 function loop() {
+    // Clear the canvas for redrawing
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the bird
+    context.fillStyle = "yellow";
+    context.fillRect(bird.x, bird.y, bird.w, bird.h);
+
     // Place pipe pairs
-    for(var i = 0; i < pipe.length; i++) {
+    for (var i = 0; i < pipe.length; i++) {
         // Set the position of the gap in the pipes
-        pipeInfo.constant = pipeInfo.north.height + pipeInfo.gap;
-        // Set the pipes
-        context.drawImage(pipeInfo.north, pipe[i].x, pipe[i].y);
-        context.drawImage(pipeInfo.south, pipe[i].x, pipe[i].y + pipeInfo.constant);
+        pipeInfo.constant = pipeInfo.h + pipeInfo.gap;
+        // Draw the pipes
+        context.fillStyle = "green";
+        context.fillRect(pipe[i].x, pipe[i].y, pipeInfo.w, pipeInfo.h);
+
+        context.fillStyle = "green";
+        context.fillRect(pipe[i].x, pipe[i].y + pipeInfo.constant, pipeInfo.w, pipeInfo.h);
 
         pipe[i].x--;
 
-        if (pipe[i].x === 125) {
+        if (pipe[i].x === 125) { // --------> set settings option range -125 through 250
             pipe.push({  
-                x = canvas.width,  
-                y = Math.floor(Math.random() * pipeInfo.north.height) - pipeInfo.north.height
+                x: canvas.width,
+                y: Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h
             });
         }
 
         // If the birth hits a pipe
-        if (bird.x + bird.width >= pipe[i].x && bird.x <= pipe[i].x + pipeInfo.north.width && (bird.y <= pipe[i].y + pipeInfo.north.height || bird.y + bird.height >= pipe[i].y + pipe.constant) || bird.y + bird.height >= canvas.height) {
+        if (bird.x + bird.w >= pipe[i].x && bird.x <= pipe[i].x + pipeInfo.w && (bird.y <= pipe[i].y + pipeInfo.h || bird.y + bird.h >= pipe[i].y + pipeInfo.constant) || bird.y + bird.h >= canvas.height) {
             location.reload();
         }
 
@@ -66,13 +69,21 @@ function loop() {
         }
     }
 
-    // Draw the bird
-    context.drawImage(birdsrc, bird.x, bird.y);
-
     // Account for gravity on the bird
     bird.y += environment.gravity;
 
     requestAnimationFrame(loop);
+}
+
+// Add action listeners
+document.addEventListener("keydown", keyDownHandler, false);
+
+// Handle the user pressing down a key
+function keyDownHandler(e) {
+    // space pressed
+    if (e.key === " ") {
+        moveUp();
+    }
 }
 
 requestAnimationFrame(loop);
