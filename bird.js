@@ -1,20 +1,23 @@
 var canvas = document.getElementById('Bird');
 var context = canvas.getContext('2d');
 
+var birdImg = new Image();  
 var bird = {
     x: 25,
     y: 200,
-    w: 25, 
+    w: 35, 
     h: 25,
-    speed: 0
+    speed: 0,
+    angle: 90
 };
+var floorPipe = new Image();
+var roofPipe = new Image();
 var pipeInfo = {
     gap: 100,
     constant: 0,
     h: 300,
     w: 50
 };
-
 var environment = {
     score: 0,
 };
@@ -26,6 +29,13 @@ pipe[0] = {
     y: 0
 };
 
+// Source images
+birdImg.src = "bird.png";  
+floorPipe.src = "floorPipe.png";
+roofPipe.src = "roofPipe.png";
+
+
+// Move the bird up when space is pressed
 function moveUp(){  
     bird.speed = -2.6; 
 } 
@@ -35,19 +45,21 @@ function loop() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw the bird
-    context.fillStyle = "yellow";
-    context.fillRect(bird.x, bird.y, bird.w, bird.h);
+    // context.fillStyle = "purple"; ---> hitbox for debug
+    // context.fillRect(bird.x, bird.y, bird.w, bird.h);
+    context.drawImage(birdImg, bird.x - 87, bird.y - 73);
 
     // Place pipe pairs
     for (var i = 0; i < pipe.length; i++) {
         // Set the position of the gap in the pipes
         pipeInfo.constant = pipeInfo.h + pipeInfo.gap;
         // Draw the pipes
-        context.fillStyle = "green";
-        context.fillRect(pipe[i].x, pipe[i].y, pipeInfo.w, pipeInfo.h);
-
-        context.fillStyle = "green";
-        context.fillRect(pipe[i].x, pipe[i].y + pipeInfo.constant, pipeInfo.w, pipeInfo.h);
+        // context.fillStyle = "purple";
+        // context.fillRect(pipe[i].x, pipe[i].y, pipeInfo.w, pipeInfo.h);
+        context.drawImage(roofPipe, pipe[i].x, pipe[i].y - 100);
+        // context.fillStyle = "purple";
+        // context.fillRect(pipe[i].x, pipe[i].y + pipeInfo.constant, pipeInfo.w, pipeInfo.h);
+        context.drawImage(floorPipe, pipe[i].x, pipe[i].y + pipeInfo.constant);
 
         pipe[i].x--;
 
