@@ -5,18 +5,18 @@ var bird = {
     x: 25,
     y: 200,
     w: 25, 
-    h: 25
+    h: 25,
+    speed: 0
 };
 var pipeInfo = {
-    gap: 85,
+    gap: 100,
     constant: 0,
-    h: 325,
+    h: 300,
     w: 50
 };
 
 var environment = {
     score: 0,
-    gravity: 0.5
 };
 
 var pipe = [];
@@ -27,7 +27,7 @@ pipe[0] = {
 };
 
 function moveUp(){  
-    bird.y-= 25; 
+    bird.speed = -2.6; 
 } 
 
 function loop() {
@@ -51,7 +51,8 @@ function loop() {
 
         pipe[i].x--;
 
-        if (pipe[i].x === 125) { // --------> set settings option range -125 through 250
+        // If this is set to a very large number, it will tank chrome... too bad!
+        if (pipe[i].x === 200) { // --------> 200 is classic flappy bird. Range around 0-300
             pipe.push({  
                 x: canvas.width,
                 y: Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h
@@ -69,8 +70,9 @@ function loop() {
         }
     }
 
-    // Account for gravity on the bird
-    bird.y += environment.gravity;
+    // Account for gravity on the bird and adjust the bird
+    bird.y += bird.speed;
+    bird.speed += 0.1; // --------> 0.1 is about the right gravity for classic flappy bird. Range around 0.05-0.2
 
     requestAnimationFrame(loop);
 }
