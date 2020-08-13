@@ -1,0 +1,14 @@
+#board {
+    border: 0.6em solid gray;
+    border-radius: 0.4em;
+    background-color: gray;
+}
+
+div.board-cell {
+    border: 0.5em solid gray;
+    border-radius: 0.4em;
+    background-color: lightgray;
+    display: inline-block;
+    width: 6em;
+    height: 6em;
+}
