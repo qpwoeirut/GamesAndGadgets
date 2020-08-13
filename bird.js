@@ -8,8 +8,13 @@ var bird = {
     w: 35, 
     h: 25,
     speed: 0,
-    angle: 90
+    angle: 0
 };
+var ground = new Image();
+var groundInfo = {
+    x: 0,
+    y: 370
+}
 var floorPipe = new Image();
 var roofPipe = new Image();
 var pipeInfo = {
@@ -20,72 +25,81 @@ var pipeInfo = {
 };
 var environment = {
     score: 0,
+    play: false
 };
 
 var pipe = [];
 
 pipe[0] = {
     x: canvas.width,
-    y: 0
+    y: Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h
 };
 
 // Source images
 birdImg.src = "bird.png";  
-floorPipe.src = "floorPipe.png";
+floorPipe.src = "floorPipe.png"
 roofPipe.src = "roofPipe.png";
+ground.src = "ground.png";
 
 
 // Move the bird up when space is pressed
-function moveUp(){  
-    bird.speed = -2.6; 
+function moveUp() {  
+    bird.speed = -4.8; 
 } 
 
 function loop() {
-    // Clear the canvas for redrawing
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    if (environment.play === true) {
+        // Clear the canvas for redrawing
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw the bird
-    // context.fillStyle = "purple"; ---> hitbox for debug
-    // context.fillRect(bird.x, bird.y, bird.w, bird.h);
-    context.drawImage(birdImg, bird.x - 87, bird.y - 73);
+        // Draw the bird
+        context.drawImage(birdImg, bird.x, bird.y);
 
-    // Place pipe pairs
-    for (var i = 0; i < pipe.length; i++) {
-        // Set the position of the gap in the pipes
-        pipeInfo.constant = pipeInfo.h + pipeInfo.gap;
-        // Draw the pipes
-        // context.fillStyle = "purple";
-        // context.fillRect(pipe[i].x, pipe[i].y, pipeInfo.w, pipeInfo.h);
-        context.drawImage(roofPipe, pipe[i].x, pipe[i].y - 100);
-        // context.fillStyle = "purple";
-        // context.fillRect(pipe[i].x, pipe[i].y + pipeInfo.constant, pipeInfo.w, pipeInfo.h);
-        context.drawImage(floorPipe, pipe[i].x, pipe[i].y + pipeInfo.constant);
+        // Place pipe pairs
+        for (var i = 0; i < pipe.length; i++) {
+            // Set the position of the gap in the pipes
+            pipeInfo.constant = pipeInfo.h + pipeInfo.gap;
+            // Draw the pipes
+            context.drawImage(roofPipe, pipe[i].x, pipe[i].y - 100);
+            context.drawImage(floorPipe, pipe[i].x, pipe[i].y + pipeInfo.constant);
 
-        pipe[i].x--;
+            pipe[i].x -= 2;
 
-        // If this is set to a very large number, it will tank chrome... too bad!
-        if (pipe[i].x === 200) { // --------> 200 is classic flappy bird. Range around 0-300
-            pipe.push({  
-                x: canvas.width,
-                y: Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h
-            });
+            if (pipe[i].x === -pipeInfo.w) {
+                pipe[i] = {
+                    x: canvas.width,
+                    y: Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h
+                };
+            }
+
+            // If the bird hits a pipe
+            if (bird.x + bird.w >= pipe[i].x && bird.x <= pipe[i].x + pipeInfo.w && (bird.y <= pipe[i].y + pipeInfo.h || bird.y + bird.h >= pipe[i].y + pipeInfo.constant) || bird.y + bird.h >= groundInfo.y) {
+                environment.play = false;
+            }
+
+            // If the bird passes the pipes
+            if (pipe[i].x === 5){  
+                environment.score++;
+            }
         }
 
-        // If the birth hits a pipe
-        if (bird.x + bird.w >= pipe[i].x && bird.x <= pipe[i].x + pipeInfo.w && (bird.y <= pipe[i].y + pipeInfo.h || bird.y + bird.h >= pipe[i].y + pipeInfo.constant) || bird.y + bird.h >= canvas.height) {
-            location.reload();
-        }
+        // Draw the ground
+        context.drawImage(ground, groundInfo.x, groundInfo.y);
 
-        // If the bird passes the pipes
-        if (pipe[i].x === 5){  
-            environment.score++;   
-        }
+        // Account for gravity on the bird and adjust the bird
+        bird.y += bird.speed;
+        bird.speed += 0.33;
+
+        requestAnimationFrame(loop);
     }
+}
 
-    // Account for gravity on the bird and adjust the bird
-    bird.y += bird.speed;
-    bird.speed += 0.1; // --------> 0.1 is about the right gravity for classic flappy bird. Range around 0.05-0.2
-
+function reset() {
+    bird.y = 200;
+    bird.speed = 0;
+    environment.score = 0;
+    pipe[0].x = canvas.width;
+    pipe[0].y = Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h;
     requestAnimationFrame(loop);
 }
 
@@ -96,8 +110,12 @@ document.addEventListener("keydown", keyDownHandler, false);
 function keyDownHandler(e) {
     // space pressed
     if (e.key === " ") {
-        moveUp();
+        if (environment.play === true) {
+            moveUp();
+        }
+        else {
+            environment.play = true;
+            reset();
+        }
     }
 }
-
-requestAnimationFrame(loop);
