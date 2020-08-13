@@ -17,11 +17,15 @@ var groundInfo = {
 }
 var floorPipe = new Image();
 var roofPipe = new Image();
+const pipeNum = 2 // Range: 1-3 (2)
 var pipeInfo = {
     gap: 100,
     constant: 0,
     h: 300,
-    w: 50
+    w: 50,
+    dis: canvas.width / pipeNum,
+    num: pipeNum + 1,
+    speed: 2
 };
 var environment = {
     score: 0,
@@ -30,10 +34,7 @@ var environment = {
 
 var pipe = [];
 
-pipe[0] = {
-    x: canvas.width,
-    y: Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h
-};
+initPipes();
 
 // Source images
 birdImg.src = "bird.png";  
@@ -44,7 +45,7 @@ ground.src = "ground.png";
 
 // Move the bird up when space is pressed
 function moveUp() {  
-    bird.speed = -4.8; 
+    bird.speed = -4.8; // Range 3.8-5.8 (4.8)
 } 
 
 function loop() {
@@ -56,20 +57,20 @@ function loop() {
         context.drawImage(birdImg, bird.x, bird.y);
 
         // Place pipe pairs
-        for (var i = 0; i < pipe.length; i++) {
+        for (var i = 0; i < pipeInfo.num; i++) {
             // Set the position of the gap in the pipes
             pipeInfo.constant = pipeInfo.h + pipeInfo.gap;
             // Draw the pipes
             context.drawImage(roofPipe, pipe[i].x, pipe[i].y - 100);
             context.drawImage(floorPipe, pipe[i].x, pipe[i].y + pipeInfo.constant);
 
-            pipe[i].x -= 2;
+            // Move the pipes
+            pipe[i].x -= pipeInfo.speed; // range 1-3 (2)
 
-            if (pipe[i].x === -pipeInfo.w) {
-                pipe[i] = {
-                    x: canvas.width,
-                    y: Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h
-                };
+            // Loop the pipes around the canvas
+            if (pipe[i].x <= -pipeInfo.w) {
+                pipe[i].x = canvas.width - pipeInfo.w + pipeInfo.dis;
+                pipe[i].y = Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h;
             }
 
             // If the bird hits a pipe
@@ -78,7 +79,7 @@ function loop() {
             }
 
             // If the bird passes the pipes
-            if (pipe[i].x === 5){  
+            if (bird.x + bird.w / 2 >= pipe[i].x){  
                 environment.score++;
             }
         }
@@ -88,7 +89,7 @@ function loop() {
 
         // Account for gravity on the bird and adjust the bird
         bird.y += bird.speed;
-        bird.speed += 0.33;
+        bird.speed += 0.33; // Range: 0.2-0.45 (0.33)
 
         requestAnimationFrame(loop);
     }
@@ -98,9 +99,17 @@ function reset() {
     bird.y = 200;
     bird.speed = 0;
     environment.score = 0;
-    pipe[0].x = canvas.width;
-    pipe[0].y = Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h;
+    initPipes();
     requestAnimationFrame(loop);
+}
+
+function initPipes() {
+    for (var i = 0; i < pipeInfo.num; i++) {
+        pipe[i] = {
+            x: canvas.width + i * pipeInfo.dis,
+            y: Math.floor(Math.random() * pipeInfo.h) - pipeInfo.h
+        };
+    }
 }
 
 // Add action listeners
