@@ -29,33 +29,9 @@
             <button onclick="openHowToPlay()" style="width: 110px; height: 45px; background-color: lightskyblue; color: white; border: 3px solid gray;">How to Play</button>
             <button onclick="openSettings()" style="width: 110px; height: 45px; background-color: lightskyblue; color: white; border: 3px solid gray;">Settings</button>
         </div>
-        <br>
-        <div id="howToPlayContainer" class="center">
-            <div id="howToPlayMessage" style="width: 400px; display: none;">
-                <p>Press 'space' to start the game.</p>
-                <p>During the game, 'p' can be used to pause and unpause the game.</p>
-                <p>Once 'space' is pressed, there will be a short countdown before the game starts.</p>
-                <p>You can control the birds vertical acceleration with 'space'. Your goal is to fly through the gaps in the pipe pairs</p>
-                <p>Each successful pipe you pass through will award you with 1 point.</p>
-            </div>
-            <p></p>
-            <div id="howToPlayClose" class="center" style="display: none;">
-                <button id="howToPlayClose" onclick="closeHowToPlay()" style="width: 110px; height: 45px; background-color: black; color: white;">Close</button>
-            </div>
-        </div>
-        <div id="settingsContainer" class="center">
-            <div id="settingsMessage" style="width: 400px; display: none;">
-                <p>test</p>
-                <p></p>
-            </div>
-            <div id="settingsClose" class="center" style="display: none;">
-                <button id="settingsClose" onclick="closeSettings()" style="width: 110px; height: 45px; background-color: black; color: white;">Close</button>
-                <button id="settingsReset" onclick="resetSettings()" style="width: 110px; height: 45px; background-color: black; color: white;">Reset</button>
-            </div>
-        </div>
     </body>
     <script src="bird.js"></script>
-    <scirpt src="birdPopups.js"></scirpt>
+    <!-- <script src="birdPopups.js"></script> -->
     <script>
         $("#navbarContainer").load("navbar.html");
     </script>
